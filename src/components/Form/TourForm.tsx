@@ -9,7 +9,7 @@ interface TourFormProps {
 
 interface TourFormState {
   location: string,
-  date: number,
+  date: string,
   hazardWeather: string,
   hazardAvalanche: string,
   hazardSummary: string,
@@ -24,7 +24,7 @@ interface TourFormState {
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   const [state, setState] = useState<TourFormState>({
     location: '',
-    date: Date.now(),
+    date: Date.now().toString(),
     hazardWeather: '',
     hazardAvalanche: '',
     hazardSummary: '',
@@ -38,8 +38,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
 
   return (
     <div>
-      <input type='date'/>
-      <input type='text'/> 
+      <input
+        type='date'
+        value={state.date}
+        onChange={e => setState({ ...state, date: e.target.value})}
+      />
+      <input type='text'/>
       <Plan />
     </div>
   )
