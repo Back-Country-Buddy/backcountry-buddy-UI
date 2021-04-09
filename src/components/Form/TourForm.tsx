@@ -38,7 +38,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
 
   return (
     <div>
-
+      <input type='date'/>
+      <input type='text'/> 
+      <Plan />
     </div>
   )
 }

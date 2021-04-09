@@ -18,6 +18,7 @@ function App() {
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
       />
+      <TourForm userId={userData.id}/>
     </div>
   );
 }
