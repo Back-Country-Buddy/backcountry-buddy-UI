@@ -8,8 +8,8 @@ interface Props {
 const CurrentTourCard: React.FC<Props> = ({ date, location }) => {
   return (
     <article>
-      <h3>{date}</h3>
       <h3>{location}</h3>
+      <h3>{date}</h3>
     </article>
   )
 }

@@ -22,7 +22,8 @@ function App() {
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
       />
-      <CurrentTours currentTours={currentTours}/>
+      <CurrentTours currentTours={currentTours} /> {/* rendering this here for
+      now so I can see my changes in the browser */}
     </div>
   );
 }
