@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import Debrief from './Debrief'
 import Ride from './Ride'
-import Plan from './Plan'
+import { Plan } from './Plan'
 
 interface TourFormProps {
   userId: number,
 }
 
-interface TourFormState {
+export interface TourFormState {
   location: string,
   date: string,
   hazardWeather: string,
@@ -43,8 +43,15 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         value={state.date}
         onChange={e => setState({ ...state, date: e.target.value})}
       />
-      <input type='text'/>
-      <Plan />
+      <input
+        type='text'
+        value={state.location}
+        onChange={e => setState({ ...state, location: e.target.value})}
+      />
+      <Plan
+        setState={setState}
+        state={state}
+      />
     </div>
   )
 }
