@@ -3,10 +3,14 @@ import Debrief from './Debrief'
 import Ride from './Ride'
 import Plan from './Plan'
 
-export default function TourForm() {
+interface TourFormProps {
+  
+}
+
+export const TourForm: React.FC<TourFormProps> = () => {
   return (
     <div>
-      
+
     </div>
   )
 }
