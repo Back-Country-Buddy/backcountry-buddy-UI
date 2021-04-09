@@ -1,4 +1,5 @@
 import React from 'react'
+import './CurrentTours.css'
 
 interface Props {
   date: string;
@@ -7,10 +8,12 @@ interface Props {
 
 const CurrentTourCard: React.FC<Props> = ({ date, location }) => {
   return (
-    <article>
+    <article className="current-tours-card">
       <img src="https://img.icons8.com/nolan/64/mountain.png" alt="mountains icon"/>
-      <h3>{location}</h3>
-      <h3>{date}</h3>
+      <div className="card-info">
+        <h3>{location}</h3>
+        <p>{date}</p>
+      </div>
     </article>
   )
 }

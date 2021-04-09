@@ -1,4 +1,5 @@
 import React from 'react'
+import './CurrentTours.css'
 import CurrentTourCard from './CurrentTourCard'
 
 interface Tour {
@@ -22,9 +23,9 @@ export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
         )
     })
     return (
-        <div>
+        <section className="current-tours">
             <h1>Current Tours</h1>
             {tours}
-        </div>
+        </section>
     )
 }
