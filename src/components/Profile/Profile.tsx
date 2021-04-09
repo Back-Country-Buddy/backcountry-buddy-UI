@@ -9,6 +9,7 @@ interface ProfileProps
   emergencyNumber: string 
 }
 
+
 export const Profile: FunctionComponent<ProfileProps> = ({name, email, userName, emergencyName, emergencyNumber}) => {
 
   return (
