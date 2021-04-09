@@ -20,12 +20,22 @@ export const PastTours: FunctionComponent<TourProps> = ({ pastTours }) => {
   console.log(pastTours)
 
   const createPastTourCards = () => {
-    
+   return pastTours.map(tour => {
+      return (
+      <article key={tour.id} className='tour-card'>
+        <p>{tour.date}</p>
+        <p>{tour.location}</p>
+      </article>
+        
+      )
+    })
   }
 
   return (
     <div>
       <SearchBar />
+      <h1>Past Tours</h1>
+      {createPastTourCards()}
     </div>
   )
 }

@@ -12,14 +12,14 @@ function App() {
 
   return (
     <div className="App">
-      <LandingPage />
+      {/* <LandingPage />
       <Profile 
         name={user.name} 
         email={user.email} 
         userName={user.userName}
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
-      />
+      /> */}
       <PastTours pastTours={pastTours}/>
     </div>
   );
