@@ -1,9 +1,17 @@
 import React from 'react'
 
-export default function CurrentTourCard() {
+interface Props {
+  date: string;
+  location: string;
+}
+
+const CurrentTourCard: React.FC<Props> = ({ date, location }) => {
   return (
-    <div>
-      
-    </div>
+    <article>
+      <h3>{date}</h3>
+      <h3>{location}</h3>
+    </article>
   )
 }
+
+export default CurrentTourCard
