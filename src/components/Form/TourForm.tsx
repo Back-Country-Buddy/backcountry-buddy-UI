@@ -1,13 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Debrief from './Debrief'
 import Ride from './Ride'
 import Plan from './Plan'
 
 interface TourFormProps {
-  
+  userId: number,
 }
 
-export const TourForm: React.FC<TourFormProps> = () => {
+interface TourFormState {
+
+}
+
+export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
+  const [state, setState] = useState<TourFormState>({
+
+  })
+
   return (
     <div>
 
