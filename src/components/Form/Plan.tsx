@@ -13,7 +13,7 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
   const routeFields = [state.routePreview, state.routeAlternative]
 
   return (
-    <div>
+    <form>
       <input
         type='checkbox'
         checked={isChecked(hazardFields)}
@@ -56,6 +56,6 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
         value={state.emergencyPlan}
         onChange={e => setState({...state, emergencyPlan: e.target.value})}
       />
-    </div>
+    </form>
   )
 }
