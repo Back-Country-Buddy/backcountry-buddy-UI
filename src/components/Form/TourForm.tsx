@@ -41,6 +41,24 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     setState({...state, [field]: e.target.value})
   }
 
+  const renderTextInputs = (fields: string[]): JSX.Element[] => {
+    return fields.map(field=> {
+
+      return (
+        <TextField
+          value={state[field as keyof TourFormState]}
+          updateForm={e => setState({ ...state, [field]: e.target.value})}
+        />
+      )
+    })
+  }
+
+  const isChecked = (fields: string[]) => {
+    return fields.reduce((bool, field) => {
+      return state[field as keyof TourFormState].length > 0
+    }, false)
+  }
+
   return (
     <div>
       <input
@@ -53,10 +71,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         value={state.location}
         onChange={e => setState({ ...state, location: e.target.value})}
       />
-      <TextField
-        field='hazardWeather'
-        value={state.hazardWeather}
-        updateForm={updateForm}
+      <Plan
+        renderTextInputs={renderTextInputs}
+        isChecked={isChecked}
       />
     </div>
   )
