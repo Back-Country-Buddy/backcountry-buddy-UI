@@ -1,6 +1,7 @@
 import './App.css'
 import LandingPage from '../LandingPage/LandingPage'
 import { Profile } from '../Profile/Profile'
+import { TourForm } from '../Form/TourForm'
 import { CurrentTours } from "../CurrentTours/CurrentTours"
 import { userData } from '../../mockdata/UserDummyData'
 import currentToursData from "../../mockdata/CurrentToursDummyData"
@@ -22,6 +23,7 @@ function App() {
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
       />
+      <TourForm userId={userData.id}/>
       <CurrentTours currentTours={currentTours} /> {/* rendering this here for
       now so I can see my changes in the browser */}
     </div>
