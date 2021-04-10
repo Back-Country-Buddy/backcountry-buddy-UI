@@ -8,7 +8,7 @@ interface TourFormProps {
   userId: number,
 }
 
-export interface TourFormState {
+interface TourFormTextFields {
   location: string,
   date: string,
   hazardWeather: string,
@@ -23,7 +23,7 @@ export interface TourFormState {
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
-  const [state, setState] = useState<TourFormState>({
+  const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: '',
     date: Date.now().toString(),
     hazardWeather: '',
@@ -39,32 +39,31 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
 
   const renderTextInputs = (fields: string[]): JSX.Element[] => {
     return fields.map(field=> {
-
       return (
         <TextField
-          value={state[field as keyof TourFormState]}
-          updateForm={e => setState({ ...state, [field]: e.target.value})}
+          value={textFields[field as keyof TourFormTextFields]}
+          updateForm={e => setTextFields({ ...textFields, [field]: e.target.value})}
         />
       )
     })
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find(field => state[field as keyof TourFormState] === '')
+    return !fields.find(field => textFields[field as keyof TourFormTextFields] === '')
   }
 
   return (
     <div>
       <input
         type='date'
-        value={state.date}
-        onChange={e => setState({ ...state, date: e.target.value})}
+        value={textFields.date}
+        onChange={e => setTextFields({ ...textFields, date: e.target.value})}
         min={Date.now()}
       />
       <input
         type='text'
-        value={state.location}
-        onChange={e => setState({ ...state, location: e.target.value})}
+        value={textFields.location}
+        onChange={e => setTextFields({ ...textFields, location: e.target.value})}
       />
       <Plan
         renderTextInputs={renderTextInputs}

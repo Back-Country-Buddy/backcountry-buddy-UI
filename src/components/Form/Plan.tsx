@@ -1,7 +1,5 @@
 import React from 'react'
-import { TourFormState } from './TourForm'
 import { SectionTitle } from './SectionTitle'
-import { TextField } from './TextField'
 import './Form.css'
 
 interface PlanProps {

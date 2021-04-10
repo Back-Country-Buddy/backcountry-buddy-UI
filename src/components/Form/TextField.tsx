@@ -1,5 +1,4 @@
 import React from 'react'
-import { TourFormState } from './TourForm'
 
 
 interface TextFieldProps {
