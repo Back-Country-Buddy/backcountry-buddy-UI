@@ -54,9 +54,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   }
 
   const isChecked = (fields: string[]) => {
-    return fields.reduce((bool, field) => {
-      return state[field as keyof TourFormState].length > 0
-    }, false)
+    return !fields.find(field => state[field as keyof TourFormState] === '')
   }
 
   return (
@@ -65,6 +63,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         type='date'
         value={state.date}
         onChange={e => setState({ ...state, date: e.target.value})}
+        min={Date.now()}
       />
       <input
         type='text'
