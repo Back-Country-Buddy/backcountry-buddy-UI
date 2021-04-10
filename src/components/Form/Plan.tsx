@@ -1,5 +1,6 @@
 import React from 'react'
 import { TourFormState } from './TourForm'
+import { isChecked } from '../../util'
 
 interface PlanProps {
   state: TourFormState,
@@ -8,8 +9,15 @@ interface PlanProps {
 
 
 export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
+  const hazardFields = [state.hazardWeather, state.hazardAvalanche, state.hazardSummary]
+  const routeFields = [state.routePreview, state.routeAlternative]
+
   return (
     <div>
+      <input
+        type='checkbox'
+        checked={isChecked(hazardFields)}
+      />
       <input
         type='text'
         value={state.hazardWeather}
@@ -26,6 +34,10 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
         onChange={e => setState({...state, hazardSummary: e.target.value})}
       />
       <input
+        type='checkbox'
+        checked={isChecked(routeFields)}
+      />
+      <input
         type='text'
         value={state.routePreview}
         onChange={e => setState({...state, routePreview: e.target.value})}
@@ -34,6 +46,10 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
         type='text'
         value={state.routeAlternative}
         onChange={e => setState({...state, routeAlternative: e.target.value})}
+      />
+      <input
+        type='checkbox'
+        checked={isChecked([state.emergencyPlan])}
       />
       <input
         type='text'
