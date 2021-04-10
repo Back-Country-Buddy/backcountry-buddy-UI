@@ -15,9 +15,14 @@ interface TourProps {
   pastTours: Array<pastTour>
 }
 
+interface searchProps {
+  filterTours: (input: string) => pastTour[];
+}
 
 export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
-  const createPastTourCards = pastTours.map(tour => {
+  const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours)
+
+  const createPastTourCards = searchResults.map(tour => {
       return (
       <PastTourCard  
         key={tour.id}
@@ -27,11 +32,11 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
     )  
   })
 
-  const filterTours = (input: string): pastTour[] => {
-   return pastTours.filter(tour => {
+  const filterTours = (input: string): any => {
+   const filteredTours = pastTours.filter(tour => {
       return tour.location.includes(input)
   })
-
+    setSearchResults([...filteredTours])
   }
 
   return (

@@ -14,17 +14,13 @@ interface searchProps {
   filterTours: (input: string) => pastTour[];
 }
 
-// interface handleChange {
-//   handleChange: 
-// }
-
 export const SearchBar: React.FC<searchProps> = ({filterTours}) => {
   const [input, setInput] = useState<string>('')
 
 const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
   setInput(event.target.value)
+  filterTours(event.target.value)
 }
-
 
   return (
     <form className='search-input'>
@@ -33,7 +29,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         name='input'
         placeholder='Search By Location'
         value={input}
-        onChange={handleChange}
+        onChange={(event) => handleChange(event)}
       />
     </form>
   )
