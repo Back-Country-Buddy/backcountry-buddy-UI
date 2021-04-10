@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Debrief from './Debrief'
 import Ride from './Ride'
 import { Plan } from './Plan'
+import { TextField } from './TextField'
 
 interface TourFormProps {
   userId: number,
@@ -18,7 +19,7 @@ export interface TourFormState {
   emergencyPlan: string,
   debriefConditions: string,
   debriefDecisions: string,
-  debriefPlan: string
+  debriefPlan: string,
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
@@ -36,6 +37,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debriefPlan: ''
   })
 
+  const updateForm = (e: React.ChangeEvent<HTMLInputElement>, field: string): void => {
+    setState({...state, [field]: e.target.value})
+  }
+
   return (
     <div>
       <input
@@ -48,9 +53,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         value={state.location}
         onChange={e => setState({ ...state, location: e.target.value})}
       />
-      <Plan
-        setState={setState}
-        state={state}
+      <TextField
+        field='hazardWeather'
+        value={state.hazardWeather}
+        updateForm={updateForm}
       />
     </div>
   )

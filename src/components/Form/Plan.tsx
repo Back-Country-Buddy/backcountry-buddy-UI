@@ -1,15 +1,16 @@
 import React from 'react'
 import { TourFormState } from './TourForm'
 import { SectionTitle } from './SectionTitle'
+import { TextField } from './TextField'
 import './Form.css'
 
 interface PlanProps {
   state: TourFormState,
-  setState: (newState: TourFormState) => any,
+  updateForm: (e: React.ChangeEvent<HTMLInputElement>, field: string) => void
 }
 
 
-export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
+export const Plan: React.FC<PlanProps> = ({ state, updateForm }) => {
   const hazardFields = [state.hazardWeather, state.hazardAvalanche, state.hazardSummary]
   const routeFields = [state.routePreview, state.routeAlternative]
 
