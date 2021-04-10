@@ -27,7 +27,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
     )  
   })
 
-  const filterTours = (input: string) => {
+  const filterTours = (input: string): pastTour[] => {
    return pastTours.filter(tour => {
       return tour.location.includes(input)
   })
