@@ -37,10 +37,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debriefPlan: ''
   })
 
-  const updateForm = (e: React.ChangeEvent<HTMLInputElement>, field: string): void => {
-    setState({...state, [field]: e.target.value})
-  }
-
   const renderTextInputs = (fields: string[]): JSX.Element[] => {
     return fields.map(field=> {
 
