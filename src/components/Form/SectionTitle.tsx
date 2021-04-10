@@ -1,12 +1,12 @@
 import React from 'react'
-import { isChecked } from '../../util'
 
 interface SectionTitleProps {
   title: string,
   fields: string[],
+  isChecked: (fields: string[]) => boolean
 }
 
-export const SectionTitle: React.FC<SectionTitleProps> = ({title, fields}) => {
+export const SectionTitle: React.FC<SectionTitleProps> = ({title, fields, isChecked}) => {
   return (
     <div className='section-title'>
       <input

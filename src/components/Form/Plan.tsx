@@ -5,59 +5,35 @@ import { TextField } from './TextField'
 import './Form.css'
 
 interface PlanProps {
-  state: TourFormState,
-  updateForm: (e: React.ChangeEvent<HTMLInputElement>, field: string) => void
+  renderTextInputs: (fields: string[]) => JSX.Element[],
+  isChecked: (fields: string[]) => boolean
 }
 
 
-export const Plan: React.FC<PlanProps> = ({ state, updateForm }) => {
-  const hazardFields = [state.hazardWeather, state.hazardAvalanche, state.hazardSummary]
-  const routeFields = [state.routePreview, state.routeAlternative]
+export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
+  const hazardFields = ['hazardWeather', 'hazardAvalanche', 'hazardSummary']
+  const routeFields = ['routePreview', 'routeAlternative']
 
   return (
     <form>
       <SectionTitle
         title='Anticipate the Hazard'
         fields={hazardFields}
+        isChecked={isChecked}
       />
-      <input
-        type='text'
-        value={state.hazardWeather}
-        onChange={e => setState({...state, hazardWeather: e.target.value})}
-      />
-      <input
-        type='text'
-        value={state.hazardAvalanche}
-        onChange={e => setState({...state, hazardAvalanche: e.target.value})}
-      />
-      <input
-        type='text'
-        value={state.hazardSummary}
-        onChange={e => setState({...state, hazardSummary: e.target.value})}
-      />
+      {renderTextInputs(hazardFields)}
       <SectionTitle
         title='Plan Your Route'
         fields={routeFields}
+        isChecked={isChecked}
       />
-      <input
-        type='text'
-        value={state.routePreview}
-        onChange={e => setState({...state, routePreview: e.target.value})}
-      />
-      <input
-        type='text'
-        value={state.routeAlternative}
-        onChange={e => setState({...state, routeAlternative: e.target.value})}
-      />
+      {renderTextInputs(routeFields)}
       <SectionTitle
         title='Discuss Your Emergency Plan'
-        fields={[state.emergencyPlan]}
+        fields={['emergencyPlan']}
+        isChecked={isChecked}
       />
-      <input
-        type='text'
-        value={state.emergencyPlan}
-        onChange={e => setState({...state, emergencyPlan: e.target.value})}
-      />
+      {renderTextInputs(['emergencyPlan'])}
     </form>
   )
 }
