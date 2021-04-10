@@ -1,6 +1,7 @@
 import React from 'react'
 import { TourFormState } from './TourForm'
-import { isChecked } from '../../util'
+import { SectionTitle } from './SectionTitle'
+import './Form.css'
 
 interface PlanProps {
   state: TourFormState,
@@ -14,9 +15,9 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
 
   return (
     <form>
-      <input
-        type='checkbox'
-        checked={isChecked(hazardFields)}
+      <SectionTitle
+        title='Anticipate the Hazard'
+        fields={hazardFields}
       />
       <input
         type='text'
@@ -33,9 +34,9 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
         value={state.hazardSummary}
         onChange={e => setState({...state, hazardSummary: e.target.value})}
       />
-      <input
-        type='checkbox'
-        checked={isChecked(routeFields)}
+      <SectionTitle
+        title='Plan Your Route'
+        fields={routeFields}
       />
       <input
         type='text'
@@ -47,9 +48,9 @@ export const Plan: React.FC<PlanProps> = ({ state, setState }) => {
         value={state.routeAlternative}
         onChange={e => setState({...state, routeAlternative: e.target.value})}
       />
-      <input
-        type='checkbox'
-        checked={isChecked([state.emergencyPlan])}
+      <SectionTitle
+        title='Discuss Your Emergency Plan'
+        fields={[state.emergencyPlan]}
       />
       <input
         type='text'

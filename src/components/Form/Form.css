@@ -1,0 +1,9 @@
+form {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.section-title {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+}
