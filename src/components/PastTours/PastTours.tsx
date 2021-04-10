@@ -1,6 +1,7 @@
 import React, { useState, FunctionComponent } from 'react'
 import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
+import { PastTourDetails } from './PastTourDetails'
 import './PastTours.css'
 
 interface pastTour {
@@ -41,9 +42,10 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   return (
     <section className='past-tours'>
-      <h1>Past Tours</h1>
-      <SearchBar filterTours={filterTours}/>
-      {createPastTourCards}
+      <PastTourDetails />
+      {/* <h1>Past Tours</h1> */}
+      {/* <SearchBar filterTours={filterTours}/>
+      {createPastTourCards} */}
     </section>
   )
 }

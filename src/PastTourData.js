@@ -1,14 +1,14 @@
 export const tourData =  
 [
   {
-    id: 4,
+    id: 1,
     date: 'March 7, 2021',
     location: 'Breckenridge',
     creator_id: 1,
     complete: 'false'
   },
     {
-    id: 7,
+    id: 2,
     date: 'January 18, 2021',
     location: 'Vail',
     creator_id: 1,
