@@ -1,7 +1,8 @@
 import React from 'react'
 
 interface RideProps {
-  departureChecklist: boolean
+  setChecked: 
+  isChecked: boolean
 }
 
 export const Ride: React.FC<RideProps> = () => {

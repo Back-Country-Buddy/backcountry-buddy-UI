@@ -40,7 +40,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debriefPlan: ''
   })
 
-  const [departureChecklist, setDepartureChecklist] = useState<boolean>(false)
+  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
 
   const renderTextInputs = (fields: string[], prompts?: string[]): JSX.Element[] => {
     return fields.map((field, i)=> {
@@ -75,6 +75,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
       <Plan
         renderTextInputs={renderTextInputs}
         isChecked={isChecked}
+      />
+      <Ride
+        setChecked={setDepartureCheck}
+        isChecked={isDepartureChecked}
       />
       <Debrief
         renderTextInputs={renderTextInputs}
