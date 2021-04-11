@@ -9,10 +9,10 @@ interface Props {
 export const LandingPage: React.FC<Props> = ({ name }) => {
   return (
     <main className="landing">
-      <section className="landing-img">
+      <header className="landing-img">
         <h1 className="logo">Backcountry Buddy</h1>
         <h2>Welcome, {name}</h2>
-      </section>
+      </header>
       <NavBar />
     </main>
   )
