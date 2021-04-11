@@ -12,7 +12,3 @@ before_script:
   - npm start -- --silent &
 script:
   - $(npm bin)/cypress run
-deploy:
-  provider: vercel
-  app: backcountry-buddy-ui
-  skip_cleanup: true
