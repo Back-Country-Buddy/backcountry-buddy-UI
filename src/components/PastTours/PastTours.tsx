@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from 'react'
 import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
 import { PastTourDetails } from './PastTourDetails'
-import { tourPlans } from '../../tourPlan'
+import { tourPlans } from '../../mockdata/tourPlan'
 import './PastTours.css'
 
 interface pastTour {

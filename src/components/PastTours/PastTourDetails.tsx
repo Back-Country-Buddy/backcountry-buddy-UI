@@ -33,7 +33,7 @@ export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
 
     <section className='plan'>
       <div className='title-wrapper'>
-        <img src={lightbulb}/>
+        <img src={lightbulb} alt="lightbulb" />
         <h2 className='title'>PLAN your trip</h2>
       </div>
       <article className='plan-info'>
@@ -61,7 +61,7 @@ export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
 
     <section className='ride'>
       <div className='title-wrapper'>
-        <img src={route}/>
+        <img src={route} alt="route" />
         <h2 className='title'>RIDE safely</h2>
       </div>
       <article className='ride-info'>
@@ -73,7 +73,7 @@ export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
 
     <section className='debrief'>
       <div className='title-wrapper'>
-        <img src={question}/>
+        <img src={question} alt="question mark"/>
         <h2 className='title'>DEBRIEF</h2>
       </div>
       <article className='debrief-info'>

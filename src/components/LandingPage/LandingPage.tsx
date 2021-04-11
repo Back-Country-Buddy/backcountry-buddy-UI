@@ -1,6 +1,3 @@
-import CurrentTourCard from '../CurrentTours/CurrentTourCard'
-import { TourForm }from '../Form/TourForm'
-import { PastTours }from '../PastTours/PastTours'
 import React from 'react'
 import './LandingPage.css'
 import { NavBar } from '../NavBar/NavBar'
