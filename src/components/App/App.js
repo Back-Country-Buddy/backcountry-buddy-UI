@@ -6,6 +6,7 @@ import { CurrentTours } from "../CurrentTours/CurrentTours"
 import { userData } from '../../mockdata/UserDummyData'
 import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { useState } from 'react'
+import { Route } from 'react-router-dom'
 
 function App() {
   const [user, setUser] = useState(userData);
@@ -15,7 +16,13 @@ function App() {
 
   return (
     <div className="App">
+    < Route
+      exact
+      path='/'
+      render={() =>
       <LandingPage name={user.name} />
+      }
+    />
       <Profile
         name={user.name}
         email={user.email}
