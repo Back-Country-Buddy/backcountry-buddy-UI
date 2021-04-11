@@ -9,7 +9,7 @@ describe('Landing Page', () => {
         .get("header")
         .find("h2")
         .should("have.text", "Welcome, Rachel")
-    });
+    })
 
     it('Should have a nav bar', () => {
       cy.visit(baseUrl)
@@ -24,6 +24,6 @@ describe('Landing Page', () => {
         .should("have.text", "Past Tours")
         .get(".main-menu-text")
         .eq(3)
-        .should("have.text", "Profile");
-    });
+        .should("have.text", "Profile")
+    })
 })
