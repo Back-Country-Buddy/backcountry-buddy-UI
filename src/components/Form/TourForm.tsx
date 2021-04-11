@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import Debrief from './Debrief'
-import Ride from './Ride'
+import { Ride}  from './Ride'
 import { Plan } from './Plan'
+import { Debrief } from './Debrief'
 import { TextField } from './TextField'
+import { getDateString } from '../../util'
+import './Form.css'
 
 interface TourFormProps {
   userId: number,
 }
 
-export interface TourFormState {
+interface TourFormTextFields {
   location: string,
   date: string,
+  group: string,
   hazardWeather: string,
   hazardAvalanche: string,
   hazardSummary: string,
@@ -23,9 +26,10 @@ export interface TourFormState {
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
-  const [state, setState] = useState<TourFormState>({
+  const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: '',
-    date: Date.now().toString(),
+    date: getDateString(new Date()),
+    group: '',
     hazardWeather: '',
     hazardAvalanche: '',
     hazardSummary: '',
@@ -37,36 +41,47 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debriefPlan: ''
   })
 
-  const renderTextInputs = (fields: string[]): JSX.Element[] => {
-    return fields.map(field=> {
+  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
 
+  const renderTextInputs = (fields: string[], prompts?: string[]): JSX.Element[] => {
+    return fields.map((field, i)=> {
       return (
         <TextField
-          value={state[field as keyof TourFormState]}
-          updateForm={e => setState({ ...state, [field]: e.target.value})}
+          key={i}
+          prompt={prompts? prompts[i] : null}
+          value={textFields[field as keyof TourFormTextFields]}
+          updateForm={e => setTextFields({ ...textFields, [field]: e.target.value})}
         />
       )
     })
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find(field => state[field as keyof TourFormState] === '')
+    return !fields.find(field => textFields[field as keyof TourFormTextFields] === '')
   }
 
   return (
     <div>
       <input
         type='date'
-        value={state.date}
-        onChange={e => setState({ ...state, date: e.target.value})}
-        min={Date.now()}
+        value={textFields.date}
+        onChange={e => setTextFields({ ...textFields, date: e.target.value})}
+        min={getDateString(new Date())}
       />
       <input
         type='text'
-        value={state.location}
-        onChange={e => setState({ ...state, location: e.target.value})}
+        value={textFields.location}
+        onChange={e => setTextFields({ ...textFields, location: e.target.value})}
       />
       <Plan
+        renderTextInputs={renderTextInputs}
+        isChecked={isChecked}
+      />
+      <Ride
+        setChecked={setDepartureCheck}
+        isChecked={isDepartureChecked}
+      />
+      <Debrief
         renderTextInputs={renderTextInputs}
         isChecked={isChecked}
       />

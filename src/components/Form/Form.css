@@ -7,3 +7,8 @@ form {
   display: grid;
   grid-template-columns: 1fr 4fr;
 }
+
+.ride-img{
+  width: 90%;
+  height: auto;
+}
