@@ -7,7 +7,7 @@ cache:
     - ~/.cache
 install:
   - npm ci
-  - npm run build
+  - CI='' npm run build
 before_script:
   - npm start -- --silent &
 script:
@@ -16,5 +16,3 @@ deploy:
   provider: vercel
   app: backcountry-buddy-ui
   skip_cleanup: true
-env: 
-  CI: false
