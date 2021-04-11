@@ -24,7 +24,6 @@ interface TourDetailsProps {
 }
 
 export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
-  console.log(tourPlans)
   return (
     <section className='tour-details'>
       <div className='location'>
