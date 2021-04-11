@@ -1,4 +1,4 @@
-export const tourPlan =
+export const tourPlans =
 [
   {
     id: 1,

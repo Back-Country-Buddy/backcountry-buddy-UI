@@ -2,7 +2,7 @@ import React, { useState, FunctionComponent } from 'react'
 import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
 import { PastTourDetails } from './PastTourDetails'
-import { tourPlan } from '../../tourPlan'
+import { tourPlans } from '../../tourPlan'
 import './PastTours.css'
 
 interface pastTour {
@@ -11,25 +11,6 @@ interface pastTour {
   location: string;
   creator_id: number;
   complete: boolean;
-}
-
-interface tourPlan {
-  id: number;
-  tourId: number;
-  hazardWeather: string;
-  hazardAvalanche: string;
-  hazardSummary: string;
-  routePreview: string;
-  routeAlternative: string;
-  emergencyPlan: string;
-  rideObservations: string;
-  debriefConditions: string;
-  debriefDecisions: string;
-  debriefPlan: string;
-}
-
-interface TourDetailsProps {
-  tourPlans: Array<tourPlan>;
 }
 
 interface TourProps {
@@ -62,7 +43,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   return (
     <section className='past-tours'>
-      <PastTourDetails tourPlans={tourPlan}/>
+      <PastTourDetails tourPlans={tourPlans}/>
       {/* <h1>Past Tours</h1> */}
       {/* <SearchBar filterTours={filterTours}/>
       {createPastTourCards} */}
