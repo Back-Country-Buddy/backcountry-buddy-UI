@@ -40,11 +40,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
 
   const [departureChecklist, setDepartureChecklist] = useState<boolean>(false)
 
-  const renderTextInputs = (fields: string[]): JSX.Element[] => {
+  const renderTextInputs = (fields: string[], prompts?: string[]): JSX.Element[] => {
     return fields.map((field, i)=> {
       return (
         <TextField
           key={i}
+          prompt={prompts? prompts[i] : null}
           value={textFields[field as keyof TourFormTextFields]}
           updateForm={e => setTextFields({ ...textFields, [field]: e.target.value})}
         />
