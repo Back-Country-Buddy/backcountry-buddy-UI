@@ -23,6 +23,7 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
       </div>
       <img
         src={placeholder}
+        alt='ride flowchart'
         className='ride-img'
       />
     </form>
