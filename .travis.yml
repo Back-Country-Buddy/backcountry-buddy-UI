@@ -16,3 +16,5 @@ deploy:
   provider: vercel
   app: backcountry-buddy-ui
   skip_cleanup: true
+env: 
+  CI: false
