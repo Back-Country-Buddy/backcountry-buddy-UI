@@ -26,18 +26,18 @@ function App() {
       <LandingPage name={user.name} />
       }
     />
-      <Profile
+      {/* <Profile
         name={user.name}
         email={user.email}
         userName={user.userName}
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
-      />
-      <TourForm userId={userData.id} />
-      <CurrentTours currentTours={currentTours} />{" "}
+      /> */}
+      {/* <TourForm userId={userData.id} />
+      <CurrentTours currentTours={currentTours} />{" "} */}
       {/* rendering this here for
       now so I can see my changes in the browser */}
-      <PastTours pastTours={pastTours} />
+      {/* <PastTours pastTours={pastTours} /> */}
     </div>
   );
 }
