@@ -9,6 +9,7 @@ interface DebriefProps {
 export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
   return (
     <form>
+      <h2>DEBRIEF</h2>
       <SectionTitle
         title='Summarize Conditions'
         fields={['debriefConditions']}
