@@ -19,15 +19,17 @@ describe("Add Tour Form Page", () => {
 
   it("Should have a date and location field", () => {
     cy.visit(baseUrl)
-    .get('input[type="date"]')
-    .get('input[type="text"]').eq(0).should('have.text', '');
+      .get('input[type="date"]')
+      .get('input[type="text"]')
+      .eq(0)
+      .should("have.text", "");
   });
-  
+
   it("Should start out with 3 unchecked check boxes", () => {
     cy.visit(baseUrl)
       .get('input[type="checkbox"]')
       .should("have.length", 3)
-      .should("not.be.checked")
+      .should("not.be.checked");
   });
 
   it("Should check the Anticipate the Hazard checkbox if all section inputs have text", () => {
@@ -38,7 +40,9 @@ describe("Add Tour Form Page", () => {
       .get('input[type="text"]')
       .eq(2)
       .type("testing 2")
-      .get('input[type="text"]').eq(3).type('testing 3')
+      .get('input[type="text"]')
+      .eq(3)
+      .type("testing 3")
       .get('input[type="checkbox"]')
       .eq(0)
       .should("be.checked");
@@ -57,14 +61,13 @@ describe("Add Tour Form Page", () => {
       .should("be.checked");
   });
 
-    it("Should check the Plan Your Route checkbox if all section inputs have text", () => {
-      cy.visit(baseUrl)
-        .get('input[type="text"]')
-        .eq(6)
-        .type("testing 6")
-        .get('input[type="checkbox"]')
-        .eq(2)
-        .should("be.checked");
-    });
-
+  it("Should check the Plan Your Route checkbox if all section inputs have text", () => {
+    cy.visit(baseUrl)
+      .get('input[type="text"]')
+      .eq(6)
+      .type("testing 6")
+      .get('input[type="checkbox"]')
+      .eq(2)
+      .should("be.checked");
+  });
 });
