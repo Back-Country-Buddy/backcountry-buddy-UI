@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Ride from './Ride'
+import { Ride}  from './Ride'
 import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
