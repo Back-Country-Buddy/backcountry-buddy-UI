@@ -1,5 +1,5 @@
 import React from 'react'
-import { PastTourDetails } from './PastTourDetails'
+// import { PastTourDetails } from './PastTourDetails'
 import './PastTours.css'
 
 interface TourProps {
