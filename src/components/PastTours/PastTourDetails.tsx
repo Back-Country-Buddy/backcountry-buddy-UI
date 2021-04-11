@@ -1,6 +1,28 @@
 import React from 'react'
+// import { tourPlan } from '../../tourPlan'
 
-export const PastTourDetails = () => {
+interface tourPlan {
+  id: number;
+  tourId: number;
+  hazardWeather: string;
+  hazardAvalanche: string;
+  hazardSummary: string;
+  routePreview: string;
+  routeAlternative: string;
+  emergencyPlan: string;
+  rideObservations: string;
+  debriefConditions: string;
+  debriefDecisions: string;
+  debriefPlan: string;
+}
+
+interface TourDetailsProps {
+  tourPlans: Array<tourPlan>;
+}
+
+
+export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
+  console.log(tourPlans)
   return (
     <section className='tour-details'>
 
