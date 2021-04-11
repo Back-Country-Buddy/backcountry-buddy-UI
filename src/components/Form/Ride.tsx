@@ -1,4 +1,5 @@
 import React from 'react'
+import placeholder from '../../assets/placeholderChartAsset.png'
 
 interface RideProps {
   setChecked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -8,6 +9,7 @@ interface RideProps {
 export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
   return (
     <form>
+      <h2>RIDE safely</h2>
       <div>
         <input
           type='checkbox'
@@ -17,9 +19,12 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
         <button
           onClick={() => setChecked(!isChecked)}
           className={isChecked? 'checked' : ''}
-        > DEPARTURE CHECK</button>
+        >Conduct a Departure Check</button>
       </div>
-      <img src='../../assets/placeholderChartAsset.png'/>
+      <img
+        src={placeholder}
+        className='ride-img'
+      />
     </form>
   )
 }
