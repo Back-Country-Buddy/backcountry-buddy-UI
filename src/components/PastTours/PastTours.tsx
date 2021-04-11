@@ -3,6 +3,7 @@ import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
 import { PastTourDetails } from './PastTourDetails'
 import { tourPlans } from '../../mockdata/tourPlan'
+import { Route } from 'react-router-dom'
 import './PastTours.css'
 
 interface pastTour {
@@ -28,6 +29,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
       return (
       <PastTourCard  
         key={tour.id}
+        id={tour.id}
         date={tour.date}
         location={tour.location}
       />
@@ -43,10 +45,16 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   return (
     <section className='past-tours'>
-      <PastTourDetails tourPlans={tourPlans}/>
       <h1>Past Tours</h1> 
       <SearchBar filterTours={filterTours}/>
       {createPastTourCards}
+      < Route 
+        exact
+        path='/tour-details'
+        render={()=>
+          <PastTourDetails tourPlans={tourPlans}/>
+        }
+      />
     </section>
   )
 }

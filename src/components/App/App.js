@@ -19,25 +19,43 @@ function App() {
 
   return (
     <div className="App">
-    < Route
-      exact
-      path='/'
-      render={() =>
-      <LandingPage name={user.name} />
-      }
-    />
-      {/* <Profile
-        name={user.name}
-        email={user.email}
-        userName={user.userName}
-        emergencyName={user.emergencyName}
-        emergencyNumber={user.emergencyNumber}
-      /> */}
-      {/* <TourForm userId={userData.id} />
-      <CurrentTours currentTours={currentTours} />{" "} */}
-      {/* rendering this here for
-      now so I can see my changes in the browser */}
-      {/* <PastTours pastTours={pastTours} /> */}
+
+      < Route
+        exact
+        path='/'
+        render={() =>
+          <LandingPage name={user.name} />}
+      />
+
+      < Route
+        path='/profile'
+        render={()=>
+          <Profile
+              name={user.name}
+              email={user.email}
+              userName={user.userName}
+              emergencyName={user.emergencyName}
+              emergencyNumber={user.emergencyNumber}
+          />}
+      />
+
+      < Route 
+        path='/add-tour'
+        render={()=>
+         <TourForm userId={userData.id} />}
+      />
+
+      < Route
+        path='/current-tours'
+        render={()=>
+         <CurrentTours currentTours={currentTours} />}
+      />
+
+      < Route
+        path='/past-tours'
+        render={()=>
+          <PastTours pastTours={pastTours} />}
+      />
     </div>
   );
 }
