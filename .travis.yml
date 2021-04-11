@@ -7,7 +7,7 @@ cache:
     - ~/.cache
 install:
   - npm ci
-  - CI=false npm run build
+  - npm run build
 before_script:
   - npm start -- --silent &
 script:
