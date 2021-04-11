@@ -6,17 +6,20 @@ describe("Add Tour Form Page", () => {
       .get(".section-title")
       .eq(0)
       .find("h3")
-      .should("have.text", "Anticipate the Hazard")
+      .should("have.text", "Assemble Your Group")
       .get(".section-title")
       .eq(1)
       .find("h3")
-      .should("have.text", "Plan Your Route")
+      .should("have.text", "Anticipate the Hazard")
       .get(".section-title")
       .eq(2)
       .find("h3")
+      .should("have.text", "Plan Your Route")
+      .get(".section-title")
+      .eq(3)
+      .find("h3")
       .should("have.text", "Discuss Your Emergency Plan");
   });
-
   it("Should have a date and location field", () => {
     cy.visit(baseUrl)
       .get('input[type="date"]')
@@ -24,14 +27,12 @@ describe("Add Tour Form Page", () => {
       .eq(0)
       .should("have.text", "");
   });
-
   it("Should start out with 3 unchecked check boxes", () => {
     cy.visit(baseUrl)
       .get('input[type="checkbox"]')
-      .should("have.length", 3)
+      .should("have.length", 8)
       .should("not.be.checked");
   });
-
   it("Should check the Anticipate the Hazard checkbox if all section inputs have text", () => {
     cy.visit(baseUrl)
       .get('input[type="text"]')
@@ -47,27 +48,25 @@ describe("Add Tour Form Page", () => {
       .eq(0)
       .should("be.checked");
   });
-
   it("Should check the Plan Your Route checkbox if all section inputs have text", () => {
     cy.visit(baseUrl)
-      .get('input[type="text"]')
-      .eq(4)
-      .type("testing 4")
       .get('input[type="text"]')
       .eq(5)
-      .type("testing 5")
-      .get('input[type="checkbox"]')
-      .eq(1)
-      .should("be.checked");
-  });
-
-  it("Should check the Plan Your Route checkbox if all section inputs have text", () => {
-    cy.visit(baseUrl)
+      .type("testing 4")
       .get('input[type="text"]')
       .eq(6)
-      .type("testing 6")
+      .type("testing 5")
       .get('input[type="checkbox"]')
       .eq(2)
+      .should("be.checked");
+  });
+  it("Should check the Discuss your emergency plan checkbox if all section inputs have text", () => {
+    cy.visit(baseUrl)
+      .get('input[type="text"]')
+      .eq(7)
+      .type("testing 6")
+      .get('input[type="checkbox"]')
+      .eq(3)
       .should("be.checked");
   });
 });
