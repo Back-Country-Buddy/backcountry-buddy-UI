@@ -1,4 +1,4 @@
-import React, { useState, FunctionComponent } from 'react'
+import React, { useState } from 'react'
 import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
 import { PastTourDetails } from './PastTourDetails'
@@ -17,21 +17,21 @@ interface TourProps {
   pastTours: Array<pastTour>;
 }
 
-interface searchProps {
-  filterTours: (input: string) => pastTour[];
-}
+// interface searchProps {
+//   filterTours: (input: string) => pastTour[];
+// }
 
 export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
   const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours)
 
   const createPastTourCards = searchResults.map(tour => {
       return (
-      <PastTourCard  
+      <PastTourCard
         key={tour.id}
         date={tour.date}
         location={tour.location}
       />
-    )  
+    )
   })
 
   const filterTours = (input: string): any => {
@@ -44,7 +44,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
   return (
     <section className='past-tours'>
       <PastTourDetails tourPlans={tourPlans}/>
-      <h1>Past Tours</h1> 
+      <h1>Past Tours</h1>
       <SearchBar filterTours={filterTours}/>
       {createPastTourCards}
     </section>
