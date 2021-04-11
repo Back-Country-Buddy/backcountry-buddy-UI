@@ -18,3 +18,35 @@
 .card-info {
     width: 50%;
 }
+
+.tour-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 85%;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-self: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+
+}
+
+.title {
+  font-size: 2em;
+}
+
+img {
+  width: 2em;
+  margin-right: 1%;
+}
+
+.plan {
+  display: flex;
+  flex-direction: column;
+}
