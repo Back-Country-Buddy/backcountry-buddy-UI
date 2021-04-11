@@ -1,25 +1,34 @@
 import './App.css'
-import LandingPage from '../LandingPage/LandingPage'
-import { PastTours } from '../PastTours/PastTours.tsx'
+import { LandingPage } from '../LandingPage/LandingPage'
 import { Profile } from '../Profile/Profile'
-import { userData } from '../../UserDummyData'
-import { tourData } from '../../PastTourData'
+import { TourForm } from '../Form/TourForm'
+import { CurrentTours } from "../CurrentTours/CurrentTours"
+import { userData } from '../../mockdata/UserDummyData'
+import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { useState } from 'react'
+import { PastTours } from '../PastTours/PastTours.tsx'
+import { tourData } from '../../PastTourData'
 
 function App() {
-  const [user, setUser] = useState(userData)
+  const [user, setUser] = useState(userData);
+  const [currentTours, setCurrentTours] = useState(currentToursData)
   const [pastTours, setPastTours] = useState(tourData)
+  // const [currentTours, setCurrentTours] = useState<object | null>(currentToursData)
+  // types currently aren't working here since this isn't a tsx file but I think we want it to be
 
   return (
     <div className="App">
-      {/* <LandingPage />
-      <Profile 
-        name={user.name} 
-        email={user.email} 
+      <LandingPage name={user.name} />
+      <Profile
+        name={user.name}
+        email={user.email}
         userName={user.userName}
         emergencyName={user.emergencyName}
         emergencyNumber={user.emergencyNumber}
-      /> */}
+      />
+      <TourForm userId={userData.id}/>
+      <CurrentTours currentTours={currentTours} /> {/* rendering this here for
+      now so I can see my changes in the browser */}
       <PastTours pastTours={pastTours}/>
     </div>
   );

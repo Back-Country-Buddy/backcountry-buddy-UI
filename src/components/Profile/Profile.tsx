@@ -15,7 +15,7 @@ export const Profile: FunctionComponent<ProfileProps> = ({name, email, userName,
   return (
     <div>
       <h1>My Account</h1>
-      <img />
+      <img src="https://img.icons8.com/fluent/50/000000/user-male-circle.png" alt="profile placeholder" />
       <h3 className='name'>{name}</h3>
       <h3 className='email'>{email}</h3>
       <h3 className='userName'>{userName}</h3>
