@@ -23,6 +23,12 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
   return (
     <form>
       <SectionTitle
+        title='Assemble Your Group'
+        fields={['group']}
+        isChecked={isChecked}
+      />
+      {renderTextInputs(['group'])}
+      <SectionTitle
         title='Anticipate the Hazard'
         fields={hazardFields}
         isChecked={isChecked}

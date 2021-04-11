@@ -12,6 +12,7 @@ interface TourFormProps {
 interface TourFormTextFields {
   location: string,
   date: string,
+  group: string,
   hazardWeather: string,
   hazardAvalanche: string,
   hazardSummary: string,
@@ -27,6 +28,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: '',
     date: Date.now().toString(),
+    group: '',
     hazardWeather: '',
     hazardAvalanche: '',
     hazardSummary: '',

@@ -1,6 +1,5 @@
 import React from 'react'
 import { SectionTitle } from './SectionTitle'
-import './Form.css'
 
 interface DebriefProps {
   renderTextInputs: (fields: string[]) => JSX.Element[],
@@ -8,7 +7,6 @@ interface DebriefProps {
 }
 
 export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
-  const debriefFields = []
   return (
     <form>
       <SectionTitle
