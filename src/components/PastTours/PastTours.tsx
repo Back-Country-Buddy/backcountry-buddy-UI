@@ -44,9 +44,9 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
   return (
     <section className='past-tours'>
       <PastTourDetails tourPlans={tourPlans}/>
-      {/* <h1>Past Tours</h1> */}
-      {/* <SearchBar filterTours={filterTours}/>
-      {createPastTourCards} */}
+      <h1>Past Tours</h1> 
+      <SearchBar filterTours={filterTours}/>
+      {createPastTourCards}
     </section>
   )
 }
