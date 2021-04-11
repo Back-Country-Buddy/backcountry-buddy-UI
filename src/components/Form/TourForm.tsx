@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
-import Debrief from './Debrief'
 import Ride from './Ride'
 import { Plan } from './Plan'
+import { Debrief } from './Debrief'
 import { TextField } from './TextField'
+import './Form.css'
 
 interface TourFormProps {
   userId: number,
@@ -37,10 +38,13 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debriefPlan: ''
   })
 
+  const [departureChecklist, setDepartureChecklist] = useState<boolean>(false)
+
   const renderTextInputs = (fields: string[]): JSX.Element[] => {
-    return fields.map(field=> {
+    return fields.map((field, i)=> {
       return (
         <TextField
+          key={i}
           value={textFields[field as keyof TourFormTextFields]}
           updateForm={e => setTextFields({ ...textFields, [field]: e.target.value})}
         />
@@ -66,6 +70,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         onChange={e => setTextFields({ ...textFields, location: e.target.value})}
       />
       <Plan
+        renderTextInputs={renderTextInputs}
+        isChecked={isChecked}
+      />
+      <Debrief
         renderTextInputs={renderTextInputs}
         isChecked={isChecked}
       />

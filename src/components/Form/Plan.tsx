@@ -1,6 +1,5 @@
 import React from 'react'
 import { SectionTitle } from './SectionTitle'
-import './Form.css'
 
 interface PlanProps {
   renderTextInputs: (fields: string[]) => JSX.Element[],

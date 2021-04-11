@@ -1,10 +1,34 @@
 import React from 'react'
+import { SectionTitle } from './SectionTitle'
+import './Form.css'
 
+interface DebriefProps {
+  renderTextInputs: (fields: string[]) => JSX.Element[],
+  isChecked: (fields: string[]) => boolean
+}
 
-export default function Debrief() {
+export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
+  const debriefFields = []
   return (
-    <div>
-      
-    </div>
+    <form>
+      <SectionTitle
+        title='Summarize Conditions'
+        fields={['debriefConditions']}
+        isChecked={isChecked}
+      />
+      {renderTextInputs(['debriefConditions'])}
+      <SectionTitle
+        title="Review Today's Decisions"
+        fields={['debriefDecisions']}
+        isChecked={isChecked}
+      />
+      {renderTextInputs(['debriefDecisions'])}
+      <SectionTitle
+        title="Improve Today's Plan"
+        fields={['debriefPlan']}
+        isChecked={isChecked}
+      />
+      {renderTextInputs(['debriefPlan'])}
+    </form>
   )
 }
