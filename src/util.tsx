@@ -1,3 +1,3 @@
-export const getDateString = (date: number): string => {
-  return date.toISOString().getsubstring(0, 9)
+export const getDateString = (date: Date): string => {
+  return date.toISOString().substring(0, 10)
 }

@@ -3,6 +3,7 @@ import { Ride}  from './Ride'
 import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
+import { getDateString } from '../../util'
 import './Form.css'
 
 interface TourFormProps {
@@ -27,7 +28,7 @@ interface TourFormTextFields {
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: '',
-    date: new Date().toISOString(),
+    date: getDateString(new Date()),
     group: '',
     hazardWeather: '',
     hazardAvalanche: '',
@@ -65,7 +66,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         type='date'
         value={textFields.date}
         onChange={e => setTextFields({ ...textFields, date: e.target.value})}
-        min={new Date().toISOString()}
+        min={getDateString(new Date())}
       />
       <input
         type='text'
