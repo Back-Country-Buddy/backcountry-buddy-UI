@@ -10,6 +10,7 @@ interface TextFieldProps {
 export const TextField: React.FC<TextFieldProps> = ({value, prompt, updateForm}) => {
   return(
     <>
+      <p>{prompt}</p>
       <input
         type='text'
         value={value}
