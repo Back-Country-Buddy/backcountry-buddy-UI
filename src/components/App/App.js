@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 import { LandingPage } from "../LandingPage/LandingPage";
@@ -42,7 +41,7 @@ function App() {
           />}
       />
 
-      < Route 
+      < Route
         path='/add-tour'
         render={()=>
          <TourForm userId={userData.id} />}
@@ -60,12 +59,9 @@ function App() {
           <PastTours pastTours={pastTours} />}
       />
 
-      < Route 
+      < Route
         path='/tour-details/:id'
-        render={({ match })=> {
-          <PastTourDetails id={match.params.id} tourPlans={tourPlans}/>
-        }
-        }
+        component={ PastTourDetails }
       />
     </div>
   );
