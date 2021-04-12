@@ -11,7 +11,7 @@ interface TourProps {
 
 export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
   return (
-    <Link to='/tour-details'>
+    <Link to={`/tour-details/${id}`}>
       <article className='tour-card'>
         <img src="https://img.icons8.com/nolan/64/mountain.png" alt="mountains icon"/>
         <div className='card-info'>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import './PastTours.css'
 import question from '../../assets/question-sign.svg'
 import route from '../../assets/travel.svg'
@@ -21,9 +21,21 @@ interface tourPlan {
 
 interface TourDetailsProps {
   tourPlans: Array<tourPlan>;
+  id: string
 }
 
-export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans}) => {
+
+export const PastTourDetails: React.FC<TourDetailsProps> = ({tourPlans, id}) => {
+  const [currentTour, setCurrentTour] = useState(null)
+
+  useEffect(() => {
+    console.log(tourPlans)
+    console.log('Hey')
+    const findCurrentTour = tourPlans.find(tour => tour.id === parseInt(id))
+    
+    // setCurrentTour(findCurrentTour)
+  }, [])
+
   return (
     <section className='tour-details'>
       <div className='location'>

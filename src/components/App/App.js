@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import "./App.css";
 import { LandingPage } from "../LandingPage/LandingPage";
@@ -9,6 +10,8 @@ import { userData } from "../../mockdata/UserDummyData";
 import currentToursData from "../../mockdata/CurrentToursDummyData";
 import { tourData } from "../../mockdata/PastTourData";
 import { Route } from 'react-router-dom'
+import { PastTourDetails } from '../PastTours/PastTourDetails.tsx'
+import { tourPlans } from '../../mockdata/tourPlan'
 
 function App() {
   const [user, setUser] = useState(userData);
@@ -55,6 +58,14 @@ function App() {
         path='/past-tours'
         render={()=>
           <PastTours pastTours={pastTours} />}
+      />
+
+      < Route 
+        path='/tour-details/:id'
+        render={({ match })=> {
+          <PastTourDetails id={match.params.id} tourPlans={tourPlans}/>
+        }
+        }
       />
     </div>
   );
