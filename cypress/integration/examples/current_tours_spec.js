@@ -3,6 +3,7 @@ const baseUrl = "http://localhost:3000/current-tours";
 describe("Current Tours", () => {
   it("Should have correct header", () => {
     cy.visit(baseUrl)
+
       .get(".current-tours")
       .find("h1")
       .should("have.text", "Current Tours");

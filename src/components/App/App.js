@@ -8,6 +8,7 @@ import { PastTours } from "../PastTours/PastTours";
 import { userData } from "../../mockdata/UserDummyData";
 import currentToursData from "../../mockdata/CurrentToursDummyData";
 import { tourData } from "../../mockdata/PastTourData";
+import { useAuth0 } from "@auth0/auth0-react"
 import { Route } from "react-router-dom";
 import { PastTourDetails } from "../PastTours/PastTourDetails.tsx";
 import { NavBar } from "../NavBar/NavBar";
@@ -16,6 +17,8 @@ function App() {
   const [user] = useState(userData);
   const [currentTours] = useState(currentToursData);
   const [pastTours] = useState(tourData);
+
+  const { isAuthenticated } = useAuth0()
 
   return (
     <div className="App">
@@ -50,7 +53,7 @@ function App() {
       />
 
       <Route path="/tour-details/:id" component={PastTourDetails} />
-      <NavBar />
+      {isAuthenticated && <NavBar />}
     </div>
   );
 }

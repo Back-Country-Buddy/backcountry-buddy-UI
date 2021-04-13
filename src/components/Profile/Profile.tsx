@@ -1,24 +1,20 @@
 import React, { FunctionComponent } from 'react'
-
-interface ProfileProps 
-{
-  name: string,
-  email: string,
-  userName: string,
-  emergencyName: string,
-  emergencyNumber: string 
-}
+import { LogoutButton } from '../Login/LogoutButton'
+import { useAuth0 } from "@auth0/auth0-react"
 
 
-export const Profile: FunctionComponent<ProfileProps> = ({name, email, userName, emergencyName, emergencyNumber}) => {
+
+export const Profile: FunctionComponent = () => {
+  const { user } = useAuth0()
 
   return (
     <div>
       <h1>My Account</h1>
-      <img src="https://img.icons8.com/fluent/50/000000/user-male-circle.png" alt="profile placeholder" />
-      <h3 className='name'>{name}</h3>
-      <h3 className='email'>{email}</h3>
-      <h3 className='userName'>{userName}</h3>
+      <img src={user.picture} alt={user.name} />
+      <h3 className='name'>{user.name}</h3>
+      <h3 className='email'>{user.email}</h3>
+      <h3 className='userName'>{user.nickname}</h3>
+      <LogoutButton />
     </div>
   )
 }
