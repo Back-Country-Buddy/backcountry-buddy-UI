@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import { LogoutButton } from '../Login/LogoutButton'
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface ProfileProps
@@ -21,6 +22,7 @@ export const Profile: FunctionComponent<ProfileProps> = ({name, email, userName,
       <h3 className='name'>{user.name}</h3>
       <h3 className='email'>{user.email}</h3>
       <h3 className='userName'>{userName}</h3>
+      <LogoutButton />
     </div>
   )
 }
