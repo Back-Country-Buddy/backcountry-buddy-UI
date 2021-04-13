@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.7",
-    "cypress": "^7.0.1"
+    "cypress": "^7.1.0"
   }
 }
