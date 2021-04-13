@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3000";
 
-describe("Landing Page", () => {
+describe.skip("Landing Page", () => {
   it("Should have correct header and subheader", () => {
     cy.visit(baseUrl)
       .get("header")
