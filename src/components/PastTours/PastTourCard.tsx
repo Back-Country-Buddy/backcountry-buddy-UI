@@ -1,5 +1,4 @@
 import React from 'react'
-import { PastTourDetails } from './PastTourDetails'
 import './PastTours.css'
 import { Link } from 'react-router-dom'
 

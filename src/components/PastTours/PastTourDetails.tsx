@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import './PastTours.css'
 import question from '../../assets/question-sign.svg'
 import route from '../../assets/travel.svg'
@@ -30,7 +30,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({ match 
   const id = match.params.id.split('')[1]
   const tour = tourPlans.find(tour => tour.tourId === parseInt(id))
 
-  const [currentTour, setCurrentTour] = useState<tourPlan>(
+  const [currentTour] = useState<tourPlan>(
     tour ? tour : {
       id: 0,
       tourId: 0,

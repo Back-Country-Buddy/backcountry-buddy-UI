@@ -1,10 +1,6 @@
-'@ts-ignore'
-import React, { useState, FunctionComponent } from 'react'
+import React, { useState } from 'react'
 import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
-import { PastTourDetails } from './PastTourDetails'
-import { tourPlans } from '../../mockdata/tourPlan'
-import { Route, RouteComponentProps } from 'react-router-dom'
 import './PastTours.css'
 
 interface pastTour {
@@ -19,29 +15,19 @@ interface TourProps {
   pastTours: Array<pastTour>;
 }
 
-interface searchProps {
-  filterTours: (input: string) => pastTour[];
-}
-
-type TParams = { id: string }
-
-// export interface RouteComponentProps<Params extends { [K in keyof Params]?: string } = {}, C extends StaticContext = StaticContext, S = H.LocationState> {
-
-//   match: match<Params>;
-// }
 
 export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
   const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours)
 
   const createPastTourCards = searchResults.map(tour => {
       return (
-      <PastTourCard  
+      <PastTourCard
         key={tour.id}
         id={tour.id}
         date={tour.date}
         location={tour.location}
       />
-    )  
+    )
   })
 
   const filterTours = (input: string): any => {
@@ -53,10 +39,10 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   return (
     <section className='past-tours'>
-      <h1>Past Tours</h1> 
+      <h1>Past Tours</h1>
       <SearchBar filterTours={filterTours}/>
       {createPastTourCards}
-      {/* < Route 
+      {/* < Route
         path='/tour-details/:id'
         render={({ match }: RouteComponentProps<TParams>)=> {
           return <PastTourDetails id={match.params.id} tourPlans={tourPlans}/>

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import "./App.css";
 import { LandingPage } from "../LandingPage/LandingPage";
@@ -11,13 +10,12 @@ import currentToursData from "../../mockdata/CurrentToursDummyData";
 import { tourData } from "../../mockdata/PastTourData";
 import { Route } from 'react-router-dom'
 import { PastTourDetails } from '../PastTours/PastTourDetails.tsx'
-import { tourPlans } from '../../mockdata/tourPlan'
 import { NavBar } from '../NavBar/NavBar'
 
 function App() {
-  const [user, setUser] = useState(userData);
-  const [currentTours, setCurrentTours] = useState(currentToursData);
-  const [pastTours, setPastTours] = useState(tourData);
+  const [user] = useState(userData);
+  const [currentTours] = useState(currentToursData);
+  const [pastTours] = useState(tourData);
   // const [currentTours, setCurrentTours] = useState<object | null>(currentToursData)
   // types currently aren't working here since this isn't a tsx file but I think we want it to be
 
