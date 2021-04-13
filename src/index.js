@@ -20,6 +20,32 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// if (navigator.serviceWorker) {
+//     navigator.serviceWorker.register('../../sw.js')
+//         .then((registration) => {
+//             console.log('SW Registered', registration);
+//         });
+// }
+
+// if (window.Cypress) {
+//     serviceWorkerRegistration.unregister();
+// } else {
+//     serviceWorkerRegistration.register();
+// }
+
+// self.addEventListener('activate', (e) => {
+//   let cacheCleaned = caches.keys()
+//     .then(keys => {
+//       keys.forEach(key => {
+//         if (key !== pwaCache) {
+//           return caches.delete(key)
+//         }
+//       })
+//     })
+//   e.waitUntil(cacheCleaned)
+// });
+
+
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
