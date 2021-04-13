@@ -5,6 +5,7 @@ import route from '../../assets/travel.svg'
 import lightbulb from '../../assets/light-bulb (1).svg'
 import { tourPlans } from '../../mockdata/tourPlan'
 import { RouteComponentProps } from 'react-router-dom'
+import { NavBar } from '../NavBar/NavBar'
 
 interface tourPlan {
   id: number,
@@ -28,7 +29,7 @@ interface TParams {
 
 export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({ match }) => {
   const id = match.params.id
-  const tour = tourPlans.find(tour => tour.id === parseInt(id))
+  const tour = tourPlans.find(tour => tour.tourId === parseInt(id))
 
   const [currentTour, setCurrentTour] = useState<tourPlan>(
     tour ? tour : {
@@ -112,6 +113,8 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({ match 
         <p className='tour-input'>{currentTour.debriefPlan}</p>
       </article>
     </section>
+    <NavBar />
     </section>
+    
   )
 }

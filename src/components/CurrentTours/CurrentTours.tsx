@@ -1,6 +1,7 @@
 import React from 'react'
 import './CurrentTours.css'
 import CurrentTourCard from './CurrentTourCard'
+import { NavBar } from '../NavBar/NavBar'
 
 interface Tour {
     id: number;
@@ -26,6 +27,7 @@ export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
         <section className="current-tours">
             <h1>Current Tours</h1>
             {tours}
+            <NavBar />
         </section>
     )
 }

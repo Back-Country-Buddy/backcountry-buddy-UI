@@ -1,0 +1,50 @@
+export const tourFormData = [
+  {
+    tourId: '1',
+    date: "Apr 10, 2021",
+    location: "Jones Pass",
+    group: '',
+    hazardWeather: '30% chance of snow after 5 PM',
+    hazardAvalanche: 'mod-mod-mod',
+    hazardSummary: 'Uncertainty is high.',
+    routePreview: 'parking lot, walk across highway, find appropriate pit locations',
+    routeAlternative: 'Black lake zone',
+    emergencyPlan: 'All have water, layers, food',
+    rideObservations: 'SENT IT',
+    debriefConditions: 'How did todays weather affect conditions',
+    debriefDecisions: 'What were the strengths and shortcomings',
+    debriefPlan: 'What could we have done better?'
+  },
+  {
+    tourId: '2',
+    date: "Apr 15, 2021",
+    location: "Vail Pass",
+    group: '',
+    hazardWeather: '80% chance of snow after 6 PM',
+    hazardAvalanche: 'mod-mod-mod',
+    hazardSummary: 'Uncertainty is low.',
+    routePreview: 'find appropriate pit locations',
+    routeAlternative: 'White lake zone',
+    emergencyPlan: 'All have water',
+    rideObservations: 'SENT IT AGAIN',
+    debriefConditions: 'How did todays weather affect conditions',
+    debriefDecisions: 'What were the strengths and shortcomings',
+    debriefPlan: 'What could we have done better?'
+  },
+  {
+    tourId: '3',
+    date: "Apr 29, 2021",
+    location: "Montezuma",
+    group: '',
+    hazardWeather: '100% chance of snow after 6 PM',
+    hazardAvalanche: 'mod-mod-mod',
+    hazardSummary: 'Uncertainty is HIGH.',
+    routePreview: 'find appropriate pit locations',
+    routeAlternative: 'Blue lake zone',
+    emergencyPlan: 'All have water, food',
+    rideObservations: 'SENT IT AGAIN but probably shouldnt have',
+    debriefConditions: 'How did todays weather affect conditions',
+    debriefDecisions: 'What were the strengths and shortcomings',
+    debriefPlan: 'What could we have done better?'
+  }
+]

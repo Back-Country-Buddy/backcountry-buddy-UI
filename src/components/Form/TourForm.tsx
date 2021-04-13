@@ -1,16 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Ride}  from './Ride'
 import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
 import { getDateString } from '../../util'
+import {tourFormData} from '../../mockdata/tourFormData'
 import './Form.css'
 
 interface TourFormProps {
-  userId: number,
+  tourId?: number,
 }
 
 interface TourFormTextFields {
+  tourId?: string,
   location: string,
   date: string,
   group: string,
@@ -25,7 +27,7 @@ interface TourFormTextFields {
   debriefPlan: string,
 }
 
-export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
+export const TourForm: React.FC<TourFormProps> = ({ tourId }) => {
   const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: '',
     date: getDateString(new Date()),
@@ -42,6 +44,13 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   })
 
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
+
+  useEffect(() => {
+    const tour = tourId ? tourFormData.find(tour => parseInt(tour.tourId) === tourId) : null
+    if (tour) {
+      setTextFields(tour)
+    }
+  }, [])
 
   const renderTextInputs = (fields: string[], prompts?: string[]): JSX.Element[] => {
     return fields.map((field, i)=> {
