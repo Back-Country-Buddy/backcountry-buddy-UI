@@ -28,7 +28,7 @@ interface TParams {
 
 export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({ match }) => {
   const id = match.params.id.split('')[1]
-  const tour = tourPlans.find(tour => tour.id === parseInt(id))
+  const tour = tourPlans.find(tour => tour.tourId === parseInt(id))
 
   const [currentTour, setCurrentTour] = useState<tourPlan>(
     tour ? tour : {

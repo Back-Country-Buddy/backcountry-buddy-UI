@@ -12,6 +12,7 @@ import { tourData } from "../../mockdata/PastTourData";
 import { Route } from 'react-router-dom'
 import { PastTourDetails } from '../PastTours/PastTourDetails.tsx'
 import { tourPlans } from '../../mockdata/tourPlan'
+import { NavBar } from '../NavBar/NavBar'
 
 function App() {
   const [user, setUser] = useState(userData);
@@ -64,6 +65,7 @@ function App() {
         path='/tour-details/:id'
         component={ PastTourDetails }
       />
+      <NavBar />
     </div>
   );
 }
