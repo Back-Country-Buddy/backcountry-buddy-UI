@@ -1,8 +1,8 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:3000/profile";
 
 describe("Profile Page", () => {
   it("Should have correct header", () => {
-    cy.visit(baseUrl).get("h1").eq(1).should("have.text", "My Account");
+    cy.visit(baseUrl).get("h1").should("have.text", "My Account");
   });
 
   it("Should render a placeholder profile icon", () => {

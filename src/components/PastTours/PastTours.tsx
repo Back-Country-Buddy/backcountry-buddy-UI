@@ -1,9 +1,7 @@
-import React, { useState } from 'react'
-import { PastTourCard } from './PastTourCard'
-import { SearchBar } from './SearchBar'
-import { PastTourDetails } from './PastTourDetails'
-import { tourPlans } from '../../mockdata/tourPlan'
-import './PastTours.css'
+import React, { useState } from "react";
+import { PastTourCard } from "./PastTourCard";
+import { SearchBar } from "./SearchBar";
+import "./PastTours.css";
 
 interface pastTour {
   id: number;
@@ -17,36 +15,32 @@ interface TourProps {
   pastTours: Array<pastTour>;
 }
 
-// interface searchProps {
-//   filterTours: (input: string) => pastTour[];
-// }
-
 export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
-  const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours)
+  const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours);
 
-  const createPastTourCards = searchResults.map(tour => {
-      return (
+  const createPastTourCards = searchResults.map((tour) => {
+    return (
       <PastTourCard
         key={tour.id}
+        id={tour.id}
         date={tour.date}
         location={tour.location}
       />
-    )
-  })
+    );
+  });
 
   const filterTours = (input: string): any => {
-   const filteredTours = pastTours.filter(tour => {
-      return tour.location.includes(input)
-  })
-    setSearchResults([...filteredTours])
-  }
+    const filteredTours = pastTours.filter((tour) => {
+      return tour.location.includes(input);
+    });
+    setSearchResults([...filteredTours]);
+  };
 
   return (
-    <section className='past-tours'>
-      <PastTourDetails tourPlans={tourPlans}/>
+    <section className="past-tours">
       <h1>Past Tours</h1>
-      <SearchBar filterTours={filterTours}/>
+      <SearchBar filterTours={filterTours} />
       {createPastTourCards}
     </section>
-  )
-}
+  );
+};

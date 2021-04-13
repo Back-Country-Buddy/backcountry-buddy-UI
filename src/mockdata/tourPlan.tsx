@@ -1,4 +1,19 @@
-export const tourPlans =
+interface tourPlan {
+  id: number,
+  tourId: number,
+  hazardWeather: string,
+  hazardAvalanche: string,
+  hazardSummary: string,
+  routePreview: string,
+  routeAlternative: string,
+  emergencyPlan: string,
+  rideObservations: string,
+  debriefConditions: string,
+  debriefDecisions: string,
+  debriefPlan: string
+}
+
+export const tourPlans: Array<tourPlan> =
 [
   {
     id: 1,

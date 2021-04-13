@@ -1,6 +1,6 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:3000/add-tour";
 
-describe("Add Tour Form Page", () => {
+describe.skip("Add Tour Form Page", () => {
   it("Should have correct headers", () => {
     cy.visit(baseUrl)
       .get(".section-title")

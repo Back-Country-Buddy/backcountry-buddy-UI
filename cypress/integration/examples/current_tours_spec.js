@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:3000";
+const baseUrl = "http://localhost:3000/current-tours";
 
 describe("Current Tours", () => {
   it("Should have correct header", () => {
