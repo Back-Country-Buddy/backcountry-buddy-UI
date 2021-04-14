@@ -53,7 +53,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   )
 
   return (
-    <section className="tour-details">
+    <main className="tour-details">
       <div className="location">
         <h1>Buffalo Mountain</h1>
         <p className="date">Feb 2, 2021</p>
@@ -61,7 +61,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
 
       <section className="plan">
         <div className="title-wrapper">
-          <img src={lightbulb} alt="lightbulb" />
+          <img src={lightbulb} alt="lightbulb" className="form-icon" />
           <h2 className="title">PLAN your trip</h2>
         </div>
         <article className="plan-info">
@@ -97,7 +97,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
 
       <section className="ride">
         <div className="title-wrapper">
-          <img src={route} alt="route" />
+          <img src={route} alt="route" className="form-icon" />
           <h2 className="title">RIDE safely</h2>
         </div>
         <article className="ride-info">
@@ -109,7 +109,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
 
       <section className="debrief">
         <div className="title-wrapper">
-          <img src={question} alt="question mark" />
+          <img src={question} alt="question mark" className="form-icon" />
           <h2 className="title">DEBRIEF</h2>
         </div>
         <article className="debrief-info">
@@ -125,6 +125,6 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
           <p className="tour-input">{currentTour.debriefPlan}</p>
         </article>
       </section>
-    </section>
+    </main>
   )
 }
