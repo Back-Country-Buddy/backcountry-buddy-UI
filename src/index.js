@@ -20,12 +20,12 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// if (navigator.serviceWorker) {
-//     navigator.serviceWorker.register('../../sw.js')
-//         .then((registration) => {
-//             console.log('SW Registered', registration);
-//         });
-// }
+if (navigator.serviceWorker) {
+    navigator.serviceWorker.register('../../sw.js')
+        .then((registration) => {
+            console.log('SW Registered', registration);
+        });
+}
 
 // if (window.Cypress) {
 //     serviceWorkerRegistration.unregister();
