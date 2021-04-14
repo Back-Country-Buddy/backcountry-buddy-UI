@@ -31,7 +31,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   const filterTours = (input: string): any => {
     const filteredTours = pastTours.filter((tour) => {
-      return tour.location.includes(input);
+      return tour.location.toLowerCase().includes(input.toLowerCase());
     });
     setSearchResults([...filteredTours]);
   };
