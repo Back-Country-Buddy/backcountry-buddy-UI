@@ -1,6 +1,6 @@
 import React from "react"
-import "./PastTours.css"
 import { Link } from "react-router-dom"
+import "./PastTours.css"
 
 interface TourProps {
   id: number
@@ -13,7 +13,6 @@ export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
     <Link to={`/tour-details/:${id}`}>
       <article className="tour-card">
         <img
-          className="mountains-icon"
           src="https://img.icons8.com/nolan/64/mountain.png"
           alt="mountains icon"
         />
