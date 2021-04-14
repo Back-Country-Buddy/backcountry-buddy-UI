@@ -1,22 +1,25 @@
-import { useState } from "react";
-import "./App.css";
-import { LandingPage } from "../LandingPage/LandingPage";
-import { Profile } from "../Profile/Profile";
-import { TourForm } from "../Form/TourForm";
-import { CurrentTours } from "../CurrentTours/CurrentTours";
-import { PastTours } from "../PastTours/PastTours";
-import { userData } from "../../mockdata/UserDummyData";
-import currentToursData from "../../mockdata/CurrentToursDummyData";
-import { tourData } from "../../mockdata/PastTourData";
+import { useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
-import { Route } from "react-router-dom";
-import { PastTourDetails } from "../PastTours/PastTourDetails.tsx";
-import { NavBar } from "../NavBar/NavBar";
+import { Route } from "react-router-dom"
+
+import "./App.css"
+
+import { LandingPage } from "../LandingPage/LandingPage"
+import { Profile } from "../Profile/Profile"
+import { TourForm } from "../Form/TourForm"
+import { CurrentTours } from "../CurrentTours/CurrentTours"
+import { PastTours } from "../PastTours/PastTours"
+import { PastTourDetails } from "../PastTours/PastTourDetails"
+import { NavBar } from "../NavBar/NavBar"
+
+import { userData } from "../../mockdata/UserDummyData"
+import currentToursData from "../../mockdata/CurrentToursDummyData"
+import { tourData } from "../../mockdata/PastTourData"
 
 function App() {
-  const [user] = useState(userData);
-  const [currentTours] = useState(currentToursData);
-  const [pastTours] = useState(tourData);
+  const [user] = useState(userData)
+  const [currentTours] = useState(currentToursData)
+  const [pastTours] = useState(tourData)
 
   const { isAuthenticated } = useAuth0()
 
@@ -53,9 +56,10 @@ function App() {
       />
 
       <Route path="/tour-details/:id" component={PastTourDetails} />
+      
       {isAuthenticated && <NavBar />}
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
