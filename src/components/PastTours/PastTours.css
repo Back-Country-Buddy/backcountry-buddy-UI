@@ -4,6 +4,12 @@
   align-items: center;
 
 }
+
+h1 {
+  font-family: 'Karantina';
+  font-size: 1.6em;
+}
+
 .background-img {
   background: url("../../assets/bluepurplejagged.png");
   background-position: center;
@@ -84,4 +90,18 @@
 .form-icon {
   width: 10%;
   margin-right: 3%;
+}
+
+.search-wrapper {
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  height: 10%;
+}
+
+.search-input {
+  width: 60%;
+  height:50%;
+  align-self: center;
 }

@@ -6,7 +6,9 @@ export const NavBar: React.FC = () => {
   return (
     <nav className="main-menu">
       <div>
-        <Link style={{textDecoration: 'none'}} to="/add-tour">
+        <Link 
+          style={{textDecoration: 'none'}} 
+          to="/add-tour">
           <img
             src="https://img.icons8.com/ios-glyphs/48/900AA1/plus.png"
             alt="add tour"
@@ -15,7 +17,10 @@ export const NavBar: React.FC = () => {
         </Link>
       </div>
       <div>
-        <Link style={{textDecoration: 'none'}} to="/current-tours">
+        <Link 
+          style={{textDecoration: 'none'}}
+          className='link'
+          to="/current-tours">
           <img
             src="https://img.icons8.com/ios/48/900AA1/skiing.png"
             alt="current tours"
@@ -24,7 +29,8 @@ export const NavBar: React.FC = () => {
         </Link>
       </div>
       <div>
-        <Link style={{textDecoration: 'none'}} to="/past-tours">
+        <Link 
+          style={{textDecoration: 'none'}} to="/past-tours">
           <img
             src="https://img.icons8.com/windows/48/900AA1/mobile-navigator.png"
             alt="past tours"
@@ -33,7 +39,8 @@ export const NavBar: React.FC = () => {
         </Link>
       </div>
       <div>
-        <Link style={{textDecoration: 'none'}} to="/profile">
+        <Link 
+          style={{textDecoration: 'none'}} to="/profile">
           <img
             src="https://img.icons8.com/material-outlined/48/900AA1/user--v1.png"
             alt="profile"

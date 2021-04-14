@@ -1,6 +1,9 @@
 .landing {
   display: flex;
   flex-direction: column;
+  font-family: 'Karantina';
+  font-weight: 700;
+  font-size: 1.5em;
 }
 
 .landing-img {
