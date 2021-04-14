@@ -21,7 +21,9 @@ ReactDOM.render(
 );
 
 if (navigator.serviceWorker) {
-    navigator.serviceWorker.register('../../sw.js')
+    navigator.serviceWorker.register('../public/sw.js')
+        // navigator.serviceWorker.register('../../sw.js')
+
         .then((registration) => {
             console.log('SW Registered', registration);
         });
