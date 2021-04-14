@@ -1,7 +1,6 @@
 .landing {
     display: flex;
     flex-direction: column;
-    height: 88vh;
 }
 
 .landing-img {

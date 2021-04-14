@@ -1,11 +1,11 @@
-import React from "react";
-import "./PastTours.css";
-import { Link } from "react-router-dom";
+import React from "react"
+import "./PastTours.css"
+import { Link } from "react-router-dom"
 
 interface TourProps {
-  id: number;
-  date: string;
-  location: string;
+  id: number
+  date: string
+  location: string
 }
 
 export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
@@ -13,6 +13,7 @@ export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
     <Link to={`/tour-details/:${id}`}>
       <article className="tour-card">
         <img
+          className="mountains-icon"
           src="https://img.icons8.com/nolan/64/mountain.png"
           alt="mountains icon"
         />
@@ -22,5 +23,5 @@ export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
         </div>
       </article>
     </Link>
-  );
-};
+  )
+}

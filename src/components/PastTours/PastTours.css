@@ -41,11 +41,6 @@
   font-size: 2em;
 }
 
-img {
-  width: 2em;
-  margin-right: 1%;
-}
-
 .plan {
   display: flex;
   flex-direction: column;

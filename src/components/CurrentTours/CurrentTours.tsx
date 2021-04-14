@@ -23,9 +23,9 @@ export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
         )
     })
     return (
-        <section className="current-tours">
+        <main className="current-tours">
             <h1>Current Tours</h1>
             {tours}
-        </section>
+        </main>
     )
 }
