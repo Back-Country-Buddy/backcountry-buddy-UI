@@ -1,7 +1,7 @@
 import React from 'react'
 import { SectionTitle } from './SectionTitle'
 import StepWizard from 'react-step-wizard'
-import { PlanNav } from './PlanNav'
+import { FormNav } from './FormNav'
 
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[],
@@ -26,7 +26,9 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
     <form>
       <h2>PLAN your trip</h2>
       <StepWizard
-        nav={<PlanNav />}
+        nav={<FormNav
+              steps={['i', 'ii', 'iii', 'iv']}
+            />}
       >
         <div>
           <SectionTitle

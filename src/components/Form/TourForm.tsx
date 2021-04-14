@@ -76,7 +76,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         onChange={e => setTextFields({ ...textFields, location: e.target.value})}
       />
       <StepWizard
-        nav={<FormNav />}
+        nav={<FormNav
+          steps={['PLAN', 'RIDE', 'DEBRIEF']}
+        />}
       >
         <Plan
           renderTextInputs={renderTextInputs}
