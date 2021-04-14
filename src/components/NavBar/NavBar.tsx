@@ -8,7 +8,7 @@ export const NavBar: React.FC = () => {
       <div>
         <Link to="/add-tour">
           <img
-            src="https://img.icons8.com/ios-glyphs/48/8420E9/plus.png"
+            src="https://img.icons8.com/ios-glyphs/48/900AA1/plus.png"
             alt="add tour"
           />
           <p className="main-menu-text">Add Tour</p>
@@ -17,7 +17,7 @@ export const NavBar: React.FC = () => {
       <div>
         <Link to="/current-tours">
           <img
-            src="https://img.icons8.com/ios/48/8420E9/skiing.png"
+            src="https://img.icons8.com/ios/48/900AA1/skiing.png"
             alt="current tours"
           />
           <p className="main-menu-text">Current Tours</p>
@@ -26,7 +26,7 @@ export const NavBar: React.FC = () => {
       <div>
         <Link to="/past-tours">
           <img
-            src="https://img.icons8.com/windows/48/8420E9/mobile-navigator.png"
+            src="https://img.icons8.com/windows/48/900AA1/mobile-navigator.png"
             alt="past tours"
           />
           <p className="main-menu-text">Past Tours</p>
@@ -35,7 +35,7 @@ export const NavBar: React.FC = () => {
       <div>
         <Link to="/profile">
           <img
-            src="https://img.icons8.com/material-outlined/48/8420E9/user--v1.png"
+            src="https://img.icons8.com/material-outlined/48/900AA1/user--v1.png"
             alt="profile"
           />
           <p className="main-menu-text">Profile</p>

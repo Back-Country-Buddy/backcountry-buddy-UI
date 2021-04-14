@@ -1,0 +1,9 @@
+.login-button {
+    padding: 3% 5%;
+    font-size: 1.4em;
+    background-color: #900AA1;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
