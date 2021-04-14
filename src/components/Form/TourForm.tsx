@@ -63,36 +63,41 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   }
 
   return (
-    <div>
-      <input
-        type='date'
-        value={textFields.date}
-        onChange={e => setTextFields({ ...textFields, date: e.target.value})}
-        min={getDateString(new Date())}
-      />
-      <input
-        type='text'
-        value={textFields.location}
-        onChange={e => setTextFields({ ...textFields, location: e.target.value})}
-      />
-      <StepWizard
-        nav={<FormNav
-          steps={['PLAN', 'RIDE', 'DEBRIEF']}
-        />}
-      >
-        <Plan
-          renderTextInputs={renderTextInputs}
-          isChecked={isChecked}
+    <main>
+      <div className='form-basic'>
+        <input
+          type='date'
+          value={textFields.date}
+          onChange={e => setTextFields({ ...textFields, date: e.target.value})}
+          min={getDateString(new Date())}
         />
-        <Ride
-          setChecked={setDepartureCheck}
-          isChecked={isDepartureChecked}
+        <input
+          type='text'
+          value={textFields.location}
+          onChange={e => setTextFields({ ...textFields, location: e.target.value})}
         />
-        <Debrief
-          renderTextInputs={renderTextInputs}
-          isChecked={isChecked}
-        />
-      </StepWizard>
-    </div>
+      </div>
+      <div className='form-subform'>
+        <StepWizard
+          nav={<FormNav
+            steps={['PLAN', 'RIDE', 'DEBRIEF']}
+          />}
+        >
+          <Plan
+            renderTextInputs={renderTextInputs}
+            isChecked={isChecked}
+          />
+          <Ride
+            setChecked={setDepartureCheck}
+            isChecked={isDepartureChecked}
+          />
+          <Debrief
+            renderTextInputs={renderTextInputs}
+            isChecked={isChecked}
+          />
+        </StepWizard>
+      </div>
+      <button>SAVE</button>
+    </main>
   )
 }
