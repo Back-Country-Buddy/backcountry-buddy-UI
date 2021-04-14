@@ -1,6 +1,6 @@
 const baseUrl = "http://localhost:3000/current-tours";
 
-describe("Current Tours", () => {
+describe.skip("Current Tours", () => {
   it("Should have correct header", () => {
     cy.visit(baseUrl)
 
@@ -9,7 +9,7 @@ describe("Current Tours", () => {
       .should("have.text", "Current Tours");
   });
 
-  it("Should currectly render the Current Tours Cards", () => {
+  it("Should correctly render the Current Tours Cards", () => {
     cy.visit(baseUrl)
       .get(".current-tours-card")
       .first()
