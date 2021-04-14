@@ -1,5 +1,7 @@
 import React from 'react'
 import { SectionTitle } from './SectionTitle'
+import StepWizard from 'react-step-wizard'
+import { PlanNav } from './PlanNav'
 
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[],
@@ -23,30 +25,42 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
   return (
     <form>
       <h2>PLAN your trip</h2>
-      <SectionTitle
-        title='Assemble Your Group'
-        fields={['group']}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(['group'])}
-      <SectionTitle
-        title='Anticipate the Hazard'
-        fields={hazardFields}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(hazardFields, hazardPrompts)}
-      <SectionTitle
-        title='Plan Your Route'
-        fields={routeFields}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(routeFields, routePrompts)}
-      <SectionTitle
-        title='Discuss Your Emergency Plan'
-        fields={['emergencyPlan']}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(['emergencyPlan'])}
+      <StepWizard
+        nav={<PlanNav />}
+      >
+        <div>
+          <SectionTitle
+            title='Assemble Your Group'
+            fields={['group']}
+            isChecked={isChecked}
+          />
+          {renderTextInputs(['group'])}
+        </div>
+        <div>
+          <SectionTitle
+            title='Anticipate the Hazard'
+            fields={hazardFields}
+            isChecked={isChecked}
+          />
+          {renderTextInputs(hazardFields, hazardPrompts)}
+        </div>
+        <div>
+          <SectionTitle
+            title='Plan Your Route'
+            fields={routeFields}
+            isChecked={isChecked}
+          />
+          {renderTextInputs(routeFields, routePrompts)}
+        </div>
+        <div>
+          <SectionTitle
+            title='Discuss Your Emergency Plan'
+            fields={['emergencyPlan']}
+            isChecked={isChecked}
+          />
+          {renderTextInputs(['emergencyPlan'])}
+        </div>
+      </StepWizard>
     </form>
   )
 }
