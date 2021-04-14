@@ -4,6 +4,8 @@ import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
 import { getDateString } from '../../util'
+import StepWizard from 'react-step-wizard'
+import { FormNav } from './FormNav'
 import './Form.css'
 
 interface TourFormProps {
@@ -73,18 +75,22 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
         value={textFields.location}
         onChange={e => setTextFields({ ...textFields, location: e.target.value})}
       />
-      <Plan
-        renderTextInputs={renderTextInputs}
-        isChecked={isChecked}
-      />
-      <Ride
-        setChecked={setDepartureCheck}
-        isChecked={isDepartureChecked}
-      />
-      <Debrief
-        renderTextInputs={renderTextInputs}
-        isChecked={isChecked}
-      />
+      <StepWizard
+        nav={<FormNav />}
+      >
+        <Plan
+          renderTextInputs={renderTextInputs}
+          isChecked={isChecked}
+        />
+        <Ride
+          setChecked={setDepartureCheck}
+          isChecked={isDepartureChecked}
+        />
+        <Debrief
+          renderTextInputs={renderTextInputs}
+          isChecked={isChecked}
+        />
+      </StepWizard>
     </div>
   )
 }
