@@ -1,17 +1,45 @@
-const baseUrl = "http://localhost:3000/current-tours";
+describe("Current Tours", () => {
+  const baseUrl = "http://localhost:3000"
+  const toursUrl = "http://localhost:3000/current-tours"
 
-describe.skip("Current Tours", () => {
-  it("Should have correct header", () => {
+  const logOut = () => {
+    cy.get(".main-menu")
+      .contains("Profile")
+      .click()
+      .get("button")
+      .contains("Log Out")
+      .click()
+  }
+
+  beforeEach(() => {
     cy.visit(baseUrl)
+      .get("header button")
+      .click()
+      .get("form input[name=username]")
+      .type("BCBTestUser@gmail.com")
+      .get("form input[name=password]")
+      .type("BCBtest123!")
+      .get("button[name=action]")
+      .click()
+      .get(".main-menu")
+      .contains("Current Tours")
+      .click()
+  })
 
-      .get(".current-tours")
-      .find("h1")
-      .should("have.text", "Current Tours");
-  });
+  it("Should visit the correct URL path on click", () => {
+    cy.url().should("include", toursUrl)
+
+    logOut()
+  })
+
+  it("Should have correct header", () => {
+    cy.get(".current-tours h1").should("have.text", "Current Tours")
+
+    logOut()
+  })
 
   it("Should correctly render the Current Tours Cards", () => {
-    cy.visit(baseUrl)
-      .get(".current-tours-card")
+    cy.get(".current-tours-card")
       .first()
       .find("h3")
       .should("have.text", "Jones Pass")
@@ -22,6 +50,8 @@ describe.skip("Current Tours", () => {
       .should("have.text", "Apr 10, 2021")
 
       .get('[alt="mountains icon"]')
-      .should("be.visible");
-  });
-});
+      .should("be.visible")
+
+    logOut()
+  })
+})

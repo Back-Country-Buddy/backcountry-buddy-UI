@@ -26,7 +26,7 @@ describe("Add Tour Form Page", () => {
       .click()
   })
 
-  it("Should take you to the correct URL path", () => {
+  it("Should visit the correct URL path on click", () => {
     cy.url().should("include", tourUrl)
 
     logOut()
