@@ -1,30 +1,36 @@
 .past-tours {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 5% 0;
 }
 
 .tour-card {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: left;
-    width: 30%;
-    border: 2px solid #8420E9;
-    border-radius: 3px;
-    margin: 1% 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: left;
+  width: 80vw;
+  border: 2px solid #8420e9;
+  border-radius: 3px;
+  margin: 1% 0;
 }
 
 .card-info {
-    width: 50%;
+  width: 50%;
 }
 
 .tour-details {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 85%;
+  margin: 0 5%;
 }
 
 .title-wrapper {
@@ -34,19 +40,18 @@
   justify-content: center;
   width: 100%;
   margin: 0;
-
 }
 
 .title {
   font-size: 2em;
 }
 
-img {
-  width: 2em;
-  margin-right: 1%;
-}
-
 .plan {
   display: flex;
   flex-direction: column;
+}
+
+.form-icon {
+  width: 10%;
+  margin-right: 3%;
 }

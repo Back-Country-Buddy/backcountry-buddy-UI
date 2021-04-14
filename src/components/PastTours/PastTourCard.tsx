@@ -1,11 +1,11 @@
-import React from "react";
-import "./PastTours.css";
-import { Link } from "react-router-dom";
+import React from "react"
+import { Link } from "react-router-dom"
+import "./PastTours.css"
 
 interface TourProps {
-  id: number;
-  date: string;
-  location: string;
+  id: number
+  date: string
+  location: string
 }
 
 export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
@@ -22,5 +22,5 @@ export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
         </div>
       </article>
     </Link>
-  );
-};
+  )
+}
