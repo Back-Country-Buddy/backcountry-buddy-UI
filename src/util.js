@@ -4,14 +4,23 @@ export const getDateString = (date: Date): string => {
 
 const url = 'https://backcountry-restapi.herokuapp.com/api/v1/user'
 
-export const addUser = (url, name, email, emergencyName, emergencyNumber, auth) => {
-  return fetch(url, {
+export const addUser = (name, email, emergencyName, emergencyNumber, auth) => {
+  const body = {
+    user_name: name,
+    email_address: email,
+    emergency_contact_name: emergencyName,
+    emergency_number: emergencyNumber,
+    auth: auth
+  }
+  console.log(body)
+
+  return fetch('https://backcountry-restapi.herokuapp.com/api/v1/user', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify({user_name: name, email_address: email, emergency_contact_name: emergencyName, emergency_number: emergencyNumber, auth: auth})
+    body: JSON.stringify(body)
   })
     .then(response => {
       console.log(response)
@@ -49,6 +58,3 @@ export const deleteUser = (id) => {
       }
     })
 }
-
-
-
