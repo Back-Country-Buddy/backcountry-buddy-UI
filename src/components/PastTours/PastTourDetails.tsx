@@ -1,14 +1,12 @@
 import React, { useState } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import "./PastTours.css"
-import purpCheck from '../../assets/purpblue.png'
 import circleCheck from '../../assets/purplebluecircle.png'
 import arrow from '../../assets/arrow.png'
 
 import question from "../../assets/question-sign.svg"
 import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
-import {NavBar} from '../NavBar/NavBar'
 
 import { tourPlans } from "../../mockdata/tourPlan"
 
