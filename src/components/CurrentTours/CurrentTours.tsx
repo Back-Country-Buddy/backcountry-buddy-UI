@@ -25,8 +25,12 @@ export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
   
   return (
     <main className="current-tours">
+    <div className='current-background-img'>
       <h1>Current Tours</h1>
-      {tours}
+      <section className='card-container'>
+        {tours}
+      </section>
+    </div>
     </main>
   )
 }

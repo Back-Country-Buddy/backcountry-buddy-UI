@@ -40,11 +40,13 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
 
   return (
     <main className="past-tours">
+    <div className='background-img'>
       <h1>Past Tours</h1>
       <SearchBar filterTours={filterTours} />
       <section className="card-container">
         {createPastTourCards}
       </section>
+    </div>
     </main>
   )
 }

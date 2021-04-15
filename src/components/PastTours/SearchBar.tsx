@@ -22,14 +22,16 @@ export const SearchBar: React.FC<searchProps> = ({ filterTours }) => {
   }
 
   return (
-    <form className="search-input">
-      <input
-        type="text"
-        name="input"
-        placeholder="Search By Location"
-        value={input}
-        onChange={(event) => handleChange(event)}
-      />
-    </form>
+    <div className='search-wrapper'>
+      <form className="search-input">
+        <input
+          type="text"
+          name="input"
+          placeholder="Search By Location"
+          value={input}
+          onChange={(event) => handleChange(event)}
+        />
+      </form>
+    </div>
   )
 }
