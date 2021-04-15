@@ -11,6 +11,7 @@ export const FormNav = (props) => {
       <button
         key={i}
         onClick={e => advanceSubForm(e, i+1)}
+        className='form-nav'
       >{step}</button>
     )
   })

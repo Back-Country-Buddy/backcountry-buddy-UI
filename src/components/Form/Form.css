@@ -12,3 +12,18 @@ form {
   width: 90%;
   height: auto;
 }
+
+.form-basic {
+  height: 15vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.form-subform {
+  height: 68vh;
+}
+
+textarea {
+  width: 90%;
+  resize: none;
+}

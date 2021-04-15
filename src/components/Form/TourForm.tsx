@@ -65,17 +65,23 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   return (
     <main>
       <div className='form-basic'>
-        <input
-          type='date'
-          value={textFields.date}
-          onChange={e => setTextFields({ ...textFields, date: e.target.value})}
-          min={getDateString(new Date())}
-        />
-        <input
-          type='text'
-          value={textFields.location}
-          onChange={e => setTextFields({ ...textFields, location: e.target.value})}
-        />
+        <div>
+          <p>DATE</p>
+          <input
+            type='date'
+            value={textFields.date}
+            onChange={e => setTextFields({ ...textFields, date: e.target.value})}
+            min={getDateString(new Date())}
+          />
+        </div>
+        <div>
+          <p>LOCATION</p>
+          <input
+            type='text'
+            value={textFields.location}
+            onChange={e => setTextFields({ ...textFields, location: e.target.value})}
+          />
+        </div>
       </div>
       <div className='form-subform'>
         <StepWizard
