@@ -55,7 +55,7 @@ describe("Add Tour Form Page", () => {
 
   it("Should have a date and location field", () => {
     cy.get('input[type="date"]')
-      .get('input[type="text"]')
+      .get('textarea')
       .eq(0)
       .should("have.text", "")
 
@@ -70,14 +70,15 @@ describe("Add Tour Form Page", () => {
     logOut()
   })
 
-  it("Should check the Anticipate the Hazard checkbox if all section inputs have text", () => {
-    cy.get('input[type="text"]')
+  it.skip("Should check the Anticipate the Hazard checkbox if all section inputs have text", () => {
+    cy.get('.form-nav').eq(5).click()
+      .get('textarea')
       .eq(1)
       .type("testing 1")
-      .get('input[type="text"]')
+      .get('textarea')
       .eq(2)
       .type("testing 2")
-      .get('input[type="text"]')
+      .get('textarea')
       .eq(3)
       .type("testing 3")
       .get('input[type="checkbox"]')
@@ -87,11 +88,11 @@ describe("Add Tour Form Page", () => {
     logOut()
   })
 
-  it("Should check the Plan Your Route checkbox if all section inputs have text", () => {
-    cy.get('input[type="text"]')
+  it.skip("Should check the Plan Your Route checkbox if all section inputs have text", () => {
+    cy.get('textarea')
       .eq(5)
       .type("testing 4")
-      .get('input[type="text"]')
+      .get('textarea')
       .eq(6)
       .type("testing 5")
       .get('input[type="checkbox"]')
@@ -101,8 +102,8 @@ describe("Add Tour Form Page", () => {
     logOut()
   })
 
-  it("Should check the Discuss your emergency plan checkbox if all section inputs have text", () => {
-    cy.get('input[type="text"]')
+  it.skip("Should check the Discuss your emergency plan checkbox if all section inputs have text", () => {
+    cy.get('textarea')
       .eq(7)
       .type("testing 6")
       .get('input[type="checkbox"]')

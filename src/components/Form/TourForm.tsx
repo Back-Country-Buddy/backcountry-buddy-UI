@@ -4,6 +4,8 @@ import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
 import { getDateString } from '../../util'
+import StepWizard from 'react-step-wizard'
+import { FormNav } from './FormNav'
 import './Form.css'
 
 interface TourFormProps {
@@ -61,30 +63,47 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
   }
 
   return (
-    <div>
-      <input
-        type='date'
-        value={textFields.date}
-        onChange={e => setTextFields({ ...textFields, date: e.target.value})}
-        min={getDateString(new Date())}
-      />
-      <input
-        type='text'
-        value={textFields.location}
-        onChange={e => setTextFields({ ...textFields, location: e.target.value})}
-      />
-      <Plan
-        renderTextInputs={renderTextInputs}
-        isChecked={isChecked}
-      />
-      <Ride
-        setChecked={setDepartureCheck}
-        isChecked={isDepartureChecked}
-      />
-      <Debrief
-        renderTextInputs={renderTextInputs}
-        isChecked={isChecked}
-      />
-    </div>
+    <main>
+      <div className='form-basic'>
+        <div>
+          <p>DATE</p>
+          <input
+            type='date'
+            value={textFields.date}
+            onChange={e => setTextFields({ ...textFields, date: e.target.value})}
+            min={getDateString(new Date())}
+          />
+        </div>
+        <div>
+          <p>LOCATION</p>
+          <input
+            type='text'
+            value={textFields.location}
+            onChange={e => setTextFields({ ...textFields, location: e.target.value})}
+          />
+        </div>
+      </div>
+      <div className='form-subform'>
+        <StepWizard
+          nav={<FormNav
+            steps={['PLAN', 'RIDE', 'DEBRIEF']}
+          />}
+        >
+          <Plan
+            renderTextInputs={renderTextInputs}
+            isChecked={isChecked}
+          />
+          <Ride
+            setChecked={setDepartureCheck}
+            isChecked={isDepartureChecked}
+          />
+          <Debrief
+            renderTextInputs={renderTextInputs}
+            isChecked={isChecked}
+          />
+        </StepWizard>
+      </div>
+      <button>SAVE</button>
+    </main>
   )
 }
