@@ -26,4 +26,5 @@ form {
 textarea {
   width: 90%;
   resize: none;
+  pointer-events: auto;
 }
