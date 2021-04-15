@@ -90,7 +90,7 @@ h1 {
 .plan-wrapper {
   height:99vh;
   overflow: scroll;
-    background: linear-gradient(to right,#737dfe, #900AA1, #737dfe);
+  background: linear-gradient(to right,#737dfe, #900AA1, #737dfe);
 }
 
 .border-wrapper {
