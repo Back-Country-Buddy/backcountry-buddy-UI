@@ -192,7 +192,6 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
           </article>
         </section>
       </div>
-      <NavBar />
     </main>
   )
 }

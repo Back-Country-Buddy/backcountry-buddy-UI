@@ -7,29 +7,16 @@
 }
 
 .landing-img {
-  /* background: linear-gradient(
-                     rgba(20,20,20, .5), 
-                     rgba(20,20,20, 0)),
-                     url('../../assets/landing.jpeg'); */
-  /* background: linear-gradient(rgba(20, 20, 20, 0.5), rgba(20, 20, 20, 0)),
-    url("../../assets/lb8ua1fpdma6b3jf0f0cvjhdu7-f57d44a60c038c1b142c6abf947a0667.png"); */
-  background: url("../../assets/lb8ua1fpdma6b3jf0f0cvjhdu7-f57d44a60c038c1b142c6abf947a0667.png");
+  background: url("../../assets/brightpurple.png");
   background-position: center;
   background-size: cover;
-  /* color: #8420E9; */
   width: 100%;
   height: 100%;
 }
 
 .logo {
   font-size: 3em;
-  /* background: -webkit-linear-gradient(#cb5eee, #4be1ec);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
-  /* background: -webkit-linear-gradient( #ff0076, #590fb7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; */
-  background: linear-gradient(to right, #ff0076 0%, #590fb7 100%);
+  background: linear-gradient(to right, #590fb7,#ff0076, #590fb7);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 }

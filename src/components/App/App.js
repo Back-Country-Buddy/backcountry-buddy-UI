@@ -57,7 +57,7 @@ function App() {
 
       <Route path="/tour-details/:id" component={PastTourDetails} />
       
-      {/* {isAuthenticated && <NavBar />} */}
+      {isAuthenticated && <NavBar />}
     </div>
   )
 }
