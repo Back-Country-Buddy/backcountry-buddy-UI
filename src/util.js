@@ -23,3 +23,32 @@ export const addUser = (url, name, email, emergencyName, emergencyNumber, auth) 
     })
 }
 
+export const getUser = (url, auth) => {
+  let user
+  return fetch(`url/${auth}`)
+    .then(response => response.json())
+    .then(users => {
+      users.find(user => user.auth === auth)
+    })
+}
+
+export const deleteUser = (id) => {
+  return fetch(`url/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({ id: id })
+  })
+    .then(response => {
+      if (response.ok) {
+        return response
+      } else {
+        throw new Error('We apologize, we are having issues loading this page.')
+      }
+    })
+}
+
+
+
