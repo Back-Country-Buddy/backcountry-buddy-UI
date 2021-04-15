@@ -55,6 +55,16 @@ h1 {
   margin: 1% 0;
 }
 
+.tour-card:hover {
+  color: #ffffff;
+  background: #13E2DA;
+  border-color: #13E2DA;
+  /* background: #737dfe;
+  border-color: #737dfe; */
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+}
+
 .card-info {
   width: 50%;
 }
@@ -90,13 +100,13 @@ h1 {
 .plan-wrapper {
   height:99vh;
   overflow: scroll;
-  background: linear-gradient(to right,#737dfe, #900AA1, #737dfe);
+  background: linear-gradient(to right,#900AA1, #737dfe, #900AA1);
 }
 
 .border-wrapper {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -106,7 +116,7 @@ h1 {
   background-color: #f8f8ff;
   border: 2px solid #900AA1;
   margin: 1.5%;
-  padding: 5%;
+  padding: 2%;
 }
 
 .sub-category {
