@@ -19,7 +19,20 @@ import { tourData } from "../../mockdata/PastTourData"
 import { handleLogin } from "../../util"
 
 const App = () => {
-  const [userState, setUserState] = useState(null)
+  const [userState, setUserState] = useState({
+    given_name: "",
+    family_name: "",
+    nickname: "",
+    name: "",
+    picture: "",
+    locale: "",
+    updated_at: "",
+    email: "",
+    email_verified: "",
+    sub: "",
+    emergency_contact_name: "",
+    emergency_number: "",
+  }) // do we even need this anymore?
   const [currentTours] = useState(currentToursData)
   const [pastTours] = useState(tourData)
 
@@ -27,13 +40,44 @@ const App = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAccessTokenSilently().then((response) => {
-        handleLogin(response, user).then((response) =>
-          setUserState({ ...userState, response })
-        )
+      getAccessTokenSilently().then((token) => {
+        handleLogin(token, user).then((fetchedUser) => {
+          console.log(fetchedUser);
+          const newUser = user
+          newUser.emergency_contact_name = ""
+          newUser.emergency_number = ""
+
+          setUserState(newUser)
+        })
       })
     }
-  }, [user, userState, isAuthenticated, getAccessTokenSilently])
+  }, [isAuthenticated, getAccessTokenSilently])
+
+  {
+    "data": {
+        "id": "2",
+        "type": "user",
+        "attributes": {
+            "user_name": "tashia10",
+            "email_address": "tashiadavis10@gmail.com",
+            "emergency_contact_name": "dad",
+            "emergency_number": "62452987"
+        }
+    }
+  }
+
+  // email: "tashiadavis10@gmail.com"
+  // email_verified: true
+  // emergency_contact_name: ""
+  // emergency_number: ""
+  family_name: "Davis"
+  given_name: "Tashia"
+  // locale: "en"
+  name: "Tashia Davis"
+  // nickname: "tashiadavis10"
+  picture: "https://lh3.googleusercontent.com/a-/AOh14GgiYKYPr_QuUGJEbS75WyCnAkrXRG_kBhGx0U8bLw=s96-c"
+  // sub: "google-oauth2|101176822879505420419"
+  // updated_at: "2021-04-16T19:39:11.237Z"
 
   return (
     <div className="App">
@@ -45,15 +89,7 @@ const App = () => {
 
       <Route
         path="/profile"
-        render={() => (
-          <Profile
-            name={userData.name}
-            email={userData.email}
-            userName={userData.userName}
-            emergencyName={userData.emergencyName}
-            emergencyNumber={userData.emergencyNumber}
-          />
-        )}
+        render={() => <Profile user={userState} setUser={setUserState} />}
       />
 
       <Route

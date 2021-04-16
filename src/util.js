@@ -1,6 +1,8 @@
-export const getDateString = (date: Date): string => {
+export const getDateString = date => {
   return date.toISOString().substring(0, 10)
 }
+
+
 
 export const addUser = (
   auth,
@@ -10,8 +12,7 @@ export const addUser = (
     user_name: name,
     email_address: email,
     emergency_contact_name: emergencyName,
-    emergency_number: emergencyNumber,
-    auth: auth,
+    emergency_number: emergencyNumber
   }
 
   return fetch(
@@ -20,8 +21,8 @@ export const addUser = (
       method: "POST",
       headers: {
         "Content-type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${auth}`,
+        "Accept": "application/json",
+        "Authorization": `Bearer ${auth}`,
       },
       body: JSON.stringify(body),
     }
@@ -37,13 +38,13 @@ export const addUser = (
 export const getUser = (auth, userData) => {
   console.log(userData)
   return fetch(
-    `https://backcountry-restapi.herokuapp.com/api/private/v1/user?email_address=${userData.email}`,
+    `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userData.email}`,
     {
       headers: {
         "Content-type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${auth}`,
-      },
+        "Accept": "application/json",
+        "Authorization": `Bearer ${auth}`,
+      }
     }
   ).then((response) => response.json())
   // .then(users => {
@@ -61,12 +62,27 @@ export const handleLogin = (auth, userData) => {
   })
 }
 
+export const updateUser = (auth, id, data) => {
+  return fetch(
+    `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-type": "application/json",
+        "Accept": "application/json",
+        "Authorization": `Bearer ${auth}`,
+      },
+      body: JSON.stringify(data),
+    }
+  ).then((response) => response.json())
+}
+
 export const deleteUser = (id) => {
   return fetch(`url/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json",
+      "Accept": "application/json",
     },
     body: JSON.stringify({ id: id }),
   }).then((response) => {

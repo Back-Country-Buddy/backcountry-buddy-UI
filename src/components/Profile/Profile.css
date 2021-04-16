@@ -1,0 +1,28 @@
+.profile-photo {
+  border-radius: 50%;
+  border: 3px solid #900aa1;
+}
+
+.emergency-form {
+  margin-bottom: 3%;
+}
+
+.emergency-form-section {
+  margin: 3%;
+}
+
+.emergency-label {
+  margin-right: 2%;
+}
+
+.profile-background-img {
+  background: url("../../assets/archcloud.png");
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.profile {
+    background: #f8f8ff;
+}
