@@ -6,18 +6,15 @@ import { LogoutButton } from "../Login/LogoutButton"
 
 interface ProfileProps {
   user: {
-    given_name: string
-    family_name: string
-    nickname: string
-    name: string
-    picture: string
-    locale: string
-    updated_at: string
-    email: string
-    email_verified: string
-    sub: string
+    id: string
+    user_name: string
+    email_address: string
     emergency_contact_name: string
     emergency_number: string
+    last_name: string
+    first_name: string
+    full_name: string
+    picture: string
   }
   setUser: React.Dispatch<React.SetStateAction<any>>
 }
@@ -28,10 +25,11 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
   const submitInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
     getAccessTokenSilently().then((token) => {
-      updateUser(token, 2, {
+      updateUser(token, user.id, {
         emergency_contact_name: user.emergency_contact_name,
         emergency_number: user.emergency_number,
       })
+      // updateUser(token, user.id, user.emergency_contact_name, user.emergency_number)
     })
   }
 
@@ -39,11 +37,11 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
     <main>
       <div className="profile-background-img">
         <h1>My Account</h1>
-        <img src={user.picture} alt={user.name} className="profile-photo" />
+        <img src={user.picture} alt={user.full_name} className="profile-photo" />
         <div className="profile">
-          <p className="name">Name: {user.name}</p>
-          <p className="email">Email: {user.email}</p>
-          <p className="userName">Username: {user.nickname}</p>
+          <p className="name">Name: {user.first_name}</p>
+          <p className="email">Email: {user.email_address}</p>
+          <p className="userName">Username: {user.user_name}</p>
           <h3>Emergency Contact:</h3>
           <form className="emergency-form">
             <div className="emergency-form-section">

@@ -48,7 +48,8 @@ export const addUser = (
 }
 
 export const getUser = (auth, userData) => {
-  console.log(userData)
+  // console.log(userData)
+  // console.log("get auth", auth);
   return fetch(
     `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userData.email}`,
     {
@@ -59,9 +60,6 @@ export const getUser = (auth, userData) => {
       }
     }
   ).then((response) => response.json())
-  // .then(users => {
-  //   users.find(user => user.auth === auth)
-  // })
 }
 
 export const handleLogin = (auth, userData) => {
@@ -75,7 +73,9 @@ export const handleLogin = (auth, userData) => {
 }
 
 export const updateUser = (auth, id, data) => {
+  // console.log('patch auth', auth);
   return fetch(
+    // `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}?emergency_contact_name=${name}&emergency_number=${number}`,
     `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
     {
       method: "PATCH",
@@ -83,6 +83,7 @@ export const updateUser = (auth, id, data) => {
         "Content-type": "application/json",
         "Accept": "application/json",
         "Authorization": `Bearer ${auth}`,
+        "Access-Control-Allow-Origin": "*"
       },
       body: JSON.stringify(data),
     }

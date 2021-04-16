@@ -32,7 +32,6 @@ const App = () => {
   })
   const [currentTours] = useState(currentToursData)
   const [pastTours] = useState(tourData)
-
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
