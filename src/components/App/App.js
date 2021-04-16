@@ -15,7 +15,8 @@ import { NavBar } from "../NavBar/NavBar"
 import { userData } from "../../mockdata/UserDummyData"
 import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { tourData } from "../../mockdata/PastTourData"
-import { handleLogin } from '../../util'
+
+import { handleLogin } from "../../util"
 
 const App = () => {
   const [userState, setUserState] = useState(null)
@@ -26,17 +27,21 @@ const App = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAccessTokenSilently()
-        .then(response => {
-          handleLogin(response, user)
-            .then(response => setUserState({ ...userState, response}))
-        })
+      getAccessTokenSilently().then((response) => {
+        handleLogin(response, user).then((response) =>
+          setUserState({ ...userState, response })
+        )
+      })
     }
-  }, [isAuthenticated, getAccessTokenSilently])
+  }, [user, userState, isAuthenticated, getAccessTokenSilently])
 
   return (
     <div className="App">
-      <Route exact path="/" render={() => <LandingPage name={userData.name} />} />
+      <Route
+        exact
+        path="/"
+        render={() => <LandingPage name={userData.name} />}
+      />
 
       <Route
         path="/profile"
