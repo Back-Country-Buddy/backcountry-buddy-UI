@@ -1,10 +1,13 @@
+import { useAuth0 } from "@auth0/auth0-react"
+
 export const getDateString = (date: Date): string => {
   return date.toISOString().substring(0, 10)
 }
 
 const url = 'https://backcountry-restapi.herokuapp.com/api/v1/user'
 
-export const addUser = (name, email, emergencyName, emergencyNumber, auth) => {
+export const addUser = (auth, {name, email, emergencyName, emergencyNumber}) => {
+
   const body = {
     user_name: name,
     email_address: email,
@@ -12,32 +15,47 @@ export const addUser = (name, email, emergencyName, emergencyNumber, auth) => {
     emergency_number: emergencyNumber,
     auth: auth
   }
-  console.log(body)
 
-  return fetch('https://backcountry-restapi.herokuapp.com/api/v1/user', {
+  return fetch('https://backcountry-restapi.herokuapp.com/api/private/v1/user', {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${auth}`
     },
     body: JSON.stringify(body)
   })
     .then(response => {
-      console.log(response)
       if (response.ok) {
-        return response
+        return response.json()
       } else {
-        throw new Error('We apologize, we are having issues loading this page.')
+        return response // throw new Error('We apologize, we are having issues loading this page.')
       }
     })
 }
 
-export const getUser = (url, auth) => {
-  let user
-  return fetch(`url/${auth}`)
-    .then(response => response.json())
-    .then(users => {
-      users.find(user => user.auth === auth)
+export const getUser = (auth, userData) => {
+  console.log(userData)
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user?email_address=${userData.email}`, {
+    headers: {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': `Bearer ${auth}`
+    }
+  }).then(response => response.json())
+    // .then(users => {
+    //   users.find(user => user.auth === auth)
+    // })
+}
+
+export const handleLogin = (auth, userData) => {
+  return getUser(auth, userData)
+    .then(response => {
+      if (response.status === 404) {
+        return addUser(auth, userData)
+      } else {
+        return response
+      }
     })
 }
 

@@ -9,12 +9,6 @@ import "./LandingPage.css"
 export const LandingPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth0()
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     addUser(user.name, user.email, 'Humpty Dumpty', '666-666-6666', user.sub)
-  //   }
-  // }, [isAuthenticated])
-
   return (
     <main className="landing">
       <header className="landing-img">
