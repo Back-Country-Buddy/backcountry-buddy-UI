@@ -16,7 +16,7 @@ import { userData } from "../../mockdata/UserDummyData"
 import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { tourData } from "../../mockdata/PastTourData"
 
-import { formatUser, handleLogin } from "../../util"
+import { formatUser, handleLogin, updateUser, deleteUser } from "../../util"
 
 const App = () => {
   const [userState, setUserState] = useState({
@@ -38,12 +38,11 @@ const App = () => {
     if (isAuthenticated) {
       getAccessTokenSilently().then((token) => {
         handleLogin(token, user).then((fetchedUser) => {
-          console.log(fetchedUser)
           setUserState(formatUser(user, fetchedUser.data[0]))
         })
       })
     }
-  }, [isAuthenticated, getAccessTokenSilently])
+  }, [isAuthenticated])
 
   return (
     <div className="App">

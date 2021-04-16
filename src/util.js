@@ -16,6 +16,14 @@ export const formatUser = (authUser, apiUser) => {
   }
 }
 
+const checkResponse = response => {
+  if (response.ok) {
+    return response.json()
+  } else {
+    throw response
+  }
+}
+
 export const addUser = (
   auth,
   { name, email, emergencyName, emergencyNumber }
@@ -38,18 +46,10 @@ export const addUser = (
       },
       body: JSON.stringify(body),
     }
-  ).then((response) => {
-    if (response.ok) {
-      return response.json()
-    } else {
-      return response // throw new Error('We apologize, we are having issues loading this page.')
-    }
-  })
+  ).then(response => checkResponse(response))
 }
 
 export const getUser = (auth, userData) => {
-  // console.log(userData)
-  // console.log("get auth", auth);
   return fetch(
     `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userData.email}`,
     {
@@ -59,43 +59,42 @@ export const getUser = (auth, userData) => {
         "Authorization": `Bearer ${auth}`,
       }
     }
-  ).then((response) => response.json())
+  ).then(response => checkResponse(response))
 }
 
 export const handleLogin = (auth, userData) => {
-  return getUser(auth, userData).then((response) => {
-    if (response.status === 404) {
-      return addUser(auth, userData)
-    } else {
-      return response
-    }
-  })
+  return getUser(auth, userData)
+    .catch(err => {
+      if (err.status === 404) {
+        console.log('hi')
+        return addUser(auth, userData)
+      } else {
+        return err
+      }
+    })
 }
 
 export const updateUser = (auth, id, data) => {
-  // console.log('patch auth', auth);
-  return fetch(
-    // `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}?emergency_contact_name=${name}&emergency_number=${number}`,
-    `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
     {
       method: "PATCH",
       headers: {
         "Content-type": "application/json",
         "Accept": "application/json",
-        "Authorization": `Bearer ${auth}`,
-        "Access-Control-Allow-Origin": "*"
+        "Authorization": `Bearer ${auth}`
       },
       body: JSON.stringify(data),
     }
-  ).then((response) => response.json())
+  ).then(response => checkResponse(response))
 }
 
-export const deleteUser = (id) => {
+export const deleteUser = (id, auth) => {
   return fetch(`url/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
     },
     body: JSON.stringify({ id: id }),
   }).then((response) => {

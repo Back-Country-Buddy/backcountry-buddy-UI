@@ -14,7 +14,7 @@ ReactDOM.render(
       clientId="xq75vrn6mmA5fnAI7hk1Hf39lVf6RNLG"
       redirectUri={window.location.origin}
       audience="https://dev-bckux7co.us.auth0.com/api/v2/"
-      // scope="read:current_user update:current_user"
+      scope="read:current_user update:current_user"
     >
       <App />
     </Auth0Provider>
