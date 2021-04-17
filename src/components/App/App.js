@@ -58,8 +58,14 @@ const App = () => {
       />
 
       <Route
+        exact
         path="/add-tour"
         render={() => <TourForm userId={userState.id} />}
+      />
+
+      <Route
+        path="/add-tour/:userId/:tourId"
+        component={TourForm}
       />
 
       <Route
