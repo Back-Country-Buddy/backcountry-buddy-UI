@@ -75,7 +75,7 @@ export const handleLogin = (auth, userData) => {
 }
 
 export const updateUser = (auth, id, data) => {
-  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
     {
       method: "PATCH",
       headers: {
@@ -113,6 +113,17 @@ export const addTour = (auth, id, data) => {
   }).then(response => checkResponse(response))
 }
 
+export const getPlan = (auth, userId, tourId) => {
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,
+    {
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    }
+  }).then(response => checkResponse(response))
+}
+
 export const addPlan = (auth, userId, tourId) => {
   return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,
     {
@@ -139,8 +150,8 @@ export const updateTour = (auth, userId, tourId, data) => {
   }).then(response => checkResponse(response))
 }
 
-export const updatePlan = (auth, userId, tourId, planId, data) => {
-  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan/${planId}`,
+export const updatePlan = (auth, planId, data) => {
+  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/plan/${planId}`,
     {
     method: 'PATCH',
     headers: {

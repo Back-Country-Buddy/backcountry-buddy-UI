@@ -8,7 +8,7 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan } from "../../util.js"
+import { getDateString, addTour, updatePlan, addPlan, getPlan } from "../../util.js"
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
@@ -55,21 +55,25 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
-          addTour(token, userId, {
-            creator_id: userId,
-            location: 'Someplace',
-            date: '0000000'
-          }).then(response => {
-            setTourId(response.data.id)
-            addPlan(token, userId, response.data.id)
-              .then(response => setPlanId(response.data.id))
-          })
+
     })
   }, [userId])
 
   const sendFormUpdate = () => {
     getAccessTokenSilently().then(token => {
-        updatePlan(token, userId, tourId, planId, textFields)
+      if (planId === 0) {
+        addTour(token, userId, {
+          creator_id: userId,
+          location: 'Someplace',
+          date: '0000000'
+        }).then(response => {
+          setTourId(response.data.id)
+          addPlan(token, userId, response.data.id)
+          .then(response => setPlanId(response.data.id))
+        })
+      } else {
+        updatePlan(token, planId, {route_preview: 'did this work?'})
+      }
     })
   }
 
