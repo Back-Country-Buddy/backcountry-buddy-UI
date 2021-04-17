@@ -15,19 +15,19 @@ export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked })
         fields={['debriefConditions']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefConditions'])}
+      {renderTextInputs(['debrief_conditions'])}
       <SectionTitle
         title="Review Today's Decisions"
         fields={['debriefDecisions']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefDecisions'])}
+      {renderTextInputs(['debrief_decisions'])}
       <SectionTitle
         title="Improve Today's Plan"
         fields={['debriefPlan']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefPlan'])}
+      {renderTextInputs(['debrief_plan'])}
     </form>
   )
 }

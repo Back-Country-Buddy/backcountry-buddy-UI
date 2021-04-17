@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import StepWizard from "react-step-wizard"
 import "./Form.css"
+import { RouteComponentProps } from "react-router-dom"
 
 import { Ride } from "./Ride"
 import { Plan } from "./Plan"
@@ -8,19 +9,25 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan, getPlan } from "../../util.js"
+import { getDateString, addTour, updatePlan, addPlan, getPlan, cleanInputStrings } from "../../util.js"
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
-  userId: number
-  presetTourId?: number
-  presetPlanId?: number
+  userId?: number
+  match?: any
 }
 
-interface TourFormTextFields {
+interface TParams {
+  userId: string
+  tourId: string
+}
+
+interface BasicFields {
   location: string
   date: string
-  group: string
+}
+
+interface PlanFields {
   hazard_weather: string
   hazard_avalanche: string
   hazard_summary: string
@@ -32,11 +39,8 @@ interface TourFormTextFields {
   debrief_plan: string
 }
 
-export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, presetPlanId }) => {
-  const [textFields, setTextFields] = useState<TourFormTextFields>({
-    location: "",
-    date: getDateString(new Date()),
-    group: "",
+export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
+  const [planFields, setPlanFields] = useState<PlanFields>({
     hazard_weather: "",
     hazard_avalanche: "",
     hazard_summary: "",
@@ -48,12 +52,29 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
     debrief_plan: "",
   })
 
-  const [tourId, setTourId] = useState<number>(presetTourId ? presetTourId : 0)
-  const [planId, setPlanId] = useState<number>(presetPlanId ? presetPlanId : 0)
+  const [basicFields, setBasicFields] = useState<BasicFields>({
+    location: "",
+    date: getDateString(new Date()),
+  })
 
+
+  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
+  const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    if (tourId.length) {
+      getAccessTokenSilently().then(token =>
+        getPlan(token, match.params.userId, tourId).then(plan => {
+          setPlanId(plan.data[0].id)
+            setPlanFields(cleanInputStrings(plan.data[0].attributes))
+        })
+      )
+    }
+  }, [])
+
 
   const sendFormUpdate = () => {
     getAccessTokenSilently().then(token => {
@@ -68,7 +89,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
           .then(response => setPlanId(response.data.id))
         })
       } else {
-        updatePlan(token, planId, {route_preview: 'did this work?'})
+        updatePlan(token, planId, planFields)
       }
     })
   }
@@ -82,9 +103,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
         <TextField
           key={i}
           prompt={prompts ? prompts[i] : null}
-          value={textFields[field as keyof TourFormTextFields]}
+          value={planFields[field as keyof PlanFields]}
           updateForm={(e) =>
-            setTextFields({ ...textFields, [field]: e.target.value })
+            setPlanFields({ ...planFields, [field]: e.target.value })
           }
         />
       )
@@ -93,7 +114,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
 
   const isChecked = (fields: string[]) => {
     return !fields.find(
-      (field) => textFields[field as keyof TourFormTextFields] === ""
+      (field) => planFields[field as keyof PlanFields] === ""
     )
   }
 
@@ -108,9 +129,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
           <input
             type="date"
             name="date"
-            value={textFields.date}
+            value={basicFields.date}
             onChange={(e) =>
-              setTextFields({ ...textFields, date: e.target.value })
+              setBasicFields({ ...basicFields, date: e.target.value })
             }
             min={getDateString(new Date())}
           />
@@ -122,9 +143,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, preset
           <input
             type="text"
             name="location"
-            value={textFields.location}
+            value={basicFields.location}
             onChange={(e) =>
-              setTextFields({ ...textFields, location: e.target.value })
+              setBasicFields({ ...basicFields, location: e.target.value })
             }
           />
         </div>
