@@ -64,13 +64,13 @@ const App = () => {
       />
 
       <Route
-        path="/add-tour/:userId/:tourId"
+        path="/tour-form/:userId/:tourId"
         component={TourForm}
       />
 
       <Route
         path="/current-tours"
-        render={() => <CurrentTours currentTours={currentTours} />}
+        render={() => <CurrentTours userId={userState.id} />}
       />
 
       <Route

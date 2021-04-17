@@ -32,6 +32,8 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
         key={tour.id}
         date={tour.date}
         location={tour.location}
+        tourId={tour.id}
+        userId={userId}
       />
     )
   })
