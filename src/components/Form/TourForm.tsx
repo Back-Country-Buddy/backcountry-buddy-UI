@@ -13,6 +13,8 @@ import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
   userId: number
+  presetTourId?: number
+  presetPlanId?: number
 }
 
 interface TourFormTextFields {
@@ -30,7 +32,7 @@ interface TourFormTextFields {
   debrief_plan: string
 }
 
-export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
+export const TourForm: React.FC<TourFormProps> = ({ userId, presetTourId, presetPlanId }) => {
   const [textFields, setTextFields] = useState<TourFormTextFields>({
     location: "",
     date: getDateString(new Date()),
@@ -46,18 +48,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     debrief_plan: "",
   })
 
-  const [tourId, setTourId] = useState<number>(0)
-  const [planId, setPlanId] = useState<number>(0)
+  const [tourId, setTourId] = useState<number>(presetTourId ? presetTourId : 0)
+  const [planId, setPlanId] = useState<number>(presetPlanId ? presetPlanId : 0)
 
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
-
-  useEffect(() => {
-    getAccessTokenSilently().then(token => {
-
-    })
-  }, [userId])
 
   const sendFormUpdate = () => {
     getAccessTokenSilently().then(token => {
