@@ -1,4 +1,5 @@
 import React from 'react'
+import './Form.css'
 
 interface SectionTitleProps {
   title: string,
@@ -14,7 +15,7 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({title, fields, isChec
         checked={isChecked(fields)}
         readOnly={true}
       />
-      <h3>{title}</h3>
+      <h3 className='form-title'>{title}</h3>
     </div>
   )
 }

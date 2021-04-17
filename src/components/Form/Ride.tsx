@@ -1,5 +1,7 @@
 import React from 'react'
 import placeholder from '../../assets/placeholderChartAsset.png'
+import './Form.css'
+import route from '../../assets/travel.svg'
 
 interface RideProps {
   setChecked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -9,7 +11,10 @@ interface RideProps {
 export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
   return (
     <form>
-      <h2>RIDE safely</h2>
+      <div className='title-wrapper'>
+        <img src={route} alt="lightbulb" className="form-icon" />
+        <h2>RIDE safely</h2>
+      </div>
       <div>
         <input
           type='checkbox'
