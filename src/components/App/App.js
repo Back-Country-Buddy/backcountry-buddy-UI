@@ -59,7 +59,7 @@ const App = () => {
 
       <Route
         path="/add-tour"
-        render={() => <TourForm userId={userData.id} />}
+        render={() => <TourForm userId={userState.id} />}
       />
 
       <Route

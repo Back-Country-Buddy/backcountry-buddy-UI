@@ -97,11 +97,57 @@ export const deleteUser = (id, auth) => {
       "Authorization": `Bearer ${auth}`
     },
     body: JSON.stringify({ id: id }),
-  }).then((response) => {
-    if (response.ok) {
-      return response
-    } else {
-      throw new Error("We apologize, we are having issues loading this page.")
-    }
-  })
+  }).then(response => checkResponse(response))
+}
+
+export const addTour = (auth, id, data) => {
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}/tour`,
+    {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    body: JSON.stringify(data)
+  }).then(response => checkResponse(response))
+}
+
+export const addPlan = (auth, userId, tourId) => {
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,
+    {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    body: JSON.stringify({})
+  }).then(response => checkResponse(response))
+}
+
+export const updateTour = (auth, userId, tourId, data) => {
+  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}`,
+    {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    body: JSON.stringify(data)
+  }).then(response => checkResponse(response))
+}
+
+export const updatePlan = (auth, userId, tourId, planId, data) => {
+  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan/${planId}`,
+    {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    body: JSON.stringify(data)
+  }).then(response => checkResponse(response))
 }

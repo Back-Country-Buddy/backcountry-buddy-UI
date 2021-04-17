@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import StepWizard from "react-step-wizard"
 import "./Form.css"
 
@@ -8,7 +8,8 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString } from "../../util"
+import { getDateString, addTour, updatePlan, addPlan } from "../../util.js"
+import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
   userId: number
@@ -18,15 +19,15 @@ interface TourFormTextFields {
   location: string
   date: string
   group: string
-  hazardWeather: string
-  hazardAvalanche: string
-  hazardSummary: string
-  routePreview: string
-  routeAlternative: string
-  emergencyPlan: string
-  debriefConditions: string
-  debriefDecisions: string
-  debriefPlan: string
+  hazard_weather: string
+  hazard_avalanche: string
+  hazard_summary: string
+  route_preview: string
+  route_alternative: string
+  emergency_plan: string
+  debrief_conditions: string
+  debrief_decisions: string
+  debrief_plan: string
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
@@ -34,18 +35,43 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
     location: "",
     date: getDateString(new Date()),
     group: "",
-    hazardWeather: "",
-    hazardAvalanche: "",
-    hazardSummary: "",
-    routePreview: "",
-    routeAlternative: "",
-    emergencyPlan: "",
-    debriefConditions: "",
-    debriefDecisions: "",
-    debriefPlan: "",
+    hazard_weather: "",
+    hazard_avalanche: "",
+    hazard_summary: "",
+    route_preview: "",
+    route_alternative: "",
+    emergency_plan: "",
+    debrief_conditions: "",
+    debrief_decisions: "",
+    debrief_plan: "",
   })
 
+  const [tourId, setTourId] = useState<number>(0)
+  const [planId, setPlanId] = useState<number>(0)
+
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
+
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    getAccessTokenSilently().then(token => {
+          addTour(token, userId, {
+            creator_id: userId,
+            location: 'Someplace',
+            date: '0000000'
+          }).then(response => {
+            setTourId(response.data.id)
+            addPlan(token, userId, response.data.id)
+              .then(response => setPlanId(response.data.id))
+          })
+    })
+  }, [userId])
+
+  const sendFormUpdate = () => {
+    getAccessTokenSilently().then(token => {
+        updatePlan(token, userId, tourId, planId, textFields)
+    })
+  }
 
   const renderTextInputs = (
     fields: string[],
@@ -103,6 +129,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
           />
         </div>
       </form>
+      <button onClick={sendFormUpdate}>SAVE</button>
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
           <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
@@ -110,7 +137,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
           <Debrief renderTextInputs={renderTextInputs} isChecked={isChecked} />
         </StepWizard>
       </div>
-      <button>SAVE</button>
     </main>
   )
 }
