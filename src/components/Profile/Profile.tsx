@@ -1,7 +1,7 @@
 import React from "react"
 import "./Profile.css"
 import { useAuth0 } from "@auth0/auth0-react"
-import { updateUser } from "../../util"
+import { updateUser } from "../../util.js"
 import { LogoutButton } from "../Login/LogoutButton"
 
 interface ProfileProps {
@@ -29,7 +29,6 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
         emergency_contact_name: user.emergency_contact_name,
         emergency_number: user.emergency_number,
       })
-      // updateUser(token, user.id, user.emergency_contact_name, user.emergency_number)
     })
   }
 

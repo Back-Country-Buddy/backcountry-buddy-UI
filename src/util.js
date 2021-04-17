@@ -31,8 +31,8 @@ export const addUser = (
   const body = {
     user_name: name,
     email_address: email,
-    emergency_contact_name: emergencyName,
-    emergency_number: emergencyNumber
+    emergency_contact_name: '',
+    emergency_number: ''
   }
 
   return fetch(
@@ -75,7 +75,7 @@ export const handleLogin = (auth, userData) => {
 }
 
 export const updateUser = (auth, id, data) => {
-  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
+  return fetch(`https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
     {
       method: "PATCH",
       headers: {
