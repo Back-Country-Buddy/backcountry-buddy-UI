@@ -1,6 +1,8 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import { useAuth0 } from "@auth0/auth0-react"
 import "./CurrentTours.css"
 import CurrentTourCard from "./CurrentTourCard"
+import { getTours } from "../../util.js"
 
 interface Tour {
   id: number
@@ -8,11 +10,22 @@ interface Tour {
   location: string
 }
 
-interface Props {
-  currentTours: Array<Tour>
+interface CurrentToursProps {
+  userId: number
 }
 
-export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
+export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
+  const [currentTours, setCurrentTours] = useState<Array<Tour>>([])
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    getAccessTokenSilently().then(token => {
+      getTours(token, userId).then(tours => {
+        setCurrentTours(tours)
+      })
+    })
+  }, [])
+
   const tours = currentTours.map((tour) => {
     return (
       <CurrentTourCard
@@ -22,7 +35,7 @@ export const CurrentTours: React.FC<Props> = ({ currentTours }) => {
       />
     )
   })
-  
+
   return (
     <main className="current-tours">
     <div className='current-background-img'>
