@@ -36,6 +36,19 @@ export const cleanCurrentTours = tours => {
     })
 }
 
+export const cleanInputStrings = stringObj => {
+  const formState = stringObj
+  for (const field in formState) {
+    if (formState[field] === 'nil') {
+      formState[field] = ''
+    } else if (formState[field] === '') {
+      formState[field] = 'nil'
+    }
+  }
+
+  return formState
+}
+
 export const addUser = (
   auth,
   { name, email, emergencyName, emergencyNumber }
@@ -183,6 +196,6 @@ export const updatePlan = (auth, planId, data) => {
       "Accept": "application/json",
       "Authorization": `Bearer ${auth}`
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify(cleanInputStrings(data))
   }).then(response => checkResponse(response))
 }
