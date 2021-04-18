@@ -68,7 +68,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         })
       )
     }
-  }, [getAccessTokenSilently, match.params.userId, tourId])
+  }, [getAccessTokenSilently, tourId, match])
 
 
   const sendFormUpdate = () => {
