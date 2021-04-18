@@ -14,11 +14,11 @@ interface pastTour {
 }
 
 interface TourProps {
-  // pastTours: Array<pastTour>
   userId: number
 }
 
 export const PastTours: React.FC<TourProps> = ({ userId }) => {
+  // eslint-disable-next-line 
   const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
   const [allTours, setAllTours] = useState<Array<pastTour>>([])
 
@@ -27,15 +27,12 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
   useEffect(() => {
     getAccessTokenSilently().then(token => {
       getTours(token, userId, true).then(tours => {
-        console.log(tours)
-        console.log(userId)
         setAllTours(tours)
       })
     })
   }, [getAccessTokenSilently, userId])
 
   const createPastTourCards = allTours.map((tour) => {
-    console.log(tour)
     return (
       <PastTourCard
         key={tour.id}

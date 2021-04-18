@@ -7,9 +7,7 @@ import { useAuth0 } from "@auth0/auth0-react"
 import question from "../../assets/question-sign.svg"
 import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
-import { getTours, getPlan, cleanInputStrings } from "../../util.js"
-import { tourPlans } from "../../mockdata/tourPlan"
-import { NavBar } from "../NavBar/NavBar"
+import { getPlan, cleanInputStrings } from "../../util.js"
 
 interface tourPlan {
   hazard_weather: string
@@ -33,7 +31,7 @@ interface TParams {
 export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   match,
 }) => {
-  const userId = match.params.userId
+
   const tourId = match.params.tourId
   const location = match.params.location
   const date = match.params.date
