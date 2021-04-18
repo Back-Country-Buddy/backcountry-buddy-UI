@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import StepWizard from "react-step-wizard"
 import "./Form.css"
-import { RouteComponentProps } from "react-router-dom"
 
 import { Ride } from "./Ride"
 import { Plan } from "./Plan"
@@ -17,10 +16,6 @@ interface TourFormProps {
   match?: any
 }
 
-interface TParams {
-  userId: string
-  tourId: string
-}
 
 interface BasicFields {
   location: string
@@ -73,7 +68,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         })
       )
     }
-  }, [])
+  }, [getAccessTokenSilently, match.params.userId, tourId])
 
 
   const sendFormUpdate = () => {

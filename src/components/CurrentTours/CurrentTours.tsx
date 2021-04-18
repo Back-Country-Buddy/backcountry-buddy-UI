@@ -24,7 +24,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
         setCurrentTours(tours)
       })
     })
-  }, [])
+  }, [getAccessTokenSilently, userId])
 
   const tours = currentTours.map((tour) => {
     return (

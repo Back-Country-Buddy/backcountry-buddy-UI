@@ -13,10 +13,9 @@ import { PastTourDetails } from "../PastTours/PastTourDetails"
 import { NavBar } from "../NavBar/NavBar"
 
 import { userData } from "../../mockdata/UserDummyData"
-import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { tourData } from "../../mockdata/PastTourData"
 
-import { formatUser, handleLogin, updateUser, deleteUser } from "../../util"
+import { formatUser, handleLogin, } from "../../util"
 
 const App = () => {
   const [userState, setUserState] = useState({
@@ -30,7 +29,7 @@ const App = () => {
     full_name: '',
     picture: ''
   })
-  const [currentTours] = useState(currentToursData)
+
   const [pastTours] = useState(tourData)
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
@@ -42,7 +41,7 @@ const App = () => {
         })
       })
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, getAccessTokenSilently, user])
 
   return (
     <div className="App">
