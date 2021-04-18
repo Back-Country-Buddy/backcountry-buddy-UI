@@ -9,7 +9,7 @@ interface Tour {
   date: string
   location: string
   creator_id: number
-  completed: boolean
+  complete: boolean
 }
 
 interface CurrentToursProps {
@@ -17,18 +17,21 @@ interface CurrentToursProps {
 }
 
 export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
-  const [currentTours, setCurrentTours] = useState<Array<Tour>>([])
+  const [allTours, setAllTours] = useState<Array<Tour>>([])
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
       getTours(token, userId).then(tours => {
-        setCurrentTours(tours)
+        setAllTours(tours)
       })
     })
   }, [getAccessTokenSilently, userId])
 
-  const tours = currentTours.map((tour) => {
+  const tours = allTours
+    .filter(tour => !tour.complete)
+    .map((tour) => {
+      console.log(tour)
     return (
       <CurrentTourCard
         key={tour.id}
