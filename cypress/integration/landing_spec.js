@@ -1,4 +1,4 @@
-describe("Landing Page", () => {
+describe.skip("Landing Page", () => {
   const baseUrl = "http://localhost:3000"
 
   const logIn = () => {

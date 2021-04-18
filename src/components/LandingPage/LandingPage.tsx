@@ -7,7 +7,7 @@ import "./LandingPage.css"
 
 export const LandingPage: React.FC = () => {
   const { user, isAuthenticated } = useAuth0()
-  
+
   return (
     <main className="landing">
       <header className="landing-img">
@@ -15,7 +15,6 @@ export const LandingPage: React.FC = () => {
 
         {isAuthenticated && user.given_name && (
           <h2 className="welcome">Welcome, {user.given_name}</h2>
-          
         )}
 
         {isAuthenticated && !user.given_name && (

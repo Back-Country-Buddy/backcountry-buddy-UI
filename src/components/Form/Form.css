@@ -28,3 +28,15 @@ textarea {
   resize: none;
   pointer-events: auto;
 }
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-label {
+  text-align: left;
+  margin-bottom: 5%;
+}
