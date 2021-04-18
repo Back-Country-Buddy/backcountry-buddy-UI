@@ -8,6 +8,8 @@ interface Tour {
   id: number
   date: string
   location: string
+  creator_id: number
+  completed: boolean
 }
 
 interface CurrentToursProps {

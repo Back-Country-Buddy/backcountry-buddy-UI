@@ -8,7 +8,7 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan, getPlan, cleanInputStrings } from "../../util.js"
+import { getDateString, addTour, updatePlan, addPlan, getPlan, cleanInputStrings, updateTour } from "../../util.js"
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
@@ -20,6 +20,7 @@ interface TourFormProps {
 interface BasicFields {
   location: string
   date: string
+  complete: boolean
 }
 
 interface PlanFields {
@@ -48,8 +49,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "",
-    date: getDateString(new Date()),
+    location: "place",
+    date: "00000",
+    complete: false
   })
 
 
@@ -87,6 +89,19 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         updatePlan(token, planId, planFields)
       }
     })
+  }
+
+  const sendTourUpdate = () => {
+    getAccessTokenSilently().then(token => {
+
+      updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
+    })
+  }
+
+  const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setBasicFields({...basicFields, complete: true})
+    sendTourUpdate()
   }
 
   const renderTextInputs = (
@@ -150,7 +165,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
           <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
           <Ride setChecked={setDepartureCheck} isChecked={isDepartureChecked} />
-          <Debrief renderTextInputs={renderTextInputs} isChecked={isChecked} />
+          <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
         </StepWizard>
       </div>
     </main>

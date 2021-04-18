@@ -2,11 +2,12 @@ import React from 'react'
 import { SectionTitle } from './SectionTitle'
 
 interface DebriefProps {
-  renderTextInputs: (fields: string[]) => JSX.Element[],
+  renderTextInputs: (fields: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
+  markComplete: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
+export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked, markComplete }) => {
   return (
     <form>
       <h2>DEBRIEF</h2>
@@ -28,6 +29,7 @@ export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked })
         isChecked={isChecked}
       />
       {renderTextInputs(['debrief_plan'])}
+    <button onClick={markComplete}>COMPLETE TOUR</button>
     </form>
   )
 }
