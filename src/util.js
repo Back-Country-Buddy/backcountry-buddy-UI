@@ -27,7 +27,6 @@ const checkResponse = response => {
 export const cleanCurrentTours = tours => {
   return tours.data.filter(tour => !tour.attributes.complete)
     .map(tour => {
-      console.log(tour.attributes.creator_id)
       return {
         id: tour.id,
         date: tour.attributes.date,
