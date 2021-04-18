@@ -11,7 +11,7 @@ interface RideProps {
 export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
   return (
     <form>
-      <div className='title-wrapper'>
+      <div className='form-title-wrapper'>
         <img src={route} alt="lightbulb" className="form-icon" />
         <h2>RIDE safely</h2>
       </div>

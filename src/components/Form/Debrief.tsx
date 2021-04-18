@@ -11,7 +11,7 @@ interface DebriefProps {
 export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
   return (
     <form>
-      <div className='title-wrapper'>
+      <div className='form-title-wrapper'>
         <img src={question} alt="lightbulb" className="form-icon" />
         <h2>DEBRIEF</h2>
       </div>

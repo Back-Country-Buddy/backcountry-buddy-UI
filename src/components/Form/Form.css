@@ -8,6 +8,11 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: #f8f8ff;
+  border: 2px solid #900AA1;
+  margin: 1.5%;
+  padding: 2%;
+  height: 50vh;
 }
 
 .section-title {
@@ -30,13 +35,25 @@ form {
  
 }
 
+.form-title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+}
+
 .form-subform {
   /* height: 35vh; */
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 100%;
+  justify-content:center;
+  height: 60vh;
+  overflow: scroll;
+  /* background: linear-gradient(to right,#900AA1, #737dfe, #900AA1); */
+  /* align-items: center;
+  width: 100%; */
 }
 
 textarea {
@@ -67,6 +84,9 @@ textarea {
   margin: 2%;
   font-size: 1.4em;
 }
+.head-form-title {
+  margin: 0;
+}
 
 .form-sections-wrapper {
   display: flex;
@@ -74,12 +94,13 @@ textarea {
   width: 100%;
   justify-content: space-evenly;
   align-items: center;
+  padding: 2%;
 }
 
 .form-sections {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 50%;
   justify-content: space-evenly;
   align-items: center;
 }
@@ -89,4 +110,19 @@ textarea {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.plan-wrapper {
+  margin: 1.5%;
+  padding: 2%;
+}
+
+.form-wrapper {
+  height: 60vh;
+  overflow: scroll;
+  background: linear-gradient(to right,#900AA1, #737dfe, #900AA1);
+}
+
+.save-button {
+  margin-top: 5%;
 }

@@ -83,27 +83,29 @@ export const TourForm: React.FC<TourFormProps> = ({ userId }) => {
           />
         </div>
       </div>
-      <div className='form-subform'>
-        <StepWizard
-          nav={<FormNav
-            steps={['PLAN', 'RIDE', 'DEBRIEF']}
-          />}
-        >
-          <Plan
-            renderTextInputs={renderTextInputs}
-            isChecked={isChecked}
-          />
-          <Ride
-            setChecked={setDepartureCheck}
-            isChecked={isDepartureChecked}
-          />
-          <Debrief
-            renderTextInputs={renderTextInputs}
-            isChecked={isChecked}
-          />
-        </StepWizard>
-      </div>
-      <button>SAVE</button>
+      <section className='form-wrapper'>
+        <div className='form-subform'>
+          <StepWizard
+            nav={<FormNav
+              steps={['PLAN', 'RIDE', 'DEBRIEF']}
+            />}
+          >
+            <Plan
+              renderTextInputs={renderTextInputs}
+              isChecked={isChecked}
+            />
+            <Ride
+              setChecked={setDepartureCheck}
+              isChecked={isDepartureChecked}
+            />
+            <Debrief
+              renderTextInputs={renderTextInputs}
+              isChecked={isChecked}
+            />
+          </StepWizard>
+        </div>
+      </section>
+      <button className='save-button'>SAVE</button>
     </main>
   )
 }
