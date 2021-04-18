@@ -39,9 +39,10 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
     return (
       <PastTourCard
         key={tour.id}
-        id={tour.id}
+        tourId={tour.id}
         date={tour.date}
         location={tour.location}
+        userId={userId}
       />
     )
   })

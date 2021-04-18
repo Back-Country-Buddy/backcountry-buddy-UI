@@ -63,7 +63,7 @@ const App = () => {
       />
 
       <Route
-        path="/tour-form/:userId/:tourId"
+        path="/current-tour/:userId/:tourId"
         component={TourForm}
       />
 
@@ -73,11 +73,14 @@ const App = () => {
       />
 
       <Route
+        exact
         path="/past-tours"
-        render={() => <PastTours userId={userState.id}pastTours={pastTours} />}
+        render={() => <PastTours userId={userState.id} pastTours={pastTours} />}
       />
 
-      <Route path="/tour-details/:id" component={PastTourDetails} />
+      <Route 
+        path="/past-tours/:userId/:tourId" 
+        component={PastTourDetails} />
 
       {isAuthenticated && <NavBar />}
     </div>

@@ -29,7 +29,6 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
   }, [getAccessTokenSilently, userId])
 
   const tours = allTours.map((tour) => {
-      console.log(tour)
     return (
       <CurrentTourCard
         key={tour.id}

@@ -3,14 +3,15 @@ import { Link } from "react-router-dom"
 import "./PastTours.css"
 
 interface TourProps {
-  id: number
+  userId: number
+  tourId: number
   date: string
   location: string
 }
 
-export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
+export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tourId }) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/tour-details/:${id}`}>
+    <Link style={{textDecoration: 'none'}} to={`/past-tours/${userId}/${tourId}`}>
     <div className='card-wrapper'>
       <article className="tour-card">
         <img

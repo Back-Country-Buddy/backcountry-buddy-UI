@@ -11,7 +11,7 @@ interface Props {
 
 const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId }) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/tour-form/${userId}/${tourId}`}>
+    <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
       <div className='card-wrapper'>
         <article className="current-tours-card">
           <img
