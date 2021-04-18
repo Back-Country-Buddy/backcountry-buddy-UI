@@ -60,7 +60,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    if (tourId.length) {
+    if (tourId.length && match) {
       getAccessTokenSilently().then(token =>
         getPlan(token, match.params.userId, tourId).then(plan => {
           setPlanId(plan.data[0].id)
@@ -76,7 +76,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
       if (planId === 0) {
         addTour(token, userId, {
           creator_id: userId,
-          location: 'Someplace',
+          location: basicFields.location,
           date: '0000000'
         }).then(response => {
           setTourId(response.data.id)
