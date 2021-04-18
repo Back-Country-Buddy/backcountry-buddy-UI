@@ -11,7 +11,7 @@ interface TourProps {
 
 export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tourId }) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/past-tours/${userId}/${tourId}`}>
+    <Link style={{textDecoration: 'none'}} to={`/past-tours/${userId}/${tourId}/${location}/${date}`}>
     <div className='card-wrapper'>
       <article className="tour-card">
         <img

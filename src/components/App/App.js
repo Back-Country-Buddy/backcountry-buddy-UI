@@ -44,6 +44,7 @@ const App = () => {
   }, [isAuthenticated, getAccessTokenSilently, user])
 
   return (
+    <>
     <div className="App">
       <Route
         exact
@@ -79,11 +80,12 @@ const App = () => {
       />
 
       <Route 
-        path="/past-tours/:userId/:tourId" 
+        path="/past-tours/:userId/:tourId/:location/:date" 
         component={PastTourDetails} />
 
-      {isAuthenticated && <NavBar />}
     </div>
+      {isAuthenticated && <NavBar />}
+    </>
   )
 }
 

@@ -9,6 +9,7 @@ import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
 import { getTours, getPlan, cleanInputStrings } from "../../util.js"
 import { tourPlans } from "../../mockdata/tourPlan"
+import { NavBar } from "../NavBar/NavBar"
 
 interface tourPlan {
   hazard_weather: string
@@ -25,6 +26,8 @@ interface tourPlan {
 interface TParams {
   userId: string
   tourId: string
+  location: string
+  date: string
 }
 
 export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
@@ -32,6 +35,8 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
 }) => {
   const userId = match.params.userId
   const tourId = match.params.tourId
+  const location = match.params.location
+  const date = match.params.date
 
   const [pastTour, setPastTour] = useState<tourPlan>({
         hazard_weather: '',
@@ -52,18 +57,18 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
     if (tourId.length && match) {
       getAccessTokenSilently().then(token =>
         getPlan(token, match.params.userId, tourId).then(plan => {
-          // setPlanId(plan.data[0].id)
-            setPastTour(cleanInputStrings(plan.data[0].attributes))
+          setPastTour(cleanInputStrings(plan.data[0].attributes))
         })
       )
     }
   }, [getAccessTokenSilently, tourId, match])
 
   return (
+  <>
     <main className="tour-details">
       <div className="location">
-        <h1>Buffalo Mountain</h1>
-        <p className="date">Feb 2, 2021</p>
+        <h1>{location}</h1>
+        <p className="date">{date}</p>
       </div>
       <div className='plan-wrapper'>
         <div className='border-wrapper'>
@@ -196,5 +201,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
         </section>
       </div>
     </main>
+
+    </>
   )
 }
