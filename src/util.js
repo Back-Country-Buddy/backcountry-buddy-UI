@@ -24,8 +24,8 @@ const checkResponse = response => {
   }
 }
 
-export const cleanCurrentTours = tours => {
-  return tours.data.filter(tour => !tour.attributes.complete)
+export const cleanTours = (tours, completed) => {
+  return tours.data.filter(tour => tour.attributes.complete === completed)
     .map(tour => {
       return {
         id: tour.id,
@@ -124,7 +124,7 @@ export const deleteUser = (id, auth) => {
   }).then(response => checkResponse(response))
 }
 
-export const getTours = (auth, id) => {
+export const getTours = (auth, id, completed) => {
   return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}/tour`,
     {
     headers: {
@@ -133,7 +133,7 @@ export const getTours = (auth, id) => {
       "Authorization": `Bearer ${auth}`
     }
   }).then(response => checkResponse(response))
-  .then(tours => cleanCurrentTours(tours))
+  .then(tours => cleanTours(tours, completed))
 }
 
 export const addTour = (auth, id, data) => {

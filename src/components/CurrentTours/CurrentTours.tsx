@@ -22,15 +22,13 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
-      getTours(token, userId).then(tours => {
+      getTours(token, userId, false).then(tours => {
         setAllTours(tours)
       })
     })
   }, [getAccessTokenSilently, userId])
 
-  const tours = allTours
-    .filter(tour => !tour.complete)
-    .map((tour) => {
+  const tours = allTours.map((tour) => {
       console.log(tour)
     return (
       <CurrentTourCard

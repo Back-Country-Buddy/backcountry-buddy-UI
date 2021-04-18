@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import "./PastTours.css"
-
+import { useAuth0 } from "@auth0/auth0-react"
 import { PastTourCard } from "./PastTourCard"
 import { SearchBar } from "./SearchBar"
+import { getTours } from "../../util.js"
 
 interface pastTour {
   id: number
@@ -13,13 +14,28 @@ interface pastTour {
 }
 
 interface TourProps {
-  pastTours: Array<pastTour>
+  // pastTours: Array<pastTour>
+  userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
-  const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours)
+export const PastTours: React.FC<TourProps> = ({ userId }) => {
+  const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
+  const [allTours, setAllTours] = useState<Array<pastTour>>([])
 
-  const createPastTourCards = searchResults.map((tour) => {
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    getAccessTokenSilently().then(token => {
+      getTours(token, userId, true).then(tours => {
+        console.log(tours)
+        console.log(userId)
+        setAllTours(tours)
+      })
+    })
+  }, [getAccessTokenSilently, userId])
+
+  const createPastTourCards = allTours.map((tour) => {
+    console.log(tour)
     return (
       <PastTourCard
         key={tour.id}
@@ -31,7 +47,7 @@ export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
   })
 
   const filterTours = (input: string): any => {
-    const filteredTours = pastTours.filter((tour) => {
+    const filteredTours = allTours.filter((tour) => {
       return tour.location.includes(input)
     })
 

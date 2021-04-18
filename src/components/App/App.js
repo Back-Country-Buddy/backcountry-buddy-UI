@@ -74,7 +74,7 @@ const App = () => {
 
       <Route
         path="/past-tours"
-        render={() => <PastTours pastTours={pastTours} />}
+        render={() => <PastTours userId={userState.id}pastTours={pastTours} />}
       />
 
       <Route path="/tour-details/:id" component={PastTourDetails} />
