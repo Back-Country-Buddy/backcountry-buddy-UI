@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "react-router-dom"
 import "./PastTours.css"
 import { deleteTour } from "../../util.js"
-import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourProps {
   userId: number
@@ -13,7 +12,6 @@ interface TourProps {
 }
 
 export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tourId, removeTour }) => {
-  const { getAccessTokenSilently } = useAuth0()
 
   return (
     <>

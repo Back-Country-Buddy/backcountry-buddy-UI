@@ -7,9 +7,10 @@ interface Props {
   location: string
   tourId: number
   userId: number
+  removeTour: (tourId:number) => any
 }
 
-const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId }) => {
+const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId, removeTour }) => {
   return (
     <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
     {console.log(tourId)}
