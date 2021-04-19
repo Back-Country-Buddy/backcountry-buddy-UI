@@ -11,7 +11,7 @@ interface DebriefProps {
 export const Debrief: React.FC<DebriefProps> = ({
   renderTextInputs,
   isChecked,
-  markComplete,
+  markComplete
 }) => {
   return (
     <form>

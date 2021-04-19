@@ -33,7 +33,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
         <h2 className="title">PLAN your trip</h2>
       </div>
       <StepWizard nav={<FormNav steps={["1", "2", "3", "4"]} />}>
-        <div>
+        <div className="step">
           <SectionTitle
             title="Assemble Your Group"
             fields={["group"]}
@@ -41,7 +41,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
           />
           {renderTextInputs(["group"])}
         </div>
-        <div>
+        <div className="step">
           <SectionTitle
             title="Anticipate the Hazard"
             fields={hazardFields}
@@ -49,7 +49,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
           />
           {renderTextInputs(hazardFields, hazardPrompts)}
         </div>
-        <div>
+        <div className="step">
           <SectionTitle
             title="Plan Your Route"
             fields={routeFields}
@@ -57,7 +57,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
           />
           {renderTextInputs(routeFields, routePrompts)}
         </div>
-        <div>
+        <div className="step">
           <SectionTitle
             title="Discuss Your Emergency Plan"
             fields={["emergencyPlan"]}

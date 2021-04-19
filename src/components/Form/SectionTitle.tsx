@@ -9,11 +9,16 @@ interface SectionTitleProps {
 export const SectionTitle: React.FC<SectionTitleProps> = ({
   title,
   fields,
-  isChecked,
+  isChecked
 }) => {
   return (
     <div className="section-title">
-      <input type="checkbox" checked={isChecked(fields)} readOnly={true} />
+      <input
+        type="checkbox"
+        className="checkbox"
+        checked={isChecked(fields)}
+        readOnly={true}
+      />
       <h3>{title}</h3>
     </div>
   )

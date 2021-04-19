@@ -10,7 +10,7 @@ form {
   overflow: scroll;
 }
 
-.ride-img{
+.ride-img {
   width: 90%;
   height: auto;
 }
@@ -26,10 +26,15 @@ form {
   height: 68vh;
 }
 
-/* .section-title {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-} */
+.step {
+  width: 80vw;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 input {
   height: 30px;
@@ -51,4 +56,9 @@ textarea {
 .form-label {
   text-align: left;
   margin-bottom: 5%;
+}
+
+.checkbox {
+  margin-right: 3%;
+  width: 4%;
 }
