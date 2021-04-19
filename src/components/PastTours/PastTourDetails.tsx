@@ -7,7 +7,8 @@ import { useAuth0 } from "@auth0/auth0-react"
 import question from "../../assets/question-sign.svg"
 import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
-import { getPlan, cleanInputStrings } from "../../util.js"
+import { getPlan } from "../../apiRequests/planRequests.js"
+import { cleanInputStrings } from "../../apiRequests/dataCleaners.js"
 
 interface tourPlan {
   hazard_weather: string
@@ -92,7 +93,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
               </div>
               <div className='sub-wrapper'>
                 <h4 className="sub-category">
-                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
+                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" />
                   Identify the avalanche problem and location. Discuss the danger
                   trend and timing
                 </h4>
@@ -101,7 +102,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 <p className="tour-input">{pastTour.hazard_avalanche}</p>
               </div>
               <div className='sub-wrapper'>
-                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
+                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" />
                 <h4 className="sub-category">Discuss the advisory's key message</h4>
               </div>
               <div className='input-wrapper'>
@@ -114,14 +115,14 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 <h3 className="category">Plan Your Route</h3>
               </div>
               <div className='sub-wrapper'>
-                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
+                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" />
                 <h4 className="sub-category">Preview Terrain</h4>
               </div>
               <div className='input-wrapper'>
                 <p className="tour-input">{pastTour.route_preview}</p>
               </div>
               <div className='sub-wrapper'>
-                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
+                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" />
                 <h4 className="sub-category">Alternate Route</h4>
               </div>
               <div className='input-wrapper'>
@@ -134,7 +135,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 <h3 className="category">Discuss Your Emergency Plan</h3>
               </div>
               <div className='sub-wrapper'>
-                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
+                <img src={arrow} alt="right-arrow-icon" className="arrow-icon" />
                 <h4 className="sub-category">Emergency Plan</h4>
               </div>
               <div className='input-wrapper'>

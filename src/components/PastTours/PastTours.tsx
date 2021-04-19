@@ -3,7 +3,7 @@ import "./PastTours.css"
 import { useAuth0 } from "@auth0/auth0-react"
 import { PastTourCard } from "./PastTourCard"
 import { SearchBar } from "./SearchBar"
-import { getTours } from "../../util.js"
+import { getTours } from "../../apiRequests/tourRequests.js"
 
 interface pastTour {
   id: number
@@ -18,7 +18,7 @@ interface TourProps {
 }
 
 export const PastTours: React.FC<TourProps> = ({ userId }) => {
-  // eslint-disable-next-line 
+  // eslint-disable-next-line
   const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
   const [allTours, setAllTours] = useState<Array<pastTour>>([])
 

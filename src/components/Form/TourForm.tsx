@@ -8,7 +8,9 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan, getPlan, cleanInputStrings, updateTour } from "../../util.js"
+import { getDateString, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
+import { addTour,  updateTour } from '../../apiRequests/tourRequests.js'
+import { updatePlan, addPlan, getPlan, } from "../../apiRequests/planRequests.js"
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
@@ -61,6 +63,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   const { getAccessTokenSilently } = useAuth0()
 
+  const sendTourUpdate = () => {
+    getAccessTokenSilently().then(token => {
+      updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
+    })
+  }
+
   useEffect(() => {
     if (tourId.length && match) {
       getAccessTokenSilently().then(token =>
@@ -70,7 +78,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         })
       )
     }
-  }, [getAccessTokenSilently, tourId, match])
+    if (basicFields.complete === true) {
+      sendTourUpdate()
+    }
+  }, [getAccessTokenSilently, tourId, match, basicFields, sendTourUpdate])
 
 
   const sendFormUpdate = () => {
@@ -91,17 +102,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     })
   }
 
-  const sendTourUpdate = () => {
-    getAccessTokenSilently().then(token => {
-
-      updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
-    })
-  }
 
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     setBasicFields({...basicFields, complete: true})
-    sendTourUpdate()
   }
 
   const renderTextInputs = (

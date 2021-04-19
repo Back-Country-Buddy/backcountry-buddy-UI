@@ -12,10 +12,8 @@ import { PastTours } from "../PastTours/PastTours"
 import { PastTourDetails } from "../PastTours/PastTourDetails"
 import { NavBar } from "../NavBar/NavBar"
 
-import { userData } from "../../mockdata/UserDummyData"
-import { tourData } from "../../mockdata/PastTourData"
-
-import { formatUser, handleLogin, } from "../../util"
+import { handleLogin, } from "../../apiRequests/userRequests"
+import { formatUser } from '../../apiRequests/dataCleaners.js'
 
 const App = () => {
   const [userState, setUserState] = useState({
@@ -30,7 +28,6 @@ const App = () => {
     picture: ''
   })
 
-  const [pastTours] = useState(tourData)
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
@@ -79,8 +76,8 @@ const App = () => {
         render={() => <PastTours userId={userState.id} pastTours={pastTours} />}
       />
 
-      <Route 
-        path="/past-tours/:userId/:tourId/:location/:date" 
+      <Route
+        path="/past-tours/:userId/:tourId/:location/:date"
         component={PastTourDetails} />
 
     </div>

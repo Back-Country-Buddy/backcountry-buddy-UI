@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./CurrentTours.css"
 import CurrentTourCard from "./CurrentTourCard"
-import { getTours } from "../../util.js"
+import { getTours } from "../../apiRequests/tourRequests.js"
 
 interface Tour {
   id: number
