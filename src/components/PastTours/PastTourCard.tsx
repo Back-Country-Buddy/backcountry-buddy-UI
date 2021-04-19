@@ -14,7 +14,6 @@ interface TourProps {
 export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tourId, removeTour }) => {
 
   return (
-    <>
     <div className='card-wrapper'>
       <div
       className='delete-wrapper'
@@ -34,6 +33,5 @@ export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tour
       </article>
       </Link>
     </div>
-    </>
   )
 }

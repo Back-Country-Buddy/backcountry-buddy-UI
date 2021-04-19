@@ -23,8 +23,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
 
   const removeTour = (tourId:number):any => {
     getAccessTokenSilently().then(token => {
-      //this is a catch for now because we are getting an error in the response but if that gets fixed change it to a then
-      deleteTour(token, tourId).catch(() => {
+      deleteTour(token, tourId).then(() => {
         const newTours = allTours.filter(tour => tour.id !== tourId)
         setAllTours(newTours)
       })

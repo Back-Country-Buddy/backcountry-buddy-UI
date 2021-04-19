@@ -17,8 +17,9 @@ export const formatUser = (authUser, apiUser) => {
 }
 
 const checkResponse = response => {
-  console.log(response)
-  if (response.ok || response.status === 204) {
+  if (response.status === 204) {
+    return response
+  } else if (response.ok) {
     return response.json()
   } else {
     throw response
