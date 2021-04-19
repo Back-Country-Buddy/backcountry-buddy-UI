@@ -198,3 +198,15 @@ export const updatePlan = (auth, planId, data) => {
     body: JSON.stringify(cleanInputStrings(data))
   }).then(response => checkResponse(response))
 }
+
+export const deleteTour = (auth, tourId) => { 
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    // body: JSON.stringify(data)
+  }).then(response => checkResponse(response))
+}
