@@ -1,6 +1,23 @@
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.photo-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  height: 115px;
+  width: 115px;
+  background: linear-gradient(to right, #590fb7, #ff0076);
+}
+
 .profile-photo {
   border-radius: 50%;
-  border: 3px solid #900aa1;
+  height: 100px;
+  width: 100px;
 }
 
 .emergency-form {
@@ -24,5 +41,5 @@
 }
 
 .profile {
-    background: #f8f8ff;
+  background: #f8f8ff;
 }
