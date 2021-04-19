@@ -3,7 +3,7 @@ import "./PastTours.css"
 import { useAuth0 } from "@auth0/auth0-react"
 import { PastTourCard } from "./PastTourCard"
 import { SearchBar } from "./SearchBar"
-import { getTours } from "../../util.js"
+import { getTours, deleteTour } from "../../util.js"
 
 interface pastTour {
   id: number
@@ -14,15 +14,26 @@ interface pastTour {
 }
 
 interface TourProps {
+  tourId: number
   userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ userId }) => {
+export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   // eslint-disable-next-line 
   const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
   const [allTours, setAllTours] = useState<Array<pastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
+
+  const removeTour = (tourId:number):any => {
+    getAccessTokenSilently().then(token => {
+      //this is a catch for now because we are getting an error in the response but if that gets fixed change it to a then
+      deleteTour(token, tourId).catch(() => {
+        const newTours = allTours.filter(tour => tour.id !== tourId)
+        setAllTours(newTours)
+      })
+    })
+  }
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
@@ -40,6 +51,7 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
         date={tour.date}
         location={tour.location}
         userId={userId}
+        removeTour={removeTour}
       />
     )
   })
@@ -48,7 +60,6 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
     const filteredTours = allTours.filter((tour) => {
       return tour.location.includes(input)
     })
-
     setSearchResults([...filteredTours])
   }
 
