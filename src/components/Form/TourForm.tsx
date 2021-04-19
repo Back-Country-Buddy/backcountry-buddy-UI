@@ -18,7 +18,6 @@ interface TourFormProps {
   match?: any
 }
 
-
 interface BasicFields {
   location: string
   date: string
@@ -55,7 +54,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     date: "00000",
     complete: false
   })
-
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)

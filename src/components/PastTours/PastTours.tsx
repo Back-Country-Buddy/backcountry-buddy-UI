@@ -14,15 +14,30 @@ interface pastTour {
 }
 
 interface TourProps {
+  tourId: number
   userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ userId }) => {
+export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   // eslint-disable-next-line
   const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
   const [allTours, setAllTours] = useState<Array<pastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
+
+  const removeTour = (tourId:number):any => {
+    const confirmationMessage = window.confirm('Are you sure you want to remove this tour?')
+      if (confirmationMessage) {
+        getAccessTokenSilently().then(token => {
+          deleteTour(token, tourId).then(() => {
+            const newTours = allTours.filter(tour => tour.id !== tourId)
+            setAllTours(newTours)
+          })
+        })
+    } else {
+      return false
+    }
+  }
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
@@ -40,6 +55,7 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
         date={tour.date}
         location={tour.location}
         userId={userId}
+        removeTour={removeTour}
       />
     )
   })
@@ -48,7 +64,6 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
     const filteredTours = allTours.filter((tour) => {
       return tour.location.includes(input)
     })
-
     setSearchResults([...filteredTours])
   }
 
