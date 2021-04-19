@@ -2,6 +2,7 @@ import React from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 
 import { LoginButton } from "../Login/LoginButton"
+import { NavBar } from "../NavBar/NavBar"
 
 import "./LandingPage.css"
 
@@ -14,15 +15,17 @@ export const LandingPage: React.FC = () => {
         <h1 className="logo">Backcountry Buddy</h1>
 
         {isAuthenticated && user.given_name && (
-          <h2 className="welcome">Welcome, {user.given_name}</h2>
+          <p className="welcome">Welcome, {user.given_name}</p>
         )}
 
         {isAuthenticated && !user.given_name && (
-          <h2 className="welcome">Welcome, friend!</h2>
+          <p className="welcome">Welcome!</p>
         )}
 
         {!isAuthenticated && <LoginButton />}
       </header>
+
+      <NavBar />
     </main>
   )
 }

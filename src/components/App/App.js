@@ -12,7 +12,7 @@ import { TourForm } from "../Form/TourForm"
 import { CurrentTours } from "../CurrentTours/CurrentTours"
 import { PastTours } from "../PastTours/PastTours"
 import { PastTourDetails } from "../PastTours/PastTourDetails"
-import { NavBar } from "../NavBar/NavBar"
+// import { NavBar } from "../NavBar/NavBar"
 
 const App = () => {
   const [userState, setUserState] = useState({
@@ -78,7 +78,7 @@ const App = () => {
         />
       </div>
 
-      {isAuthenticated && <NavBar />}
+      {/* {isAuthenticated && <NavBar />} */}
     </>
   )
 }

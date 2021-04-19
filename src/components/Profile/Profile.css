@@ -1,21 +1,23 @@
+.profile-background-img {
+  background: url("../../assets/pinkclouds.png");
+  background-position: center;
+  background-size: cover;
+  width: 100%;
+  height: 100vh;
+}
+
 .profile-info {
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 83vh;
+  overflow: scroll;
 }
 
 .profile-photo {
   border-radius: 50%;
   box-shadow: 3px 3px 10px black;
   margin: 2% 0;
-}
-
-.profile-background-img {
-  background: url("../../assets/pinkclouds.png");
-  background-position: center;
-  background-size: cover;
-  width: 100%;
-  height: 100%;
 }
 
 .emergency-form {
