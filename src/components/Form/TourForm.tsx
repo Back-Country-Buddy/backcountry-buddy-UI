@@ -139,55 +139,64 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   return (
     <main>
-      <div className="tour-form-container">
-        <h1>Current Tour</h1>
+      <div>
+        <div className="tour-form-container">
+          <h1>Upcoming Tour</h1>
 
-        <form className="form-basic">
-          <div className="form-section">
-            <label htmlFor="date" className="form-label">
-              DATE
-            </label>
-            <input
-              type="date"
-              name="date"
-              value={basicFields.date}
-              onChange={(e) =>
-                setBasicFields({ ...basicFields, date: e.target.value })
-              }
-              min={getDateString(new Date())}
-            />
+          <form className="form-basic">
+            <div className="form-section">
+              <label htmlFor="date" className="form-label">
+                DATE
+              </label>
+              <input
+                type="date"
+                name="date"
+                value={basicFields.date}
+                onChange={(e) =>
+                  setBasicFields({ ...basicFields, date: e.target.value })
+                }
+                min={getDateString(new Date())}
+              />
+            </div>
+            <div className="form-section">
+              <label htmlFor="location" className="form-label">
+                LOCATION
+              </label>
+              <input
+                type="text"
+                name="location"
+                placeholder="Trailhead, zone, etc."
+                value={basicFields.location}
+                onChange={(e) =>
+                  setBasicFields({ ...basicFields, location: e.target.value })
+                }
+              />
+            </div>
+          </form>
+
+          {/* <button className="button-save" onClick={sendFormUpdate}>
+          SAVE
+        </button> */}
+
+          <div className="form-subform">
+            <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
+              <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
+              <Ride
+                setChecked={setDepartureCheck}
+                isChecked={isDepartureChecked}
+              />
+              <Debrief
+                markComplete={markComplete}
+                renderTextInputs={renderTextInputs}
+                isChecked={isChecked}
+              />
+            </StepWizard>
           </div>
-          <div className="form-section">
-            <label htmlFor="location" className="form-label">
-              LOCATION
-            </label>
-            <input
-              type="text"
-              name="location"
-              value={basicFields.location}
-              onChange={(e) =>
-                setBasicFields({ ...basicFields, location: e.target.value })
-              }
-            />
-          </div>
-        </form>
-
-        <button onClick={sendFormUpdate}>SAVE</button>
-
-        <div className="form-subform">
-          <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
-            <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-            <Ride
-              setChecked={setDepartureCheck}
-              isChecked={isDepartureChecked}
-            />
-            <Debrief
-              markComplete={markComplete}
-              renderTextInputs={renderTextInputs}
-              isChecked={isChecked}
-            />
-          </StepWizard>
         </div>
+
+        <button className="button-save" onClick={sendFormUpdate}>
+          SAVE
+        </button>
       </div>
       <NavBar />
     </main>
