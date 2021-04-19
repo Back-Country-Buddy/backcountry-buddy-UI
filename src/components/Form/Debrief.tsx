@@ -1,5 +1,6 @@
 import React from "react"
 import { SectionTitle } from "./SectionTitle"
+import question from "../../assets/question-sign.svg"
 
 interface DebriefProps {
   renderTextInputs: (fields: string[]) => JSX.Element[]
@@ -14,7 +15,10 @@ export const Debrief: React.FC<DebriefProps> = ({
 }) => {
   return (
     <form>
-      <h2>DEBRIEF</h2>
+      <div className="title-wrapper">
+        <img src={question} alt="question mark" className="form-icon" />
+        <h2 className="title">DEBRIEF</h2>
+      </div>
       <SectionTitle
         title="Summarize Conditions"
         fields={["debrief_conditions"]}

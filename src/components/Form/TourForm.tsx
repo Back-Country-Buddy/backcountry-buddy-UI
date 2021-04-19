@@ -174,10 +174,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             </div>
           </form>
 
-          {/* <button className="button-save" onClick={sendFormUpdate}>
-          SAVE
-        </button> */}
-
           <div className="form-subform">
             <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
               <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />

@@ -1,4 +1,5 @@
 import React from "react"
+import route from "../../assets/travel.svg"
 import placeholder from "../../assets/placeholderChartAsset.png"
 
 interface RideProps {
@@ -9,7 +10,10 @@ interface RideProps {
 export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
   return (
     <form>
-      <h2>RIDE safely</h2>
+      <div className="title-wrapper">
+        <img src={route} alt="route" className="form-icon" />
+        <h2 className="title">RIDE safely</h2>
+      </div>
       <div>
         <input type="checkbox" checked={isChecked} readOnly={true} />
         <button

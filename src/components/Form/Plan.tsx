@@ -1,8 +1,8 @@
 import React from "react"
 import StepWizard from "react-step-wizard"
-
 import { SectionTitle } from "./SectionTitle"
 import { FormNav } from "./FormNav"
+import lightbulb from "../../assets/light-bulb (1).svg"
 
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
@@ -28,7 +28,10 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
 
   return (
     <form>
-      <h2>PLAN your trip</h2>
+      <div className="title-wrapper">
+        <img src={lightbulb} alt="lightbulb" className="form-icon" />
+        <h2 className="title">PLAN your trip</h2>
+      </div>
       <StepWizard nav={<FormNav steps={["1", "2", "3", "4"]} />}>
         <div>
           <SectionTitle
