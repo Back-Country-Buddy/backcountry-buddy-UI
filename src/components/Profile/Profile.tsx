@@ -38,6 +38,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
         <h1>My Account</h1>
         <img src={user.picture} alt={user.full_name} className="profile-photo" />
         <div className="profile">
+          <LogoutButton />
           <p className="name">Name: {user.first_name}</p>
           <p className="email">Email: {user.email_address}</p>
           <p className="userName">Username: {user.user_name}</p>
@@ -77,8 +78,8 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
             </div>
             <button onClick={(e) => submitInfo(e)}>SAVE</button>
           </form>
+     
         </div>
-        <LogoutButton />
       </div>
     </main>
   )
