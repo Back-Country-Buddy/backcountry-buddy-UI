@@ -17,6 +17,12 @@
 .logo {
   font-size: 3em;
   background: linear-gradient(to right, #590fb7,#ff0076, #590fb7);
-	-webkit-background-clip: text;
+  background-clip: text;
+  -webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+.welcome {
+  color: #ff0076;
+  text-shadow: #000 1px 0 10px;;
 }

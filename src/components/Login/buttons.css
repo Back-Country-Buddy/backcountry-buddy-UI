@@ -1,9 +1,13 @@
 .login-button {
-    padding: 3% 5%;
-    font-size: 1.4em;
-    background-color: #900AA1;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
+  padding: 3% 5%;
+  font-size: 1.4em;
+  background-color: #900aa1;
+  color: #fff;
+  font-weight: bold;
+  border: 3px solid #FF0076;
+}
+
+.login-button:hover {
+  background-color: #ff0076;
+  cursor: pointer;
 }
