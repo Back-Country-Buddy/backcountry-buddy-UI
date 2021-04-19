@@ -17,7 +17,8 @@ export const formatUser = (authUser, apiUser) => {
 }
 
 const checkResponse = response => {
-  if (response.ok) {
+  console.log(response)
+  if (response.ok || response.status === 204) {
     return response.json()
   } else {
     throw response
@@ -44,7 +45,6 @@ export const cleanInputStrings = stringObj => {
       formState[field] = 'nil'
     }
   }
-
   return formState
 }
 
@@ -207,6 +207,7 @@ export const deleteTour = (auth, tourId) => {
       "Accept": "application/json",
       "Authorization": `Bearer ${auth}`
     },
-    // body: JSON.stringify(data)
+    body: JSON.stringify()
   }).then(response => checkResponse(response))
 }
+
