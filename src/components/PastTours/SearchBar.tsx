@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import "./PastTours.css"
 
-interface pastTour {
+interface PastTour {
   id: number
   date: string
   location: string
@@ -9,11 +9,11 @@ interface pastTour {
   complete: boolean
 }
 
-interface searchProps {
-  filterTours: (input: string) => pastTour[]
+interface SearchProps {
+  filterTours: (input: string) => PastTour[]
 }
 
-export const SearchBar: React.FC<searchProps> = ({ filterTours }) => {
+export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
   const [input, setInput] = useState<string>("")
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,7 +22,7 @@ export const SearchBar: React.FC<searchProps> = ({ filterTours }) => {
   }
 
   return (
-    <div className='search-wrapper'>
+    <div className="search-wrapper">
       <form className="search-input">
         <input
           type="text"

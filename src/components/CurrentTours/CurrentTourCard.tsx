@@ -1,18 +1,27 @@
 import React from "react"
-import "./CurrentTours.css"
 import { Link } from "react-router-dom"
 
-interface Props {
+import "./CurrentTours.css"
+
+interface TourProps {
   date: string
   location: string
   tourId: number
   userId: number
 }
 
-const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId }) => {
+export const CurrentTourCard: React.FC<TourProps> = ({
+  date,
+  location,
+  tourId,
+  userId,
+}) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
-      <div className='card-wrapper'>
+    <Link
+      style={{ textDecoration: "none" }}
+      to={`/current-tour/${userId}/${tourId}`}
+    >
+      <div className="card-wrapper">
         <article className="current-tours-card">
           <img
             src="https://img.icons8.com/nolan/64/mountain.png"
@@ -27,5 +36,3 @@ const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId }) =>
     </Link>
   )
 }
-
-export default CurrentTourCard

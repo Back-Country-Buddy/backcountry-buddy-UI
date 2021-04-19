@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react"
+import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
 import "./Form.css"
 
@@ -8,14 +9,20 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan, getPlan, cleanInputStrings, updateTour } from "../../util.js"
-import { useAuth0 } from "@auth0/auth0-react"
+import {
+  getDateString,
+  addTour,
+  updatePlan,
+  addPlan,
+  getPlan,
+  cleanInputStrings,
+  updateTour,
+} from "../../util.js"
 
 interface TourFormProps {
   userId?: number
   match?: any
 }
-
 
 interface BasicFields {
   location: string
@@ -36,6 +43,12 @@ interface PlanFields {
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
+  const { getAccessTokenSilently } = useAuth0()
+  
+  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
+  const [planId, setPlanId] = useState<number>(0)
+  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
+  
   const [planFields, setPlanFields] = useState<PlanFields>({
     hazard_weather: "",
     hazard_avalanche: "",
@@ -47,43 +60,36 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     debrief_decisions: "",
     debrief_plan: "",
   })
-
+  
   const [basicFields, setBasicFields] = useState<BasicFields>({
     location: "place",
     date: "00000",
-    complete: false
+    complete: false,
   })
-
-
-  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
-  const [planId, setPlanId] = useState<number>(0)
-  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-
-  const { getAccessTokenSilently } = useAuth0()
-
+  
   useEffect(() => {
     if (tourId.length && match) {
-      getAccessTokenSilently().then(token =>
-        getPlan(token, match.params.userId, tourId).then(plan => {
+      getAccessTokenSilently().then((token) =>
+        getPlan(token, match.params.userId, tourId).then((plan) => {
           setPlanId(plan.data[0].id)
-            setPlanFields(cleanInputStrings(plan.data[0].attributes))
+          setPlanFields(cleanInputStrings(plan.data[0].attributes))
         })
       )
     }
   }, [getAccessTokenSilently, tourId, match])
 
-
   const sendFormUpdate = () => {
-    getAccessTokenSilently().then(token => {
+    getAccessTokenSilently().then((token) => {
       if (planId === 0) {
         addTour(token, userId, {
           creator_id: userId,
           location: basicFields.location,
-          date: '0000000'
-        }).then(response => {
+          date: "0000000",
+        }).then((response) => {
           setTourId(response.data.id)
-          addPlan(token, userId, response.data.id)
-          .then(response => setPlanId(response.data.id))
+          addPlan(token, userId, response.data.id).then((response) =>
+            setPlanId(response.data.id)
+          )
         })
       } else {
         updatePlan(token, planId, planFields)
@@ -92,15 +98,19 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }
 
   const sendTourUpdate = () => {
-    getAccessTokenSilently().then(token => {
-
-      updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
+    getAccessTokenSilently().then((token) => {
+      updateTour(
+        token,
+        userId ? userId : match.params.userId,
+        tourId,
+        basicFields
+      )
     })
   }
 
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setBasicFields({...basicFields, complete: true})
+    setBasicFields({ ...basicFields, complete: true })
     sendTourUpdate()
   }
 
@@ -123,14 +133,13 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find(
-      (field) => planFields[field as keyof PlanFields] === ""
-    )
+    return !fields.find((field) => planFields[field as keyof PlanFields] === "")
   }
 
   return (
     <main>
       <h1>Current Tour</h1>
+      
       <form className="form-basic">
         <div className="form-section">
           <label htmlFor="date" className="form-label">
@@ -160,14 +169,21 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           />
         </div>
       </form>
+      
       <button onClick={sendFormUpdate}>SAVE</button>
+      
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
           <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
           <Ride setChecked={setDepartureCheck} isChecked={isDepartureChecked} />
-          <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
+          <Debrief
+            markComplete={markComplete}
+            renderTextInputs={renderTextInputs}
+            isChecked={isChecked}
+          />
         </StepWizard>
       </div>
+      
     </main>
   )
 }

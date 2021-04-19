@@ -1,7 +1,10 @@
 import React from "react"
-import "./Profile.css"
 import { useAuth0 } from "@auth0/auth0-react"
+
+import "./Profile.css"
+
 import { updateUser } from "../../util.js"
+
 import { LogoutButton } from "../Login/LogoutButton"
 
 interface ProfileProps {
@@ -36,7 +39,12 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
     <main>
       <div className="profile-background-img">
         <h1>My Account</h1>
-        <img src={user.picture} alt={user.full_name} className="profile-photo" />
+        <img
+          src={user.picture}
+          alt={user.full_name}
+          className="profile-photo"
+        />
+
         <div className="profile">
           <p className="name">Name: {user.first_name}</p>
           <p className="email">Email: {user.email_address}</p>
@@ -78,6 +86,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
             <button onClick={(e) => submitInfo(e)}>SAVE</button>
           </form>
         </div>
+        
         <LogoutButton />
       </div>
     </main>

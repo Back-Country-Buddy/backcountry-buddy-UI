@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react"
-import "./PastTours.css"
 import { useAuth0 } from "@auth0/auth0-react"
-import { PastTourCard } from "./PastTourCard"
-import { SearchBar } from "./SearchBar"
+
+import "./PastTours.css"
+
 import { getTours } from "../../util.js"
 
-interface pastTour {
+import { PastTourCard } from "./PastTourCard"
+import { SearchBar } from "./SearchBar"
+
+interface PastTour {
   id: number
   date: string
   location: string
@@ -18,15 +21,15 @@ interface TourProps {
 }
 
 export const PastTours: React.FC<TourProps> = ({ userId }) => {
-  // eslint-disable-next-line 
-  const [searchResults, setSearchResults] = useState<Array<pastTour>>([])
-  const [allTours, setAllTours] = useState<Array<pastTour>>([])
-
   const { getAccessTokenSilently } = useAuth0()
 
+  // eslint-disable-next-line
+  const [searchResults, setSearchResults] = useState<Array<PastTour>>([])
+  const [allTours, setAllTours] = useState<Array<PastTour>>([])
+
   useEffect(() => {
-    getAccessTokenSilently().then(token => {
-      getTours(token, userId, true).then(tours => {
+    getAccessTokenSilently().then((token) => {
+      getTours(token, userId, true).then((tours) => {
         setAllTours(tours)
       })
     })

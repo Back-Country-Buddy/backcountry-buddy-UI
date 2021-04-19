@@ -1,46 +1,46 @@
-import React from 'react'
-import { SectionTitle } from './SectionTitle'
-import StepWizard from 'react-step-wizard'
-import { FormNav } from './FormNav'
+import React from "react"
+import StepWizard from "react-step-wizard"
+
+import { SectionTitle } from "./SectionTitle"
+import { FormNav } from "./FormNav"
 
 interface PlanProps {
-  renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[],
+  renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
 }
 
-
 export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
-  const hazardFields: string[] = ['hazard_weather', 'hazard_avalanche', 'hazard_summary']
-  const hazardPrompts: string[] = [
-    'Discuss current & forecast weather factors that can affect travel or hazard.',
-    'Identify the avalance problem and location. Discuss the danger trend and timing.',
-    'Discuss the advisory\'s key message'
+  const hazardFields: string[] = [
+    "hazard_weather",
+    "hazard_avalanche",
+    "hazard_summary"
   ]
-  const routeFields: string [] = ['route_preview', 'route_alternative']
+  const hazardPrompts: string[] = [
+    "Discuss current & forecast weather factors that can affect travel or hazard.",
+    "Identify the avalance problem and location. Discuss the danger trend and timing.",
+    "Discuss the advisory's key message"
+  ]
+  const routeFields: string[] = ["route_preview", "route_alternative"]
   const routePrompts: string[] = [
-    'Preview terrain',
-    'When uncertain discuss a less exposed alternate route'
+    "Preview terrain",
+    "When uncertain discuss a less exposed alternate route"
   ]
 
   return (
     <form>
       <h2>PLAN your trip</h2>
-      <StepWizard
-        nav={<FormNav
-              steps={['i', 'ii', 'iii', 'iv']}
-            />}
-      >
+      <StepWizard nav={<FormNav steps={["1", "2", "3", "4"]} />}>
         <div>
           <SectionTitle
-            title='Assemble Your Group'
-            fields={['group']}
+            title="Assemble Your Group"
+            fields={["group"]}
             isChecked={isChecked}
           />
-          {renderTextInputs(['group'])}
+          {renderTextInputs(["group"])}
         </div>
         <div>
           <SectionTitle
-            title='Anticipate the Hazard'
+            title="Anticipate the Hazard"
             fields={hazardFields}
             isChecked={isChecked}
           />
@@ -48,7 +48,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
         </div>
         <div>
           <SectionTitle
-            title='Plan Your Route'
+            title="Plan Your Route"
             fields={routeFields}
             isChecked={isChecked}
           />
@@ -56,11 +56,11 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
         </div>
         <div>
           <SectionTitle
-            title='Discuss Your Emergency Plan'
-            fields={['emergencyPlan']}
+            title="Discuss Your Emergency Plan"
+            fields={["emergencyPlan"]}
             isChecked={isChecked}
           />
-          {renderTextInputs(['emergencyPlan'])}
+          {renderTextInputs(["emergencyPlan"])}
         </div>
       </StepWizard>
     </form>
