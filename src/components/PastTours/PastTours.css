@@ -163,3 +163,12 @@ h1 {
   height:50%;
   align-self: center;
 }
+
+.delete-wrapper {
+  color: white;
+  font-weight: bolder;
+  align-self: flex-end;
+  margin-right: 2%;
+  font-size: 1.2em;
+  cursor: pointer;
+}
