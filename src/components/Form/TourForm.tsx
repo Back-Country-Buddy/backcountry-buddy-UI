@@ -56,7 +56,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-  const [createMode, setCreateMode] = useState<boolean>(false)
+  const [createMode, setCreateMode] = useState<boolean>(true)
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -72,10 +72,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }, [getAccessTokenSilently, tourId, match])
 
  const createTour = () => {
-  // const sendFormUpdate = () => {
-    
     getAccessTokenSilently().then(token => {
-      // if (planId === 0) {
         addTour(token, userId, {
           creator_id: userId,
           location: basicFields.location,
@@ -85,11 +82,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           addPlan(token, userId, response.data.id)
           .then(response => setPlanId(response.data.id))
         })
-      // } else {
-        // updatePlan(token, planId, planFields)
       })
+      setCreateMode(false)
     }
-  // }
 
   const savePlanUpdates = () => {
     getAccessTokenSilently().then(token => {
@@ -98,10 +93,11 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }
 
   const sendTourUpdate = () => {
+    setCreateMode(true)
     getAccessTokenSilently().then(token => {
-
       updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
     })
+    setCreateMode(false)
   }
 
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -169,10 +165,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           />
         </div>
       </form>
-      {createTour ?
+      {createMode ?
         <button disabled={basicFields.location.length < 1} onClick={createTour}>CREATE TOUR</button>
         :
-        <button onClick={savePlanUpdates}>SAVE</button>
+        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
       }
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
