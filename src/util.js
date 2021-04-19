@@ -17,7 +17,9 @@ export const formatUser = (authUser, apiUser) => {
 }
 
 const checkResponse = response => {
-  if (response.ok) {
+  if (response.status === 204) {
+    return response
+  } else if (response.ok) {
     return response.json()
   } else {
     throw response
@@ -44,7 +46,6 @@ export const cleanInputStrings = stringObj => {
       formState[field] = 'nil'
     }
   }
-
   return formState
 }
 
@@ -198,3 +199,16 @@ export const updatePlan = (auth, planId, data) => {
     body: JSON.stringify(cleanInputStrings(data))
   }).then(response => checkResponse(response))
 }
+
+export const deleteTour = (auth, tourId) => { 
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}`, {
+    method: 'DELETE',
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    },
+    body: JSON.stringify()
+  }).then(response => checkResponse(response))
+}
+
