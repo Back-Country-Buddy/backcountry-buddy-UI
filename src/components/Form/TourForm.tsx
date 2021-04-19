@@ -48,7 +48,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "place",
+    location: "",
     date: "00000",
     complete: false
   })
@@ -56,7 +56,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-  const [editMode, setEditMode] = useState<boolean>(false)
+  const [createMode, setCreateMode] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -73,6 +73,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
  const createTour = () => {
   // const sendFormUpdate = () => {
+    
     getAccessTokenSilently().then(token => {
       // if (planId === 0) {
         addTour(token, userId, {
@@ -142,6 +143,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             DATE
           </label>
           <input
+            required
             type="date"
             name="date"
             value={basicFields.date}
@@ -156,6 +158,8 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             LOCATION
           </label>
           <input
+            required
+            placeholder='Add a Location'
             type="text"
             name="location"
             value={basicFields.location}
@@ -166,7 +170,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         </div>
       </form>
       {createTour ?
-        <button onClick={createTour}>CREATE TOUR</button>
+        <button disabled={basicFields.location.length < 1} onClick={createTour}>CREATE TOUR</button>
         :
         <button onClick={savePlanUpdates}>SAVE</button>
       }
