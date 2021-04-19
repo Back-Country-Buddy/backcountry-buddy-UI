@@ -1,11 +1,13 @@
 form {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.section-title {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
+.tour-form-container {
+  height: 83vh;
+  overflow: scroll;
 }
 
 .ride-img{
@@ -14,13 +16,24 @@ form {
 }
 
 .form-basic {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
   height: 15vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 
 .form-subform {
   height: 68vh;
+}
+
+/* .section-title {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+} */
+
+input {
+  height: 30px;
+  padding: 0 5%;
 }
 
 textarea {
@@ -33,7 +46,6 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .form-label {

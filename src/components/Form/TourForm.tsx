@@ -8,6 +8,7 @@ import { Plan } from "./Plan"
 import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
+import { NavBar } from "../NavBar/NavBar"
 
 import {
   getDateString,
@@ -44,11 +45,11 @@ interface PlanFields {
 
 export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const { getAccessTokenSilently } = useAuth0()
-  
+
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
   const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-  
+
   const [planFields, setPlanFields] = useState<PlanFields>({
     hazard_weather: "",
     hazard_avalanche: "",
@@ -60,7 +61,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     debrief_decisions: "",
     debrief_plan: "",
   })
-  
+
   const [basicFields, setBasicFields] = useState<BasicFields>({
     location: "place",
     date: "00000",
@@ -138,52 +139,57 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   return (
     <main>
-      <h1>Current Tour</h1>
-      
-      <form className="form-basic">
-        <div className="form-section">
-          <label htmlFor="date" className="form-label">
-            DATE
-          </label>
-          <input
-            type="date"
-            name="date"
-            value={basicFields.date}
-            onChange={(e) =>
-              setBasicFields({ ...basicFields, date: e.target.value })
-            }
-            min={getDateString(new Date())}
-          />
+      <div className="tour-form-container">
+        <h1>Current Tour</h1>
+
+        <form className="form-basic">
+          <div className="form-section">
+            <label htmlFor="date" className="form-label">
+              DATE
+            </label>
+            <input
+              type="date"
+              name="date"
+              value={basicFields.date}
+              onChange={(e) =>
+                setBasicFields({ ...basicFields, date: e.target.value })
+              }
+              min={getDateString(new Date())}
+            />
+          </div>
+          <div className="form-section">
+            <label htmlFor="location" className="form-label">
+              LOCATION
+            </label>
+            <input
+              type="text"
+              name="location"
+              value={basicFields.location}
+              onChange={(e) =>
+                setBasicFields({ ...basicFields, location: e.target.value })
+              }
+            />
+          </div>
+        </form>
+
+        <button onClick={sendFormUpdate}>SAVE</button>
+
+        <div className="form-subform">
+          <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
+            <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
+            <Ride
+              setChecked={setDepartureCheck}
+              isChecked={isDepartureChecked}
+            />
+            <Debrief
+              markComplete={markComplete}
+              renderTextInputs={renderTextInputs}
+              isChecked={isChecked}
+            />
+          </StepWizard>
         </div>
-        <div className="form-section">
-          <label htmlFor="location" className="form-label">
-            LOCATION
-          </label>
-          <input
-            type="text"
-            name="location"
-            value={basicFields.location}
-            onChange={(e) =>
-              setBasicFields({ ...basicFields, location: e.target.value })
-            }
-          />
-        </div>
-      </form>
-      
-      <button onClick={sendFormUpdate}>SAVE</button>
-      
-      <div className="form-subform">
-        <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
-          <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-          <Ride setChecked={setDepartureCheck} isChecked={isDepartureChecked} />
-          <Debrief
-            markComplete={markComplete}
-            renderTextInputs={renderTextInputs}
-            isChecked={isChecked}
-          />
-        </StepWizard>
       </div>
-      
+      <NavBar />
     </main>
   )
 }
