@@ -1,7 +1,6 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import "./PastTours.css"
-import { deleteTour } from "../../util.js"
 
 interface TourProps {
   userId: number
