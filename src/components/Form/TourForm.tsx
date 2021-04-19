@@ -66,7 +66,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     date: "00000",
     complete: false,
   })
-  
+
   useEffect(() => {
     if (tourId.length && match) {
       getAccessTokenSilently().then((token) =>

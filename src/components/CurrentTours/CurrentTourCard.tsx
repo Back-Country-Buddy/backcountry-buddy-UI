@@ -8,6 +8,7 @@ interface TourProps {
   location: string
   tourId: number
   userId: number
+  removeTour: (tourId:number) => any
 }
 
 export const CurrentTourCard: React.FC<TourProps> = ({
@@ -15,13 +16,18 @@ export const CurrentTourCard: React.FC<TourProps> = ({
   location,
   tourId,
   userId,
+  removeTour,
 }) => {
   return (
-    <Link
-      style={{ textDecoration: "none" }}
-      to={`/current-tour/${userId}/${tourId}`}
-    >
-      <div className="card-wrapper">
+    <div className="card-wrapper">
+      <div className="delete-wrapper" onClick={() => removeTour(tourId)}>
+        X
+      </div>
+      <Link
+        style={{ textDecoration: "none" }}
+        to={`/current-tour/${userId}/${tourId}`}
+      >
+        {console.log(tourId)}
         <article className="current-tours-card">
           <img
             src="https://img.icons8.com/nolan/64/mountain.png"
@@ -32,7 +38,7 @@ export const CurrentTourCard: React.FC<TourProps> = ({
             <p>{date}</p>
           </div>
         </article>
-      </div>
-    </Link>
+      </Link>
+    </div>
   )
 }
