@@ -4,42 +4,55 @@
   align-items: center;
 }
 
-.photo-background {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  height: 115px;
-  width: 115px;
-  background: linear-gradient(to right, #590fb7, #ff0076);
-}
-
 .profile-photo {
   border-radius: 50%;
-  height: 100px;
-  width: 100px;
-}
-
-.emergency-form {
-  margin-bottom: 3%;
-}
-
-.emergency-form-section {
-  margin: 3%;
-}
-
-.emergency-label {
-  margin-right: 2%;
+  box-shadow: 3px 3px 10px black;
+  margin: 2% 0;
 }
 
 .profile-background-img {
-  background: url("../../assets/archcloud.png");
+  background: url("../../assets/pinkclouds.png");
   background-position: center;
   background-size: cover;
   width: 100%;
   height: 100%;
 }
 
-.profile {
-  background: #f8f8ff;
+.emergency-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f8f8ff;
+  border-radius: 3px;
+  width: 60%;
+  margin: 3%;
+  padding-bottom: 3%;
+}
+
+.emergency-form-section {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 3%;
+}
+
+.emergency-label {
+  margin-right: 3%;
+}
+
+.button-save {
+  width: 30%;
+  margin: 3%;
+  padding: 2%;
+  background-color: #900aa1;
+  color: #fff;
+  font-weight: bold;
+  border: 3px solid #900aa1;
+  border-radius: 3px;
+}
+
+.button-save:hover {
+  cursor: pointer;
+  background-color: #fff;
+  color: #900aa1;
 }
