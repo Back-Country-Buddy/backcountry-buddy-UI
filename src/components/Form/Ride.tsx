@@ -1,5 +1,6 @@
 import React from 'react'
 import placeholder from '../../assets/placeholderChartAsset.png'
+import checkList from '../../assets/departureCheck.png'
 
 interface RideProps {
   setChecked: React.Dispatch<React.SetStateAction<boolean>>,
@@ -22,7 +23,7 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
         >Conduct a Departure Check</button>
       </div>
       <img
-        src={placeholder}
+        src={checkList}
         alt='ride flowchart'
         className='ride-img'
       />
