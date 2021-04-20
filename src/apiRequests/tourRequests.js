@@ -11,7 +11,7 @@ export const getTour = (auth, tourId) => {
 
 
 export const getTours = (auth, id) => {
-  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}/tour`,
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/prite/v1/user/${id}/tour`,
     {
     headers: header(auth)
   })
