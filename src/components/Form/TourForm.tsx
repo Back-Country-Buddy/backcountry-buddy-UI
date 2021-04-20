@@ -91,28 +91,15 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
   }, [getAccessTokenSilently, tourId, match, basicFields, userId])
 
   const sendFormUpdate = () => {
-      if (planId === 0) {
-        secureCall(getAccessTokenSilently, setErr, addTour, userId, {
-          creator_id: userId,
-          location: basicFields.location,
-          date: '0000000'
-        })
-          .then((response: any) => {
-            setTourId(response.data.id)
-            secureCall(getAccessTokenSilently, setErr, addPlan, userId, response.data.id)
-            .then((response: any) => setPlanId(response.data.id))
-          })
-      } else {
-        if (planChange) {
-          secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
-          setPlanChange(false)
-        }
-        if (basicChange) {
-          secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
-          setBasicChange(false)
-        }
+      if (planChange) {
+        secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
+        setPlanChange(false)
       }
-  }
+      if (basicChange) {
+        secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
+        setBasicChange(false)
+      }
+    }
 
   const createTour = () => {
      if(!tourId) {
@@ -123,21 +110,19 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
        })
        .then(response => {
          setTourId(response.data.id)
-         addPlan(token, userId, response.data.id)
-         .then(response => setPlanId(response.data.id))
-       })
+         secureCall(getAccessTokenSilently, addPlan, userId, response.data.id)
+          .then(response => setPlanId(response.data.id))
        })
     }
   }
+
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     setBasicFields({...basicFields, complete: true})
   }
 
-  const renderTextInputs = (
-    fields: string[],
-    prompts?: string[]
-  ): JSX.Element[] => {
+  const renderTextInputs =
+  (fields: string[], prompts?: string[]): JSX.Element[] => {
     return fields.map((field, i) => {
       return (
         <TextField
@@ -205,7 +190,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
       {!planId ?
         <button disabled={!basicFields.location} onClick={createTour}>CREATE TOUR</button>
         :
-        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
+        <button onClick={sendFormUpdate}>SAVE UPDATES</button>
       }
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
