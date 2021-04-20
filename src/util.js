@@ -57,8 +57,8 @@ export const addUser = (
   const body = {
     user_name: name,
     email_address: email,
-    emergency_contact_name: "",
-    emergency_number: ""
+    emergency_contact_name: "placeholder",
+    emergency_number: "placeholder"
   }
 
   return fetch(
