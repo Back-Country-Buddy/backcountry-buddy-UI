@@ -155,6 +155,18 @@ export const addTour = (auth, id, data) => {
   ).then((response) => checkResponse(response))
 }
 
+export const getTour = (auth, userId, tourId) => {
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}`,
+ 
+    {
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    }
+  }).then(response => checkResponse(response))
+}
+
 export const getPlan = (auth, userId, tourId) => {
   return fetch(
     `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,

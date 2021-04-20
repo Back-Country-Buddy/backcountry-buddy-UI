@@ -28,11 +28,11 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    getAccessTokenSilently().then((token) => {
-      getTours(token, userId, true).then((tours) => {
-        setAllTours(tours)
+      getAccessTokenSilently().then(token => {
+        getTours(token, userId, true).then(tours => {
+          setAllTours(tours)
+        })
       })
-    })
   }, [getAccessTokenSilently, userId])
 
   const filterTours = (input: string): any => {

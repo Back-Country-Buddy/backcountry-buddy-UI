@@ -15,6 +15,7 @@ import {
   addTour,
   updatePlan,
   addPlan,
+  getTour,
   getPlan,
   cleanInputStrings,
   updateTour,
@@ -41,6 +42,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
+  // departure_check?: boolean
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
@@ -60,41 +62,55 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     debrief_conditions: "",
     debrief_decisions: "",
     debrief_plan: "",
+    // departure_check: false
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "place",
+    location: "",
     date: "00000",
     complete: false,
   })
 
   useEffect(() => {
     if (tourId.length && match) {
-      getAccessTokenSilently().then((token) =>
+      getAccessTokenSilently().then((token) => {
+        getTour(token, userId, tourId).then((tour) =>
+          setBasicFields({
+            ...basicFields,
+            location: tour.data.attributes.location,
+            date: tour.data.attributes.date,
+          })
+        )
+      })
+      getAccessTokenSilently().then((token) => {
         getPlan(token, match.params.userId, tourId).then((plan) => {
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
         })
-      )
+      })
     }
-  }, [getAccessTokenSilently, tourId, match])
+  }, [getAccessTokenSilently, tourId, match, basicFields, userId])
 
-  const sendFormUpdate = () => {
-    getAccessTokenSilently().then((token) => {
-      if (planId === 0) {
+  const createTour = () => {
+    if (!tourId) {
+      getAccessTokenSilently().then((token) => {
         addTour(token, userId, {
           creator_id: userId,
           location: basicFields.location,
-          date: "0000000",
+          date: basicFields.date,
         }).then((response) => {
           setTourId(response.data.id)
           addPlan(token, userId, response.data.id).then((response) =>
             setPlanId(response.data.id)
           )
         })
-      } else {
-        updatePlan(token, planId, planFields)
-      }
+      })
+    }
+  }
+
+  const savePlanUpdates = () => {
+    getAccessTokenSilently().then((token) => {
+      updatePlan(token, planId, planFields)
     })
   }
 
@@ -133,6 +149,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     })
   }
 
+  const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDepartureCheck(!isDepartureChecked)
+    //make a call to the backend to make a PATCH once that property is added
+  }
+
   const isChecked = (fields: string[]) => {
     return !fields.find((field) => planFields[field as keyof PlanFields] === "")
   }
@@ -149,7 +171,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
                 DATE
               </label>
               <input
-                className=""
+                required
                 type="date"
                 name="date"
                 value={basicFields.date}
@@ -164,6 +186,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
                 LOCATION
               </label>
               <input
+                required
                 type="text"
                 name="location"
                 placeholder="Trailhead, zone, etc."
@@ -179,7 +202,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
               <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
               <Ride
-                setChecked={setDepartureCheck}
+                setChecked={toggleDepartureCheck}
                 isChecked={isDepartureChecked}
               />
               <Debrief
@@ -191,11 +214,22 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           </div>
         </div>
 
-        <button className="button-save" onClick={sendFormUpdate}>
-          SAVE
-        </button>
+        {!planId ? (
+          <button
+            className="button-save"
+            disabled={!basicFields.location}
+            onClick={createTour}
+          >
+            CREATE TOUR
+          </button>
+        ) : (
+          <button className="button-save" onClick={savePlanUpdates}>
+            SAVE UPDATES
+          </button>
+        )}
+
+        <NavBar />
       </div>
-      <NavBar />
     </main>
   )
 }
