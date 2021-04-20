@@ -1,7 +1,7 @@
 import { header } from './header'
 import { cleanInputStrings } from './dataCleaners'
 
-export const getPlan = (auth, userId, tourId) => {
+export const getPlan = (auth, userId, emptyData, tourId) => {
   return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,
     {
     headers: header(auth)

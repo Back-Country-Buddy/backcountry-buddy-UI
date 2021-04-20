@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
 import './PastTours.css'
 import circleCheck from '../../assets/purplebluecircle.png'
 import arrow from '../../assets/arrow.png'
@@ -21,13 +20,6 @@ interface tourPlan {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
-}
-
-interface TParams {
-  userId: string
-  tourId: string
-  location: string
-  date: string
 }
 
 
@@ -56,10 +48,10 @@ export const PastTourDetails: React.FC<any> = ({
 
   useEffect(() => {
     if (tourId.length && match) {
-      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, tourId)
+      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
         .then((plan: any) => setPastTour(cleanInputStrings(plan.data[0].attributes)))
     }
-  }, [getAccessTokenSilently, tourId, match])
+  }, [getAccessTokenSilently, tourId, match, setErr])
 
   return (
   <>

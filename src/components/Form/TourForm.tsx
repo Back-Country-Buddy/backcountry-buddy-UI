@@ -79,7 +79,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
 
   useEffect(() => {
     if (tourId.length && match && !planId) {
-      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, tourId)
+      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
         .then((plan: any) => {
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
