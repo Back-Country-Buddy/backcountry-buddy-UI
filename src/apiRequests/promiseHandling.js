@@ -1,7 +1,9 @@
 import { trackPromise} from 'react-promise-tracker'
 
 const checkResponse = response => {
-  if (response.ok) {
+  if (response.status === 204) {
+    return response
+  } else if (response.ok) {
     return response.json()
   } else {
     throw response

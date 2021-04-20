@@ -66,11 +66,21 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
 
   const { getAccessTokenSilently } = useAuth0()
 
+  const sendFormUpdate = () => {
+    if (planChange) {
+      secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
+      setPlanChange(false)
+    }
+    if (basicChange) {
+      secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
+      setBasicChange(false)
+    }
+  }
+
   useEffect(() => {
     if (tourId.length && match && !planId) {
       secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, tourId)
         .then((plan: any) => {
-          console.log(plan)
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
         }
@@ -88,18 +98,11 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
         }
       )
     }
+    if (basicFields.complete) {
+      sendFormUpdate()
+    }
   }, [getAccessTokenSilently, tourId, match, basicFields, userId])
 
-  const sendFormUpdate = () => {
-      if (planChange) {
-        secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
-        setPlanChange(false)
-      }
-      if (basicChange) {
-        secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
-        setBasicChange(false)
-      }
-    }
 
   const createTour = () => {
      if(!tourId) {
@@ -119,6 +122,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     setBasicFields({...basicFields, complete: true})
+    setBasicChange(true)
   }
 
   const renderTextInputs =

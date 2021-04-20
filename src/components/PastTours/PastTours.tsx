@@ -5,6 +5,7 @@ import { PastTourCard } from './PastTourCard'
 import { SearchBar } from './SearchBar'
 import { getTours, deleteTour } from '../../apiRequests/tourRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
+import { cleanTours } from '../../apiRequests/dataCleaners.js'
 
 
 interface pastTour {
@@ -40,7 +41,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
 
   useEffect(() => {
     secureCall(getAccessTokenSilently, setErr, getTours, userId)
-      .then((tours: any) => setAllTours(tours.data))
+      .then((tours: any) => setAllTours(cleanTours(tours, true)))
     }, [getAccessTokenSilently, userId])
 
   const createPastTourCards = allTours.map((tour) => {
