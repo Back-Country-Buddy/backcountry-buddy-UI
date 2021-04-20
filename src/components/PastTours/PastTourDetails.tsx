@@ -32,33 +32,31 @@ export const PastTourDetails: React.FC<any> = ({
   const date = match.params.date
 
   const [pastTour, setPastTour] = useState<tourPlan>({
-        hazard_weather: '',
-        hazard_avalanche: '',
-        hazard_summary: '',
-        route_preview: '',
-        route_alternative: '',
-        emergency_plan: '',
-        debrief_conditions: '',
-        debrief_decisions: '',
-        debrief_plan: '',
-      }
-  )
+    hazard_weather: '',
+    hazard_avalanche: '',
+    hazard_summary: '',
+    route_preview: '',
+    route_alternative: '',
+    emergency_plan: '',
+    debrief_conditions: '',
+    debrief_decisions: '',
+    debrief_plan: ''
+  })
 
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    if (tourId.length && match) {
-      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
-        .then((plan: any) => setPastTour(cleanInputStrings(plan.data[0].attributes)))
-    }
-  }, [getAccessTokenSilently, tourId, match, setErr])
+    secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
+      .then((plan: any) => setPastTour(cleanInputStrings(plan.data[0].attributes)))
+
+  }, [getAccessTokenSilently, match.params.userId, setErr, tourId])
 
   return (
   <>
     <main className='tour-details'>
       <div className='location'>
         <h1>{location}</h1>
-        <p className='date'>{date}</p>
+        <p className='date'>{new Date(date).toDateString()}</p>
       </div>
       <div className='plan-wrapper'>
         <div className='border-wrapper'>
