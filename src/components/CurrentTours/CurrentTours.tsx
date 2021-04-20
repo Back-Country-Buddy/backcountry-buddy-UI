@@ -17,16 +17,17 @@ interface Tour {
 interface CurrentToursProps {
   tourId: number
   userId: number
+  setErr: () => any
 }
 
-export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) => {
+export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId, setErr }) => {
   const [allTours, setAllTours] = useState<Array<Tour>>([])
   const { getAccessTokenSilently } = useAuth0()
 
   const removeTour = (tourId:number):any => {
     const confirmationMessage = window.confirm('Are you sure you want to remove this tour?')
     if (confirmationMessage) {
-      secureCall(getAccessTokenSilently, deleteTour, tourId)
+      secureCall(getAccessTokenSilently, setErr, deleteTour, tourId)
         .then(() => setAllTours(allTours
           .filter(tour => tour.id !== tourId)))
       } else {
@@ -35,7 +36,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   }
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, getTours, userId)
+    secureCall(getAccessTokenSilently, setErr, getTours, userId)
       .then((tours: Array<Tour>) => setAllTours(cleanTours(tours, false)))
     }, [getAccessTokenSilently, userId])
 

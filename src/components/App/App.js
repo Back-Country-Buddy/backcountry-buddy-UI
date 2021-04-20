@@ -11,6 +11,7 @@ import { CurrentTours } from '../CurrentTours/CurrentTours'
 import { PastTours } from '../PastTours/PastTours'
 import { PastTourDetails } from '../PastTours/PastTourDetails'
 import { NavBar } from '../NavBar/NavBar'
+import { Error } from '../Error/Error'
 
 import { handleLogin, } from '../../apiRequests/userRequests'
 import { secureCall } from '../../apiRequests/promiseHandling'
@@ -29,56 +30,60 @@ const App = () => {
     picture: ''
   })
 
+  const [err, setErr] = useState(null)
+
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     if (isAuthenticated) {
-      secureCall(getAccessTokenSilently, handleLogin, user)
+      secureCall(getAccessTokenSilently, setErr, handleLogin, user)
         .then(fetchedUser => setUserState(formatUser(user, fetchedUser.data[0])))
       }
     }, [isAuthenticated, user, getAccessTokenSilently])
 
   return (
     <>
-    <div className='App'>
-      <Route
-        exact
-        path='/'
-        render={() => <LandingPage name={userState.name} />}
-      />
+      {err && <Error err={err} setErr={setErr}/>}
+      {!err &&
+        <div className='App'>
+          <Route
+            exact
+            path='/'
+            render={() => <LandingPage name={userState.name} setErr={setErr}/>}
+          />
 
-      <Route
-        path='/profile'
-        render={() => <Profile user={userState} setUser={setUserState} />}
-      />
+          <Route
+            path='/profile'
+            render={() => <Profile user={userState} setUser={setUserState} setErr={setErr}/>}
+          />
 
-      <Route
-        exact
-        path='/add-tour'
-        render={() => <TourForm userId={userState.id} />}
-      />
+          <Route
+            exact
+            path='/add-tour'
+            render={() => <TourForm userId={userState.id} setErr={setErr}/>}
+          />
 
-      <Route
-        path='/current-tour/:userId/:tourId'
-        component={TourForm}
-      />
+          <Route
+            path='/current-tour/:userId/:tourId'
+            render={({match}) => <TourForm match={match} setErr={setErr}/>}
+          />
 
-      <Route
-        path='/current-tours'
-        render={() => <CurrentTours userId={userState.id} />}
-      />
+          <Route
+            path='/current-tours'
+            render={() => <CurrentTours userId={userState.id} setErr={setErr}/>}
+          />
 
-      <Route
-        exact
-        path='/past-tours'
-        render={() => <PastTours userId={userState.id} />}
-      />
+          <Route
+            exact
+            path='/past-tours'
+            render={() => <PastTours userId={userState.id} setErr={setErr}/>}
+          />
 
-      <Route
-        path='/past-tours/:userId/:tourId/:location/:date'
-        component={PastTourDetails} />
-
-    </div>
+          <Route
+            path='/past-tours/:userId/:tourId/:location/:date'
+            render={({match}) => <PastTourDetails match={match} setErr={setErr}/>}
+          />
+        </div>}
       {isAuthenticated && <NavBar />}
     </>
   )

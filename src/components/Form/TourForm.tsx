@@ -17,6 +17,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 interface TourFormProps {
   userId?: number
   match?: any
+  setErr: () => any
 }
 
 interface BasicFields {
@@ -37,7 +38,7 @@ interface PlanFields {
   debrief_plan: string
 }
 
-export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
+export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => {
   const [planFields, setPlanFields] = useState<PlanFields>({
     hazard_weather: '',
     hazard_avalanche: '',
@@ -65,14 +66,15 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
+    console.log(match)
     if (tourId.length && match) {
-      secureCall(getAccessTokenSilently, getPlan, match.params.userId, tourId)
+      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, tourId)
         .then((plan: any) => {
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
         })
 
-      secureCall(getAccessTokenSilently, getTour, tourId)
+      secureCall(getAccessTokenSilently, setErr, getTour, tourId)
         .then((tour: any) => {
           console.log(tour)
           setBasicFields(
@@ -90,23 +92,23 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   const sendFormUpdate = () => {
       if (planId === 0) {
-        secureCall(getAccessTokenSilently, addTour, userId, {
+        secureCall(getAccessTokenSilently, setErr, addTour, userId, {
           creator_id: userId,
           location: basicFields.location,
           date: '0000000'
         })
           .then((response: any) => {
             setTourId(response.data.id)
-            secureCall(getAccessTokenSilently, addPlan, userId, response.data.id)
+            secureCall(getAccessTokenSilently, setErr, addPlan, userId, response.data.id)
             .then((response: any) => setPlanId(response.data.id))
           })
       } else {
         if (planChange) {
-          secureCall(getAccessTokenSilently, updatePlan, planId, planFields)
+          secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
           setPlanChange(false)
         }
         if (basicChange) {
-          secureCall(getAccessTokenSilently, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
+          secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
           setBasicChange(false)
         }
       }
