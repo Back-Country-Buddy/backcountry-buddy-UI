@@ -8,7 +8,7 @@ export const getPlan = (auth, userId, tourId) => {
   })
 }
 
-export const addPlan = (auth, userId, tourId) => {
+export const addPlan = (auth, userId, emptyData, tourId) => {
   return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}/plan`,
     {
     method: 'POST',

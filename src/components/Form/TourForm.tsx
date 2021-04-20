@@ -67,17 +67,17 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    console.log(match)
-    if (tourId.length && match) {
+    if (tourId.length && match && !planId) {
       secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, tourId)
         .then((plan: any) => {
+          console.log(plan)
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
-        })
+        }
+      )
 
       secureCall(getAccessTokenSilently, setErr, getTour, tourId)
         .then((tour: any) => {
-          console.log(tour)
           setBasicFields(
             {
               location: tour.data.attributes.location,
@@ -110,7 +110,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
        })
        .then(response => {
          setTourId(response.data.id)
-         secureCall(getAccessTokenSilently, addPlan, userId, response.data.id)
+         secureCall(getAccessTokenSilently, setErr, addPlan, userId, null, response.data.id)
           .then(response => setPlanId(response.data.id))
        })
     }

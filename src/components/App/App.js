@@ -70,7 +70,7 @@ const App = () => {
           <Route
             exact
             path='/'
-            render={() => checkAuth(<LandingPage name={userState.name} setErr={setErr}/>)}
+            render={() => <LandingPage name={userState.name} setErr={setErr}/>}
           />
 
           <Route

@@ -15,12 +15,11 @@ interface Tour {
 }
 
 interface CurrentToursProps {
-  tourId: number
   userId: number
   setErr: () => any
 }
 
-export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId, setErr }) => {
+export const CurrentTours: React.FC<CurrentToursProps> = ({ userId, setErr }) => {
   const [allTours, setAllTours] = useState<Array<Tour>>([])
   const { getAccessTokenSilently } = useAuth0()
 

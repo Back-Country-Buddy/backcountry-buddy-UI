@@ -3,7 +3,7 @@ import { header } from './header'
 
 
 export const getTour = (auth, tourId) => {
-  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}r`,
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}`,
     {
     headers: header(auth)
   })
