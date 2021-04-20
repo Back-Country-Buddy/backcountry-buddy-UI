@@ -13,17 +13,17 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
   const hazardFields: string[] = [
     "hazard_weather",
     "hazard_avalanche",
-    "hazard_summary"
+    "hazard_summary",
   ]
   const hazardPrompts: string[] = [
-    "Discuss current & forecast weather factors that can affect travel or hazard.",
-    "Identify the avalance problem and location. Discuss the danger trend and timing.",
-    "Discuss the advisory's key message"
+    "Discuss current & forecast weather factors that can affect travel or hazard:",
+    "Identify the avalance problem and location. Discuss the danger trend and timing:",
+    "Discuss the advisory's key message:",
   ]
   const routeFields: string[] = ["route_preview", "route_alternative"]
   const routePrompts: string[] = [
-    "Preview terrain",
-    "When uncertain discuss a less exposed alternate route"
+    "Preview terrain:",
+    "When uncertain discuss a less exposed alternate route:",
   ]
 
   return (
@@ -39,6 +39,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             fields={["group"]}
             isChecked={isChecked}
           />
+          <p className="section-description">Group check in.</p>
           {renderTextInputs(["group"])}
         </div>
         <div className="step">
@@ -47,6 +48,9 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             fields={hazardFields}
             isChecked={isChecked}
           />
+          <p className="section-description">
+            Read the local avalanche advisory. Seek expert opinion.
+          </p>
           {renderTextInputs(hazardFields, hazardPrompts)}
         </div>
         <div className="step">
@@ -55,6 +59,9 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             fields={routeFields}
             isChecked={isChecked}
           />
+          <p className="section-description">
+            Voice all concerns. Respect any veto. Decide by consensus.
+          </p>
           {renderTextInputs(routeFields, routePrompts)}
         </div>
         <div className="step">
@@ -63,6 +70,7 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             fields={["emergencyPlan"]}
             isChecked={isChecked}
           />
+          <p className="section-description">Assign group gear.</p>
           {renderTextInputs(["emergencyPlan"])}
         </div>
       </StepWizard>
