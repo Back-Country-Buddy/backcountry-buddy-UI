@@ -39,6 +39,14 @@ const App = () => {
     }
   }, [isAuthenticated, getAccessTokenSilently, user])
 
+  const checkAuth = (component) => {
+    if (isAuthenticated) {
+      return component
+    } else {
+      return (<Redirect to='/'/>)
+    }
+  }
+
   return (
     <>
     <div className="App">
@@ -48,49 +56,38 @@ const App = () => {
         path="/"
         render={() => <LandingPage name={userData.name} />}
       />
+ 
+      <Route
+        path="/profile"
+        render={() => checkAuth(<Profile user={userState} setUser={setUserState} />) }
+      />
 
-    {!isAuthenticated ? (
-      <>
-        <Redirect to='/'/>
-        <Route
-          path="/profile"
-          render={() => <Profile user={userState} setUser={setUserState} />}
-        />
-      </>
-    ) : (
-      <>
-        <Route
-          path="/profile"
-          render={() => <Profile user={userState} setUser={setUserState} />}
-        />
+      <Route
+        exact
+        path="/add-tour"
+        render={() => checkAuth(<TourForm userId={userState.id} />)}
+      />
 
-        <Route
-          exact
-          path="/add-tour"
-          render={() => <TourForm userId={userState.id} />}
-        />
+      <Route
+        path="/current-tour/:userId/:tourId"
+        component={TourForm}
+      />
 
-        <Route
-          path="/current-tour/:userId/:tourId"
-          component={TourForm}
-        />
+      <Route
+        path="/current-tours"
+        render={() => checkAuth(<CurrentTours userId={userState.id} />)}
+      />
 
-        <Route
-          path="/current-tours"
-          render={() => <CurrentTours userId={userState.id} />}
-        />
+      <Route
+        exact
+        path="/past-tours"
+        render={() => checkAuth(<PastTours userId={userState.id} pastTours={pastTours} />)}
+      />
 
-        <Route
-          exact
-          path="/past-tours"
-          render={() => <PastTours userId={userState.id} pastTours={pastTours} />}
-        />
+      <Route 
+        path="/past-tours/:userId/:tourId/:location/:date" 
+        component={PastTourDetails} />
 
-        <Route 
-          path="/past-tours/:userId/:tourId/:location/:date" 
-          component={PastTourDetails} />
-    </>
-    )}
     </div>
       {isAuthenticated && <NavBar />}
     </>

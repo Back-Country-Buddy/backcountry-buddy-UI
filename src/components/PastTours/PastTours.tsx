@@ -40,11 +40,11 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   }
 
   useEffect(() => {
-    getAccessTokenSilently().then(token => {
-      getTours(token, userId, true).then(tours => {
-        setAllTours(tours)
+      getAccessTokenSilently().then(token => {
+        getTours(token, userId, true).then(tours => {
+          setAllTours(tours)
+        })
       })
-    })
   }, [getAccessTokenSilently, userId])
 
   const createPastTourCards = allTours.map((tour) => {
