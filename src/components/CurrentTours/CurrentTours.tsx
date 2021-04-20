@@ -59,7 +59,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   })
 
   return (
-    <main className="background-img current-background-img">
+    <main className="background current-background-img">
       <div className="sub-container">
         <h1>Current Tours</h1>
         <section className="card-container">{tours}</section>

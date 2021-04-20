@@ -5,9 +5,9 @@ import { useAuth0 } from "@auth0/auth0-react"
 import "./PastTours.css"
 
 import { getPlan, cleanInputStrings } from "../../util.js"
+import { NavBar } from "../NavBar/NavBar"
 
 import circleCheck from "../../assets/purplebluecircle.png"
-import arrow from "../../assets/arrow.png"
 import question from "../../assets/question-sign.svg"
 import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
@@ -63,186 +63,215 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   }, [getAccessTokenSilently, tourId, match])
 
   return (
-    <>
-      <main className="tour-details">
+    <main className="background">
+      <div className="sub-container">
         <div className="location">
           <h1>{location}</h1>
           <p className="date">{date}</p>
         </div>
 
-        <div className="plan-wrapper">
-          <div className="border-wrapper">
-            <section className="plan">
-              <div className="title-wrapper">
-                <img src={lightbulb} alt="lightbulb" className="form-icon" />
-                <h2 className="title">PLAN your trip</h2>
-              </div>
-              <article className="plan-info">
-                <div className="category-wrapper">
-                  <img
-                    src={circleCheck}
-                    alt="checkmark"
-                    className="check-icon"
-                  />
-                  <h3 className="category">Anticipate The Hazard</h3>
-                </div>
-                <div className="sub-wrapper">
-                  <h4 className="sub-category">
-                    <img
-                      src={arrow}
-                      alt="right-arrow-icon"
-                      className="arrow-icon"
-                    />
-                    Discuss current & forecast weather factors that can affect
-                    travel or hazard
-                  </h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.hazard_weather}</p>
-                </div>
-                <div className="sub-wrapper">
-                  <h4 className="sub-category">
-                    <img
-                      src={arrow}
-                      alt="right-arrow-icon"
-                      className="arrow-icon"
-                    />
-                    Identify the avalanche problem and location. Discuss the
-                    danger trend and timing
-                  </h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.hazard_avalanche}</p>
-                </div>
-                <div className="sub-wrapper">
-                  <img
-                    src={arrow}
-                    alt="right-arrow-icon"
-                    className="arrow-icon"
-                  />
-                  <h4 className="sub-category">
-                    Discuss the advisory's key message
-                  </h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.hazard_summary}</p>
-                </div>
-              </article>
-              <article className="plan-info">
-                <div className="category-wrapper">
-                  <img
-                    src={circleCheck}
-                    alt="checkmark"
-                    className="check-icon"
-                  />
-                  <h3 className="category">Plan Your Route</h3>
-                </div>
-                <div className="sub-wrapper">
-                  <img
-                    src={arrow}
-                    alt="right-arrow-icon"
-                    className="arrow-icon"
-                  />
-                  <h4 className="sub-category">Preview Terrain</h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.route_preview}</p>
-                </div>
-                <div className="sub-wrapper">
-                  <img
-                    src={arrow}
-                    alt="right-arrow-icon"
-                    className="arrow-icon"
-                  />
-                  <h4 className="sub-category">Alternate Route</h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.route_alternative}</p>
-                </div>
-              </article>
-              <article className="plan-info">
-                <div className="category-wrapper">
-                  <img
-                    src={circleCheck}
-                    alt="checkmark"
-                    className="check-icon"
-                  />
-                  <h3 className="category">Discuss Your Emergency Plan</h3>
-                </div>
-                <div className="sub-wrapper">
-                  <img
-                    src={arrow}
-                    alt="right-arrow-icon"
-                    className="arrow-icon"
-                  />
-                  <h4 className="sub-category">Emergency Plan</h4>
-                </div>
-                <div className="input-wrapper">
-                  <p className="tour-input">{pastTour.emergency_plan}</p>
-                </div>
-              </article>
-            </section>
+        <section className="plan">
+          <div className="title-wrapper">
+            <img src={lightbulb} alt="lightbulb" className="form-icon" />
+            <h2>PLAN your trip</h2>
           </div>
 
-          <section className="ride">
-            <div className="title-wrapper">
-              <img src={route} alt="route" className="form-icon" />
-              <h2 className="title">RIDE safely</h2>
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Anticipate The Hazard</h3>
             </div>
-            <article className="ride-info">
-              <div className="category-wrapper">
-                <img src={circleCheck} alt="checkmark" className="check-icon" />
-                <h3 className="category">Conduct a Departure Check</h3>
-              </div>
-              <div className="sub-wrapper">
-                <img
-                  src={arrow}
-                  alt="right-arrow-icon"
-                  className="arrow-icon"
-                />
-                <h4 className="sub-category">Key Observations</h4>
-              </div>
-              <div className="input-wrapper">
-                <p className="tour-input">Ride Observations</p>
-              </div>
-            </article>
-          </section>
 
-          <section className="debrief">
-            <div className="title-wrapper">
-              <img src={question} alt="question mark" className="form-icon" />
-              <h2 className="title">DEBRIEF</h2>
+            <div className="step-wrapper">
+              <p className="section-description">
+                Discuss current & forecast weather factors that can affect
+                travel or hazard:
+              </p>
+              {pastTour.hazard_weather ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.hazard_weather}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
             </div>
-            <article className="debrief-info">
-              <div className="category-wrapper">
-                <img src={circleCheck} alt="checkmark" className="check-icon" />
-                <h3 className="category">Summarize Conditions</h3>
-              </div>
-              <div className="input-wrapper">
-                <p className="tour-input">{pastTour.debrief_conditions}</p>
-              </div>
-            </article>
-            <article className="debrief-info">
-              <div className="category-wrapper">
-                <img src={circleCheck} alt="checkmark" className="check-icon" />
-                <h3 className="category">Review Decisions</h3>
-              </div>
-              <div className="input-wrapper">
-                <p className="tour-input">{pastTour.debrief_decisions}</p>
-              </div>
-            </article>
-            <article className="debrief-info">
-              <div className="category-wrapper">
-                <img src={circleCheck} alt="checkmark" className="check-icon" />
-                <h3 className="category">Improve Your Plan</h3>
-              </div>
-              <div className="input-wrapper">
-                <p className="tour-input">{pastTour.debrief_plan}</p>
-              </div>
-            </article>
-          </section>
-        </div>
-      </main>
-    </>
+
+            <div className="step-wrapper">
+              <p className="section-description">
+                Identify the avalanche problem and location. Discuss the danger
+                trend and timing:
+              </p>
+              {pastTour.hazard_avalanche ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.hazard_avalanche}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+
+            <div className="step-wrapper">
+              <p className="section-description">
+                Discuss the advisory's key message:
+              </p>
+              {pastTour.hazard_summary ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.hazard_summary}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Plan Your Route:</h3>
+            </div>
+
+            <div className="step-wrapper">
+              <p className="section-description">Preview Terrain:</p>
+
+              {pastTour.route_preview ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.route_preview}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+
+            <div className="step-wrapper">
+              <p className="section-description">Alternate Route:</p>
+              {pastTour.route_alternative ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.route_alternative}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Discuss Your Emergency Plan:</h3>
+            </div>
+
+            <div className="step-wrapper">
+              <p className="section-description">Emergency Plan:</p>
+              {pastTour.emergency_plan ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.emergency_plan}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+        </section>
+
+        <section className="ride">
+          <div className="title-wrapper">
+            <img src={route} alt="route" className="form-icon" />
+            <h2>RIDE safely</h2>
+          </div>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Conduct a Departure Check</h3>
+            </div>
+          </article>
+        </section>
+
+        <section className="debrief">
+          <div className="title-wrapper">
+            <img src={question} alt="question mark" className="form-icon" />
+            <h2>DEBRIEF</h2>
+          </div>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Summarize Conditions</h3>
+            </div>
+
+            <div className="step-wrapper">
+              {pastTour.debrief_conditions ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.debrief_conditions}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Review Decisions</h3>
+            </div>
+            <div className="step-wrapper">
+              {pastTour.debrief_decisions ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.debrief_decisions}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+
+          <article>
+            <div className="category-wrapper">
+              <img src={circleCheck} alt="checkmark" className="check-icon" />
+              <h3>Improve Your Plan</h3>
+            </div>
+            <div className="step-wrapper">
+              {pastTour.debrief_decisions ? (
+                <div className="input-wrapper">
+                  <p>{pastTour.debrief_plan}</p>
+                </div>
+              ) : (
+                <p>
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
+              )}
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <NavBar />
+    </main>
   )
 }

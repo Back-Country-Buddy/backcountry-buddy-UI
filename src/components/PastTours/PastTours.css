@@ -4,16 +4,16 @@
   background-size: cover;
 }
 
-.tour-details {
+.step-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 1% 3%;
+  justify-content: center;
+  margin: 0 3% 8% 3%;
 }
 
 .title-wrapper,
-.category-wrapper,
-.sub-wrapper {
+.category-wrapper {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -22,64 +22,36 @@
   margin: 0;
 }
 
-.title {
+.title-wrapper h2 {
   font-size: 2em;
 }
 
-.category {
-  border-bottom: 1px solid #900aa1;
+.category-wrapper h3 {
   margin: 2%;
   font-size: 1.4em;
-}
-
-.plan-wrapper {
-  height: 99vh;
-  overflow: scroll;
-  background: linear-gradient(to right, #900aa1, #737dfe, #900aa1);
-}
-
-.border-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .plan,
 .ride,
 .debrief {
   background-color: #f8f8ff;
-  border: 2px solid #900aa1;
   margin: 1.5%;
-  padding: 2%;
-}
-
-.sub-category {
-  margin: 3%;
+  padding: 2% 2% 6% 2%;
 }
 
 .input-wrapper {
   width: 80vw;
-  height: 20%;
-  border-radius: 0px;
+  height: fit-content;
+  border-radius: 3px;
   background: #f8f8ff;
-  box-shadow: inset 5px 5px 10px #dadae0, -5px -5px 10px #ffffff;
-}
-
-.tour-input {
-  padding: 5%;
-  margin: 3%;
-  font-size: 1.1em;
+  box-shadow: 3px 3px 10px black;
 }
 
 .check-icon {
-  width: 10%;
+  width: 8%;
 }
 
-.arrow-icon {
-  width: 4%;
-}
-
+/* SEARCH BAR STYLES: */
 .search-input {
   margin-top: 3%;
   background-color: #fff;

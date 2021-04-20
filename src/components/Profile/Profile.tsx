@@ -34,7 +34,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
   }
 
   return (
-    <main className="background-img profile-background-img">
+    <main className="background profile-background-img">
       <div className="sub-container">
         <h1>My Account</h1>
         <img

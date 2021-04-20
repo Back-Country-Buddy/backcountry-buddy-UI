@@ -72,7 +72,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   })
 
   return (
-    <main className="background-img past-background-img">
+    <main className="background past-background-img">
       <div className="sub-container">
         <h1>Past Tours</h1>
         <SearchBar filterTours={filterTours} />
