@@ -25,7 +25,7 @@ interface TourProps {
   setErr: () => any
 }
 
-export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
+export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
   // eslint-disable-next-line
   const [searchResults, setSearchResults] = useState<Array<PastTour>>([])
   const [allTours, setAllTours] = useState<Array<PastTour>>([])

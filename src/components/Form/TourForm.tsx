@@ -222,7 +222,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
         </div>
 
         {planId > 0 && (
-          <button className="button-save" onClick={savePlanUpdates}>
+          <button className="button-save" onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>
         )}
