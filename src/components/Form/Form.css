@@ -30,15 +30,16 @@ form {
 
 .step-container {
   background: linear-gradient(to right, #590fb7,#ff0076);
-  margin: 0 20%;
+  margin: 0 15%;
   padding: 2% 0;
   border-radius: 3px;
+  display: flex;
+    justify-content: space-evenly;
 }
 
 .form-nav {
   background: none;
   border: none;
-  margin: 0 3%;
   font-size: 1.2em;
   font-weight: bold;
   text-transform: uppercase;
@@ -48,12 +49,12 @@ form {
 .form-nav:hover {
   cursor: pointer;
   text-decoration: underline;
-  text-decoration-thickness: 6px;
+  text-decoration-thickness: 3px;
 }
 
 .form-nav-active {
   text-decoration: underline;
-  text-decoration-thickness: 6px;
+  text-decoration-thickness: 3px;
 }
 
 button:focus {
@@ -69,6 +70,7 @@ button:focus {
   align-items: center;
   justify-content: center;
   margin-top: 5%;
+  width: 100%;
 }
 
 .section-title h3 {

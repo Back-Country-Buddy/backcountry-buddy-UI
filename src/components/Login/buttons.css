@@ -16,7 +16,7 @@
   cursor: pointer;
 }
 
-.logout-button {
+.button-secondary {
   padding: 2% 4%;
   font-size: 1em;
   background-color: #fff;
@@ -27,7 +27,7 @@
   margin: 3% 0;
 }
 
-.logout-button:hover {
+.button-secondary:hover {
   background-color: #900aa1;
   color: #fff;
   cursor: pointer;

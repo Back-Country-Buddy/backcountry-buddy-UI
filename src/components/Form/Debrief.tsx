@@ -11,7 +11,7 @@ interface DebriefProps {
 export const Debrief: React.FC<DebriefProps> = ({
   renderTextInputs,
   isChecked,
-  markComplete
+  markComplete,
 }) => {
   return (
     <form>
@@ -19,25 +19,33 @@ export const Debrief: React.FC<DebriefProps> = ({
         <img src={question} alt="question mark" className="form-icon" />
         <h2 className="title">DEBRIEF</h2>
       </div>
-      <SectionTitle
-        title="Summarize Conditions"
-        fields={["debrief_conditions"]}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(["debrief_conditions"])}
-      <SectionTitle
-        title="Review Today's Decisions"
-        fields={["debrief_decisions"]}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(["debrief_decisions"])}
-      <SectionTitle
-        title="Improve Today's Plan"
-        fields={["debrief_plan"]}
-        isChecked={isChecked}
-      />
-      {renderTextInputs(["debrief_plan"])}
-      <button onClick={markComplete}>COMPLETE TOUR</button>
+      <div className="step">
+        <SectionTitle
+          title="Summarize Conditions"
+          fields={["debrief_conditions"]}
+          isChecked={isChecked}
+        />
+        {renderTextInputs(["debrief_conditions"])}
+      </div>
+      <div className="step">
+        <SectionTitle
+          title="Review Today's Decisions"
+          fields={["debrief_decisions"]}
+          isChecked={isChecked}
+        />
+        {renderTextInputs(["debrief_decisions"])}
+      </div>
+      <div className="step">
+        <SectionTitle
+          title="Improve Today's Plan"
+          fields={["debrief_plan"]}
+          isChecked={isChecked}
+        />
+        {renderTextInputs(["debrief_plan"])}
+      </div>
+      <button className="button-secondary" onClick={markComplete}>
+        COMPLETE TOUR
+      </button>
     </form>
   )
 }
