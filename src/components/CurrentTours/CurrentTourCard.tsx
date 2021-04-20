@@ -1,6 +1,7 @@
-import React from "react"
-import "./CurrentTours.css"
-import { Link } from "react-router-dom"
+import React from 'react'
+import './CurrentTours.css'
+import { Link } from 'react-router-dom'
+import { cleanDate } from '../../apiRequests/dataCleaners'
 
 interface Props {
   date: string
@@ -19,14 +20,14 @@ const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId, remo
         >X
       </div>
       <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
-          <article className="current-tours-card">
+          <article className='current-tours-card'>
             <img
-              src="https://img.icons8.com/nolan/64/mountain.png"
-              alt="mountains icon"
+              src='https://img.icons8.com/nolan/64/mountain.png'
+              alt='mountains icon'
             />
-            <div className="card-info">
+            <div className='card-info'>
               <h3>{location}</h3>
-              <p>{date}</p>
+              <p>{new Date(date).toDateString()}</p>
             </div>
           </article>
       </Link>

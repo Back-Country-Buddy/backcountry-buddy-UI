@@ -27,7 +27,7 @@ export const PastTourCard: React.FC<TourProps> = ({ userId, date, location, tour
           />
           <div className="card-info">
             <h3>{location}</h3>
-            <p>{date}</p>
+            <p>{new Date(date).toDateString()}</p>
           </div>
         </article>
       </Link>
