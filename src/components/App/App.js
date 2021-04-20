@@ -45,6 +45,14 @@ const App = () => {
       }
     }, [isAuthenticated, user, getAccessTokenSilently])
 
+  const checkAuth = (component) => {
+    if (isAuthenticated) {
+      return component
+    } else {
+      return (<Redirect to='/'/>)
+    }
+  }
+
   return (
     <>
       {(promiseInProgress || isLoading) &&
@@ -62,39 +70,39 @@ const App = () => {
           <Route
             exact
             path='/'
-            render={() => <LandingPage name={userState.name} setErr={setErr}/>}
+            render={() => checkAuth(<LandingPage name={userState.name} setErr={setErr}/>)}
           />
 
           <Route
             path='/profile'
-            render={() => <Profile user={userState} setUser={setUserState} setErr={setErr}/>}
+            render={() => checkAuth(<Profile user={userState} setUser={setUserState} setErr={setErr}/>)}
           />
 
           <Route
             exact
             path='/add-tour'
-            render={() => <TourForm userId={userState.id} setErr={setErr}/>}
+            render={() => checkAuth(<TourForm userId={userState.id} setErr={setErr}/>)}
           />
 
           <Route
             path='/current-tour/:userId/:tourId'
-            render={({match}) => <TourForm match={match} setErr={setErr}/>}
+            render={({match}) => checkAuth(<TourForm match={match} setErr={setErr}/>)}
           />
 
           <Route
             path='/current-tours'
-            render={() => <CurrentTours userId={userState.id} setErr={setErr}/>}
+            render={() => checkAuth(<CurrentTours userId={userState.id} setErr={setErr}/>)}
           />
 
           <Route
             exact
             path='/past-tours'
-            render={() => <PastTours userId={userState.id} setErr={setErr}/>}
+            render={() => checkAuth(<PastTours userId={userState.id} setErr={setErr}/>)}
           />
 
           <Route
             path='/past-tours/:userId/:tourId/:location/:date'
-            render={({match}) => <PastTourDetails match={match} setErr={setErr}/>}
+            render={({match}) => checkAuth(<PastTourDetails match={match} setErr={setErr}/>)}
           />
         </div>
       }

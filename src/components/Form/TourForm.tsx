@@ -36,6 +36,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
+  // departure_check?: boolean
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => {
@@ -87,8 +88,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
         }
       )
     }
-  }, [getAccessTokenSilently, tourId, match])
-
+  }, [getAccessTokenSilently, tourId, match, basicFields, userId])
 
   const sendFormUpdate = () => {
       if (planId === 0) {
@@ -114,7 +114,21 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
       }
   }
 
-
+  const createTour = () => {
+     if(!tourId) {
+     secureCall(getAccessTokenSilently, setErr, addTour, userId, {
+         creator_id: userId,
+         location: basicFields.location,
+         date: basicFields.date
+       })
+       .then(response => {
+         setTourId(response.data.id)
+         addPlan(token, userId, response.data.id)
+         .then(response => setPlanId(response.data.id))
+       })
+       })
+    }
+  }
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     setBasicFields({...basicFields, complete: true})
@@ -139,6 +153,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
     })
   }
 
+  const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDepartureCheck(!isDepartureChecked)
+    //make a call to the backend to make a PATCH once that property is added
+  }
+
   const isChecked = (fields: string[]) => {
     return !fields.find(
       (field) => planFields[field as keyof PlanFields] === ''
@@ -154,8 +174,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
             DATE
           </label>
           <input
-            type='date'
-            name='date'
+            required
+            type="date"
+            name="date"
             value={basicFields.date}
             onChange={(e) => {
               setBasicFields({ ...basicFields, date: e.target.value })
@@ -169,8 +190,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
             LOCATION
           </label>
           <input
-            type='text'
-            name='location'
+            required
+            placeholder='Add a Location'
+            type="text"
+            name="location"
             value={basicFields.location}
             onChange={(e) => {
               setBasicFields({ ...basicFields, location: e.target.value })
@@ -179,11 +202,15 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
           />
         </div>
       </form>
-      <button onClick={sendFormUpdate}>SAVE</button>
-      <div className='form-subform'>
-        <StepWizard nav={<FormNav steps={['PLAN', 'RIDE', 'DEBRIEF']} />}>
+      {!planId ?
+        <button disabled={!basicFields.location} onClick={createTour}>CREATE TOUR</button>
+        :
+        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
+      }
+      <div className="form-subform">
+        <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
           <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-          <Ride setChecked={setDepartureCheck} isChecked={isDepartureChecked} />
+          <Ride setChecked={toggleDepartureCheck} isChecked={isDepartureChecked} />
           <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
         </StepWizard>
       </div>
