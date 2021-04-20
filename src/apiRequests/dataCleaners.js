@@ -1,5 +1,9 @@
-export const getDateString = date => {
-  return date.toISOString().substring(0, 10)
+export const cleanDate = date => {
+  if (date.length > 11) {
+    return date.substring(0, 10)
+  } else {
+    return new Date(date).toISOString()
+  }
 }
 
 export const formatUser = (authUser, apiUser) => {
@@ -14,14 +18,6 @@ export const formatUser = (authUser, apiUser) => {
     full_name: authUser.name,
     picture: authUser.picture
   }
-}
-
-export const formatBasicFields = tourObj => {
-  return (
-    {
-      
-    }
-  )
 }
 
 

@@ -8,7 +8,7 @@ import { Debrief } from './Debrief'
 import { TextField } from './TextField'
 import { FormNav } from './FormNav'
 
-import { getDateString, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
+import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
 import { getTour, addTour,  updateTour } from '../../apiRequests/tourRequests.js'
 import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
@@ -52,7 +52,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
     location: '',
-    date: '',
+    date: cleanDate(new Date().toISOString()),
     complete: false
   })
 
@@ -78,7 +78,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           setBasicFields(
             {
               location: tour.data.attributes.location,
-              date: tour.data.attributes.date,
+              date: cleanDate(tour.data.attributes.date),
               complete: tour.data.attributes.complete
             }
           )
@@ -106,7 +106,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           setPlanChange(false)
         }
         if (basicChange) {
-          secureCall(getAccessTokenSilently, updateTour, tourId, basicFields)
+          secureCall(getAccessTokenSilently, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
           setBasicChange(false)
         }
       }
@@ -159,7 +159,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
               setBasicFields({ ...basicFields, date: e.target.value })
               setBasicChange(true)
             }}
-            min={getDateString(new Date())}
+            min={cleanDate(new Date().toISOString())}
           />
         </div>
         <div className='form-section'>
