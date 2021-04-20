@@ -5,24 +5,33 @@ import { Link } from "react-router-dom"
 interface Props {
   date: string
   location: string
+  tourId: number
+  userId: number
+  removeTour: (tourId:number) => any
 }
 
-const CurrentTourCard: React.FC<Props> = ({ date, location }) => {
+const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId, removeTour }) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={''}>
     <div className='card-wrapper'>
-      <article className="current-tours-card">
-        <img
-          src="https://img.icons8.com/nolan/64/mountain.png"
-          alt="mountains icon"
-        />
-        <div className="card-info">
-          <h3>{location}</h3>
-          <p>{date}</p>
-        </div>
-      </article>
+      <div
+        className='delete-wrapper'
+        onClick={()=>removeTour(tourId)}
+        >X
+      </div>
+      <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
+      {console.log(tourId)}
+          <article className="current-tours-card">
+            <img
+              src="https://img.icons8.com/nolan/64/mountain.png"
+              alt="mountains icon"
+            />
+            <div className="card-info">
+              <h3>{location}</h3>
+              <p>{date}</p>
+            </div>
+          </article>
+      </Link>
     </div>
-    </Link>
   )
 }
 

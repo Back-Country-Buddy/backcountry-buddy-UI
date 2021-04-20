@@ -2,32 +2,34 @@ import React from 'react'
 import { SectionTitle } from './SectionTitle'
 
 interface DebriefProps {
-  renderTextInputs: (fields: string[]) => JSX.Element[],
+  renderTextInputs: (fields: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
+  markComplete: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked }) => {
+export const Debrief: React.FC<DebriefProps> = ({ renderTextInputs, isChecked, markComplete }) => {
   return (
     <form>
       <h2>DEBRIEF</h2>
       <SectionTitle
         title='Summarize Conditions'
-        fields={['debriefConditions']}
+        fields={['debrief_conditions']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefConditions'])}
+      {renderTextInputs(['debrief_conditions'])}
       <SectionTitle
         title="Review Today's Decisions"
-        fields={['debriefDecisions']}
+        fields={['debrief_decisions']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefDecisions'])}
+      {renderTextInputs(['debrief_decisions'])}
       <SectionTitle
         title="Improve Today's Plan"
-        fields={['debriefPlan']}
+        fields={['debrief_plan']}
         isChecked={isChecked}
       />
-      {renderTextInputs(['debriefPlan'])}
+      {renderTextInputs(['debrief_plan'])}
+    <button onClick={markComplete}>COMPLETE TOUR</button>
     </form>
   )
 }

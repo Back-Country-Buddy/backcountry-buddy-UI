@@ -1,64 +1,72 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { RouteComponentProps } from "react-router-dom"
 import "./PastTours.css"
 import circleCheck from '../../assets/purplebluecircle.png'
 import arrow from '../../assets/arrow.png'
-
+import { useAuth0 } from "@auth0/auth0-react"
 import question from "../../assets/question-sign.svg"
 import route from "../../assets/travel.svg"
 import lightbulb from "../../assets/light-bulb (1).svg"
-
-import { tourPlans } from "../../mockdata/tourPlan"
+import { getPlan, cleanInputStrings } from "../../util.js"
 
 interface tourPlan {
-  id: number
-  tourId: number
-  hazardWeather: string
-  hazardAvalanche: string
-  hazardSummary: string
-  routePreview: string
-  routeAlternative: string
-  emergencyPlan: string
-  rideObservations: string
-  debriefConditions: string
-  debriefDecisions: string
-  debriefPlan: string
+  hazard_weather: string
+  hazard_avalanche: string
+  hazard_summary: string
+  route_preview: string
+  route_alternative: string
+  emergency_plan: string
+  debrief_conditions: string
+  debrief_decisions: string
+  debrief_plan: string
 }
 
 interface TParams {
-  id: string
+  userId: string
+  tourId: string
+  location: string
+  date: string
 }
 
 export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   match,
 }) => {
-  const id = match.params.id.split("")[1]
-  const tour = tourPlans.find((tour) => tour.tourId === parseInt(id))
 
-  const [currentTour] = useState<tourPlan>(
-    tour
-      ? tour
-      : {
-          id: 0,
-          tourId: 0,
-          hazardWeather: "",
-          hazardAvalanche: "",
-          hazardSummary: "",
-          routePreview: "",
-          routeAlternative: "",
-          emergencyPlan: "",
-          rideObservations: "",
-          debriefConditions: "",
-          debriefDecisions: "",
-          debriefPlan: "",
-        }
+  const tourId = match.params.tourId
+  const location = match.params.location
+  const date = match.params.date
+
+  const [pastTour, setPastTour] = useState<tourPlan>({
+        hazard_weather: '',
+        hazard_avalanche: '',
+        hazard_summary: '',
+        route_preview: '',
+        route_alternative: '',
+        emergency_plan: '',
+        debrief_conditions: '',
+        debrief_decisions: '',
+        debrief_plan: '',
+      }
   )
 
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    if (tourId.length && match) {
+      getAccessTokenSilently().then(token =>
+        getPlan(token, match.params.userId, tourId).then(plan => {
+          setPastTour(cleanInputStrings(plan.data[0].attributes))
+        })
+      )
+    }
+  }, [getAccessTokenSilently, tourId, match])
+
   return (
+  <>
     <main className="tour-details">
       <div className="location">
-        <h1>Buffalo Mountain</h1>
-        <p className="date">Feb 2, 2021</p>
+        <h1>{location}</h1>
+        <p className="date">{date}</p>
       </div>
       <div className='plan-wrapper'>
         <div className='border-wrapper'>
@@ -80,7 +88,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 </h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.hazardWeather}</p>
+                <p className="tour-input">{pastTour.hazard_weather}</p>
               </div>
               <div className='sub-wrapper'>
                 <h4 className="sub-category">
@@ -90,14 +98,14 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 </h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.hazardAvalanche}</p>
+                <p className="tour-input">{pastTour.hazard_avalanche}</p>
               </div>
               <div className='sub-wrapper'>
                 <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
                 <h4 className="sub-category">Discuss the advisory's key message</h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.hazardSummary}</p>
+                <p className="tour-input">{pastTour.hazard_summary}</p>
               </div>
             </article>
             <article className="plan-info">
@@ -110,14 +118,14 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 <h4 className="sub-category">Preview Terrain</h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.routePreview}</p>
+                <p className="tour-input">{pastTour.route_preview}</p>
               </div>
               <div className='sub-wrapper'>
                 <img src={arrow} alt="right-arrow-icon" className="arrow-icon" /> 
                 <h4 className="sub-category">Alternate Route</h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.routeAlternative}</p>
+                <p className="tour-input">{pastTour.route_alternative}</p>
               </div>
             </article>
             <article className="plan-info">
@@ -130,7 +138,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
                 <h4 className="sub-category">Emergency Plan</h4>
               </div>
               <div className='input-wrapper'>
-                <p className="tour-input">{currentTour.emergencyPlan}</p>
+                <p className="tour-input">{pastTour.emergency_plan}</p>
               </div>
             </article>
           </section>
@@ -151,7 +159,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
               <h4 className="sub-category">Key Observations</h4>
             </div>
             <div className='input-wrapper'>
-              <p className="tour-input">{currentTour.rideObservations}</p>
+              <p className="tour-input">Ride Observations</p>
             </div>
           </article>
         </section>
@@ -167,7 +175,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
               <h3 className="category">Summarize Conditions</h3>
             </div>
             <div className='input-wrapper'>
-              <p className="tour-input">{currentTour.debriefConditions}</p>
+              <p className="tour-input">{pastTour.debrief_conditions}</p>
             </div>
           </article>
           <article className="debrief-info">
@@ -176,7 +184,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
               <h3 className="category">Review Decisions</h3>
             </div>
             <div className='input-wrapper'>
-              <p className="tour-input">{currentTour.debriefDecisions}</p>
+              <p className="tour-input">{pastTour.debrief_decisions}</p>
             </div>
           </article>
           <article className="debrief-info">
@@ -185,11 +193,13 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
               <h3 className="category">Improve Your Plan</h3>
             </div>
             <div className='input-wrapper'>
-              <p className="tour-input">{currentTour.debriefPlan}</p>
+              <p className="tour-input">{pastTour.debrief_plan}</p>
             </div>
           </article>
         </section>
       </div>
     </main>
+
+    </>
   )
 }

@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { Route } from "react-router-dom"
 
@@ -13,52 +13,79 @@ import { PastTourDetails } from "../PastTours/PastTourDetails"
 import { NavBar } from "../NavBar/NavBar"
 
 import { userData } from "../../mockdata/UserDummyData"
-import currentToursData from "../../mockdata/CurrentToursDummyData"
 import { tourData } from "../../mockdata/PastTourData"
 
-function App() {
-  const [user] = useState(userData)
-  const [currentTours] = useState(currentToursData)
-  const [pastTours] = useState(tourData)
+import { formatUser, handleLogin, } from "../../util"
 
-  const { isAuthenticated } = useAuth0()
+const App = () => {
+  const [userState, setUserState] = useState({
+    id: '',
+    user_name: '',
+    email_address: '',
+    emergency_contact_name: '',
+    emergency_number: '',
+    last_name: '',
+    first_name: '',
+    full_name: '',
+    picture: ''
+  })
+
+  const [pastTours] = useState(tourData)
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently().then((token) => {
+        handleLogin(token, user).then((fetchedUser) => {
+          setUserState(formatUser(user, fetchedUser.data[0]))
+        })
+      })
+    }
+  }, [isAuthenticated, getAccessTokenSilently, user])
 
   return (
+    <>
     <div className="App">
-      <Route exact path="/" render={() => <LandingPage name={user.name} />} />
-
       <Route
-        path="/profile"
-        render={() => (
-          <Profile
-            name={user.name}
-            email={user.email}
-            userName={user.userName}
-            emergencyName={user.emergencyName}
-            emergencyNumber={user.emergencyNumber}
-          />
-        )}
+        exact
+        path="/"
+        render={() => <LandingPage name={userData.name} />}
       />
 
       <Route
+        path="/profile"
+        render={() => <Profile user={userState} setUser={setUserState} />}
+      />
+
+      <Route
+        exact
         path="/add-tour"
-        render={() => <TourForm userId={userData.id} />}
+        render={() => <TourForm userId={userState.id} />}
+      />
+
+      <Route
+        path="/current-tour/:userId/:tourId"
+        component={TourForm}
       />
 
       <Route
         path="/current-tours"
-        render={() => <CurrentTours currentTours={currentTours} />}
+        render={() => <CurrentTours userId={userState.id} />}
       />
 
       <Route
+        exact
         path="/past-tours"
-        render={() => <PastTours pastTours={pastTours} />}
+        render={() => <PastTours userId={userState.id} pastTours={pastTours} />}
       />
 
-      <Route path="/tour-details/:id" component={PastTourDetails} />
-      
-      {isAuthenticated && <NavBar />}
+      <Route 
+        path="/past-tours/:userId/:tourId/:location/:date" 
+        component={PastTourDetails} />
+
     </div>
+      {isAuthenticated && <NavBar />}
+    </>
   )
 }
 

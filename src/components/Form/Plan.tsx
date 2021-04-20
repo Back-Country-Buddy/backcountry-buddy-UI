@@ -10,13 +10,13 @@ interface PlanProps {
 
 
 export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
-  const hazardFields: string[] = ['hazardWeather', 'hazardAvalanche', 'hazardSummary']
+  const hazardFields: string[] = ['hazard_weather', 'hazard_avalanche', 'hazard_summary']
   const hazardPrompts: string[] = [
     'Discuss current & forecast weather factors that can affect travel or hazard.',
     'Identify the avalance problem and location. Discuss the danger trend and timing.',
     'Discuss the advisory\'s key message'
   ]
-  const routeFields: string [] = ['routePreview', 'routeAlternative']
+  const routeFields: string [] = ['route_preview', 'route_alternative']
   const routePrompts: string[] = [
     'Preview terrain',
     'When uncertain discuss a less exposed alternate route'

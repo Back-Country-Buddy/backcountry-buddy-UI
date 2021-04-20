@@ -1,4 +1,4 @@
-describe("Current Tours", () => {
+describe.skip("Current Tours", () => {
   const baseUrl = "http://localhost:3000"
   const toursUrl = "http://localhost:3000/current-tours"
 
