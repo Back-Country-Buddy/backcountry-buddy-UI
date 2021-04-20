@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Route } from 'react-router-dom'
+import { usePromiseTracker } from 'react-promise-tracker'
 
 import './App.css'
 
@@ -12,6 +13,7 @@ import { PastTours } from '../PastTours/PastTours'
 import { PastTourDetails } from '../PastTours/PastTourDetails'
 import { NavBar } from '../NavBar/NavBar'
 import { Error } from '../Error/Error'
+import { Loader } from '../Loader/Loader'
 
 import { handleLogin, } from '../../apiRequests/userRequests'
 import { secureCall } from '../../apiRequests/promiseHandling'
@@ -33,6 +35,7 @@ const App = () => {
   const [err, setErr] = useState(null)
 
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { promiseInProgress } = usePromiseTracker()
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -43,6 +46,7 @@ const App = () => {
 
   return (
     <>
+      {promiseInProgress && <Loader /> }
       {err && <Error err={err} setErr={setErr}/>}
       {!err &&
         <div className='App'>
@@ -83,7 +87,8 @@ const App = () => {
             path='/past-tours/:userId/:tourId/:location/:date'
             render={({match}) => <PastTourDetails match={match} setErr={setErr}/>}
           />
-        </div>}
+        </div>
+      }
       {isAuthenticated && <NavBar />}
     </>
   )
