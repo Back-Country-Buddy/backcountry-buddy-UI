@@ -25,3 +25,18 @@
 main {
   height: 100vh;
 }
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1%;
+  padding: 1rem;
+  position: relative;
+  background: linear-gradient(to right, #737dfe, #900aa1);
+  padding: 0.3%;
+  width: 85vw;
+  border-radius: 3px;
+  box-shadow: 3px 3px 10px black;
+}

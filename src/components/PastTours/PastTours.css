@@ -21,20 +21,6 @@ h1 {
   height: 100%;
 }
 
-.card-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1%;
-  padding: 1rem;
-  position: relative;
-  background: linear-gradient(to right,#737dfe, #900AA1, #737dfe);
-  padding: .3%;
-  width: 85vw;
-  border-radius: 3px;
-}
-
 .card-container {
   display: flex;
   flex-direction: column;
