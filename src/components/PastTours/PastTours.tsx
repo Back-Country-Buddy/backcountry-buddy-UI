@@ -3,7 +3,7 @@ import "./PastTours.css"
 import { useAuth0 } from "@auth0/auth0-react"
 import { PastTourCard } from "./PastTourCard"
 import { SearchBar } from "./SearchBar"
-import { getTours } from "../../apiRequests/tourRequests.js"
+import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
 
 interface pastTour {
   id: number
@@ -41,7 +41,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
 
   useEffect(() => {
     getAccessTokenSilently().then(token => {
-      getTours(token, userId, true).then(tours => {
+      getTours(token, userId).then((tours: any) => {
         setAllTours(tours)
       })
     })

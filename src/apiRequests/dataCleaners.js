@@ -16,6 +16,7 @@ export const formatUser = (authUser, apiUser) => {
   }
 }
 
+
 export const cleanTours = (tours, completed) => {
   return tours.data.filter(tour => tour.attributes.complete === completed)
     .map(tour => {

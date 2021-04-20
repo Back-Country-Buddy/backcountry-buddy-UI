@@ -1,7 +1,3 @@
-import { useAuth0 } from "@auth0/auth0-react"
-
-const { getAccessTokenSilently } = useAuth0()
-
 const checkResponse = response => {
   if (response.ok) {
     return response.json()
@@ -10,8 +6,8 @@ const checkResponse = response => {
   }
 }
 
-export const handlePromise = (request, idField, dataField, idFieldTwo) => {
-  return getAccessTokenSilently().then(token =>
-    request(token, idField, dataField, idFieldTwo)
-  ).then(response => checkResponse(response))
+export const secureCall = (authCall, request, id, data, id2) => {
+  return authCall()
+    .then(token => request(token, id, data, id2))
+      .then(response => checkResponse(response))
 }

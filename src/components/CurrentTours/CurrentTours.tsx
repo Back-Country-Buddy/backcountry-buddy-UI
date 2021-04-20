@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react"
-import { useAuth0 } from "@auth0/auth0-react"
-import "./CurrentTours.css"
-import CurrentTourCard from "./CurrentTourCard"
-import { getTours } from "../../apiRequests/tourRequests.js"
+import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import './CurrentTours.css'
+import CurrentTourCard from './CurrentTourCard'
+import { getTours, deleteTour } from '../../apiRequests/tourRequests.js'
+import { cleanTours } from '../../apiRequests/dataCleaners.js'
+import { secureCall } from '../../apiRequests/promiseHandling.js'
 
 interface Tour {
   id: number
@@ -24,24 +26,18 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   const removeTour = (tourId:number):any => {
     const confirmationMessage = window.confirm('Are you sure you want to remove this tour?')
     if (confirmationMessage) {
-      getAccessTokenSilently().then(token => {
-        deleteTour(token, tourId).then(() => {
-          const newTours = allTours.filter(tour => tour.id !== tourId)
-          setAllTours(newTours)
-        })
-      })
-    } else {
+      secureCall(getAccessTokenSilently, deleteTour, tourId)
+        .then(() => setAllTours(allTours
+          .filter(tour => tour.id !== tourId)))
+      } else {
       return false
     }
   }
 
   useEffect(() => {
-    getAccessTokenSilently().then(token => {
-      getTours(token, userId, false).then(tours => {
-        setAllTours(tours)
-      })
-    })
-  }, [getAccessTokenSilently, userId])
+    secureCall(getAccessTokenSilently, getTours, userId)
+      .then((tours: Array<Tour>) => setAllTours(cleanTours(tours, false)))
+    }, [getAccessTokenSilently, userId])
 
   const tours = allTours.map((tour) => {
     return (
@@ -57,7 +53,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   })
 
   return (
-    <main className="current-tours">
+    <main className='current-tours'>
     <div className='current-background-img'>
       <h1>Current Tours</h1>
       <section className='card-container'>

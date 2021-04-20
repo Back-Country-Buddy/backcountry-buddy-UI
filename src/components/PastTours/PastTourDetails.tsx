@@ -55,7 +55,7 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   useEffect(() => {
     if (tourId.length && match) {
       getAccessTokenSilently().then(token =>
-        getPlan(token, match.params.userId, tourId).then(plan => {
+        getPlan(token, match.params.userId, tourId).then((plan: any) => {
           setPastTour(cleanInputStrings(plan.data[0].attributes))
         })
       )

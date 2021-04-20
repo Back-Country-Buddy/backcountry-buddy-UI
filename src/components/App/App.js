@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react"
-import { useAuth0 } from "@auth0/auth0-react"
-import { Route } from "react-router-dom"
+import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import { Route } from 'react-router-dom'
 
-import "./App.css"
+import './App.css'
 
-import { LandingPage } from "../LandingPage/LandingPage"
-import { Profile } from "../Profile/Profile"
-import { TourForm } from "../Form/TourForm"
-import { CurrentTours } from "../CurrentTours/CurrentTours"
-import { PastTours } from "../PastTours/PastTours"
-import { PastTourDetails } from "../PastTours/PastTourDetails"
-import { NavBar } from "../NavBar/NavBar"
+import { LandingPage } from '../LandingPage/LandingPage'
+import { Profile } from '../Profile/Profile'
+import { TourForm } from '../Form/TourForm'
+import { CurrentTours } from '../CurrentTours/CurrentTours'
+import { PastTours } from '../PastTours/PastTours'
+import { PastTourDetails } from '../PastTours/PastTourDetails'
+import { NavBar } from '../NavBar/NavBar'
 
-import { handleLogin, } from "../../apiRequests/userRequests"
+import { handleLogin, } from '../../apiRequests/userRequests'
+import { secureCall } from '../../apiRequests/promiseHandling'
 import { formatUser } from '../../apiRequests/dataCleaners.js'
 
 const App = () => {
@@ -32,52 +33,49 @@ const App = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAccessTokenSilently().then((token) => {
-        handleLogin(token, user).then((fetchedUser) => {
-          setUserState(formatUser(user, fetchedUser.data[0]))
-        })
-      })
-    }
-  }, [isAuthenticated, getAccessTokenSilently, user])
+      secureCall(getAccessTokenSilently, handleLogin, user)
+        .then(fetchedUser => setUserState(formatUser(user, fetchedUser.data[0])))
+      }
+    }, [isAuthenticated, user, getAccessTokenSilently])
 
   return (
     <>
-    <div className="App">
+    <div className='App'>
       <Route
         exact
-        path="/"
-        render={() => <LandingPage name={userData.name} />}
+        path='/'
+        render={() => <LandingPage name={userState.name} />}
       />
 
       <Route
-        path="/profile"
+        path='/profile'
         render={() => <Profile user={userState} setUser={setUserState} />}
       />
 
       <Route
         exact
-        path="/add-tour"
+        path='/add-tour'
         render={() => <TourForm userId={userState.id} />}
       />
 
       <Route
-        path="/current-tour/:userId/:tourId"
+        path='/current-tour/:userId/:tourId'
         component={TourForm}
       />
 
       <Route
-        path="/current-tours"
+        path='/current-tours'
         render={() => <CurrentTours userId={userState.id} />}
       />
 
       <Route
         exact
-        path="/past-tours"
-        render={() => <PastTours userId={userState.id} pastTours={pastTours} />}
+        path='/past-tours'
+        render={() => <PastTours userId={userState.id} />}
       />
 
       <Route
-        path="/past-tours/:userId/:tourId/:location/:date"
+        path='/past-tours/:userId/:tourId/:location/:date'
         component={PastTourDetails} />
 
     </div>
