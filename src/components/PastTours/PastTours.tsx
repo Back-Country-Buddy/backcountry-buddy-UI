@@ -35,7 +35,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
   useEffect(() => {
     secureCall(getAccessTokenSilently, setErr, getTours, userId)
       .then((tours: any) => setAllTours(cleanTours(tours, true)))
-    }, [getAccessTokenSilently, userId])
+    }, [getAccessTokenSilently, userId, setErr])
 
   const filterTours = (input: string): any => {
     const filteredTours = allTours.filter((tour) => {

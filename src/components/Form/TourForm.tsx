@@ -100,9 +100,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
       )
     }
     if (basicFields.complete) {
-      sendFormUpdate()
+        sendFormUpdate()
     }
-  }, [getAccessTokenSilently, tourId, match, basicFields, userId])
+  })
 
 
   const createTour = () => {

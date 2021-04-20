@@ -38,7 +38,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId, setErr }) =>
   useEffect(() => {
     secureCall(getAccessTokenSilently, setErr, getTours, userId)
       .then((tours: Array<Tour>) => setAllTours(cleanTours(tours, false)))
-    }, [getAccessTokenSilently, userId])
+    }, [getAccessTokenSilently, userId, setErr])
 
   const tours = allTours.map((tour) => {
     return (

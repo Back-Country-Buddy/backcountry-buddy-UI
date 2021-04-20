@@ -1,7 +1,6 @@
 import React from 'react'
 import './CurrentTours.css'
 import { Link } from 'react-router-dom'
-import { cleanDate } from '../../apiRequests/dataCleaners'
 
 import "./CurrentTours.css"
 
