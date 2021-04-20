@@ -16,19 +16,6 @@
   cursor: pointer;
 }
 
-.button-secondary {
-  padding: 2% 4%;
-  font-size: 1em;
-  background-color: #fff;
-  color: #900aa1;
-  font-weight: bold;
-  border: 3px solid #900aa1;
-  border-radius: 3px;
-  margin: 3% 0;
-}
-
-.button-secondary:hover {
-  background-color: #900aa1;
-  color: #fff;
-  cursor: pointer;
+.logout-button {
+  margin-bottom: 10%;
 }

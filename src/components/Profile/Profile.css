@@ -2,16 +2,6 @@
   background: url("../../assets/pinkclouds.png");
   background-position: center;
   background-size: cover;
-  width: 100%;
-  height: 100vh;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 87vh;
-  overflow: scroll;
 }
 
 .profile-photo {
@@ -28,7 +18,7 @@
   border-radius: 3px;
   width: 60%;
   margin: 3%;
-  padding-bottom: 3%;
+  padding: 3%;
 }
 
 .emergency-form-section {
@@ -40,21 +30,4 @@
 
 .emergency-label {
   margin-right: 3%;
-}
-
-.button-save {
-  width: 30%;
-  margin: 3%;
-  padding: 2%;
-  background-color: #900aa1;
-  color: #fff;
-  font-weight: bold;
-  border: 3px solid #900aa1;
-  border-radius: 3px;
-}
-
-.button-save:hover {
-  cursor: pointer;
-  background-color: #fff;
-  color: #900aa1;
 }

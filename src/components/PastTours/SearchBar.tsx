@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import "./PastTours.css"
+import searchIcon from "../../assets/icons8-search-30.png"
 
 interface PastTour {
   id: number
@@ -22,16 +23,18 @@ export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
   }
 
   return (
-    <div className="search-wrapper">
-      <form className="search-input">
+    <form className="search-input">
+      <div className="search-bar">
+        <img className="search-icon" src={searchIcon} alt="search icon" />
         <input
           type="text"
-          name="input"
-          placeholder="Search By Location"
+          name="search"
+          className="search-box"
+          placeholder="Search by location"
           value={input}
           onChange={(event) => handleChange(event)}
         />
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }

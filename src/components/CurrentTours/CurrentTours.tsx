@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./CurrentTours.css"
-import { CurrentTourCard } from "./CurrentTourCard"
+
 import { getTours, deleteTour } from "../../util.js"
+import { CurrentTourCard } from "./CurrentTourCard"
 import { NavBar } from "../NavBar/NavBar"
 
 interface Tour {
@@ -58,8 +59,8 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   })
 
   return (
-    <main className="current-background-img">
-      <div className="current-tours">
+    <main className="background-img current-background-img">
+      <div className="sub-container">
         <h1>Current Tours</h1>
         <section className="card-container">{tours}</section>
       </div>

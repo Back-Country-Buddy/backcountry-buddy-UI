@@ -34,8 +34,8 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
   }
 
   return (
-    <main className="profile-background-img">
-      <div className="profile-info">
+    <main className="background-img profile-background-img">
+      <div className="sub-container">
         <h1>My Account</h1>
         <img
           src={user.picture}
@@ -44,13 +44,13 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
         />
 
         <div>
-          <p className="name">
+          <p>
             <strong>Name:</strong> {user.full_name}
           </p>
-          <p className="userName">
+          <p>
             <strong>Username:</strong> {user.user_name}
           </p>
-          <p className="email">
+          <p>
             <strong>Email:</strong> {user.email_address}
           </p>
         </div>

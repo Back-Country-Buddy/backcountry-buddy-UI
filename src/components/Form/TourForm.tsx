@@ -149,6 +149,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
                 DATE
               </label>
               <input
+                className=""
                 type="date"
                 name="date"
                 value={basicFields.date}
