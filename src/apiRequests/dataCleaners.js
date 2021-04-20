@@ -33,7 +33,7 @@ export const cleanTours = (tours, completed) => {
 }
 
 export const cleanInputStrings = stringObj => {
-  const formState = stringObj
+  const formState = Object.assign({}, stringObj)
   for (const field in formState) {
     if (formState[field] === 'nil') {
       formState[field] = ''
