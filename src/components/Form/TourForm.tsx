@@ -175,7 +175,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           </form>
 
           <div className="form-subform">
-            <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
+            <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
               <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
               <Ride
                 setChecked={setDepartureCheck}

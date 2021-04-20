@@ -11,7 +11,9 @@ export const FormNav = (props) => {
       <button
         key={i}
         onClick={(e) => advanceSubForm(e, i + 1)}
-        className="form-nav"
+        className={
+          props.currentStep === i + 1 ? "form-nav form-nav-active" : "form-nav"
+        }
       >
         {step}
       </button>
