@@ -8,7 +8,7 @@ import { Debrief } from "./Debrief"
 import { TextField } from "./TextField"
 import { FormNav } from "./FormNav"
 
-import { getDateString, addTour, updatePlan, addPlan,  getPlan, cleanInputStrings, updateTour } from "../../util.js"
+import { getDateString, addTour, updatePlan, addPlan, getTour,  getPlan, cleanInputStrings, updateTour } from "../../util.js"
 import { useAuth0 } from "@auth0/auth0-react"
 
 interface TourFormProps {
@@ -65,17 +65,24 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   useEffect(() => {
     if (tourId.length && match) {
       setCreateMode(false)
-      getAccessTokenSilently().then(token =>
+      getAccessTokenSilently().then(token => { 
+        getTour(token, userId, tourId).then(tour => setBasicFields({
+          ...basicFields,
+          location: tour.data.attributes.location,
+          date: tour.data.attributes.date,
+        }))
+      })
+      getAccessTokenSilently().then(token => { 
         getPlan(token, match.params.userId, tourId).then(plan => {
           setPlanId(plan.data[0].id)
             setPlanFields(cleanInputStrings(plan.data[0].attributes))
         })
-      )
+      })
     }
   }, [getAccessTokenSilently, tourId, match])
 
  const createTour = () => {
-   if(!tourId) {
+    if(!tourId) {
     getAccessTokenSilently().then(token => {
       addTour(token, userId, {
         creator_id: userId,
@@ -91,15 +98,18 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
    }
  }
 
-  const savePlanUpdates = (planFields:any) => {
+
+  const savePlanUpdates = () => {
     getAccessTokenSilently().then(token => {
        updatePlan(token, planId, planFields)
     })
   }
 
   const sendTourUpdate = () => {
+    console.log('hey')
     getAccessTokenSilently().then(token => {
       updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
+      console.log(tourId, basicFields)
     })
   }
 
@@ -174,6 +184,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           />
         </div>
       </form>
+        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
       {createMode ?
         <button disabled={!basicFields.location} onClick={createTour}>CREATE TOUR</button>
         :
@@ -185,8 +196,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           <Ride setChecked={toggleDepartureCheck} isChecked={isDepartureChecked} />
           <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
         </StepWizard>
-        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
-  
       </div>
     </main>
   )
