@@ -68,21 +68,6 @@ button:focus {
 }
 
 /* SHARED TOUR CARD STYLES: */
-.card-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1%;
-  padding: 1rem;
-  position: relative;
-  background: linear-gradient(to right, #737dfe, #900aa1);
-  padding: 0.3%;
-  width: 85vw;
-  border-radius: 3px;
-  box-shadow: 3px 3px 10px black;
-}
-
 .card-container {
   display: flex;
   flex-direction: column;
@@ -104,7 +89,8 @@ button:focus {
   text-decoration: none;
   background: #f8f8ff;
   border-radius: 3px;
-  margin: 1% 0;
+  margin: 2% 0;
+  box-shadow: 3px 3px 10px black;
 }
 
 .tour-card:hover {

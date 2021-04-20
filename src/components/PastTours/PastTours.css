@@ -4,6 +4,23 @@
   background-size: cover;
 }
 
+.delete {
+  font-weight: bold;
+  align-self: flex-start;
+  margin-top: 3%;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #590fb7, #ff0076);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.delete:hover {
+  text-shadow: 3px 3px 10px black;
+}
+
 .tour-details {
   display: flex;
   flex-direction: column;
@@ -110,7 +127,7 @@
   padding: 0.5rem;
   grid-row: 1;
   grid-column: 1/2;
-  z-index: 2
+  z-index: 2;
 }
 
 .search-box {
@@ -119,13 +136,4 @@
   grid-column: 2/4;
   grid-row: 1;
   outline: none;
-}
-
-.delete-wrapper {
-  color: white;
-  font-weight: bolder;
-  align-self: flex-end;
-  margin-right: 2%;
-  font-size: 1.2em;
-  cursor: pointer;
 }
