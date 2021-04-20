@@ -14,11 +14,11 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
         <img src={route} alt="route" className="form-icon" />
         <h2 className="title">RIDE safely</h2>
       </div>
-      <div>
+      <div className="section-title section-title-ride">
         <input type="checkbox" checked={isChecked} readOnly={true} />
         <button
           onClick={() => setChecked(!isChecked)}
-          className={isChecked ? "checked" : ""}
+          className={isChecked ? "checked departure" : "departure"}
         >
           Conduct a Departure Check
         </button>

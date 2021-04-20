@@ -29,12 +29,12 @@ form {
 }
 
 .step-container {
-  background: linear-gradient(to right, #590fb7,#ff0076);
+  background: linear-gradient(to right, #590fb7, #ff0076);
   margin: 0 15%;
   padding: 2% 0;
   border-radius: 3px;
   display: flex;
-    justify-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 .form-nav {
@@ -73,6 +73,10 @@ button:focus {
   width: 100%;
 }
 
+.section-title-ride {
+  margin: 0 0 3% 0;
+}
+
 .section-title h3 {
   margin: 0;
 }
@@ -109,4 +113,18 @@ textarea {
 .checkbox {
   margin-right: 3%;
   width: 4%;
+}
+
+.departure {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.departure:hover {
+  color: #900aa1;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
 }
