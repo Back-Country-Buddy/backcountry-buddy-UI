@@ -19,11 +19,20 @@ form {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  margin: 5% 1%;
+  margin: 5% 3%;
+  border-bottom: 1px solid #900aa1;
+  padding-bottom: 5%;
 }
 
 .form-subform {
   height: 68vh;
+}
+
+.step-container {
+  background: linear-gradient(to right, #590fb7,#ff0076);
+  margin: 0 20%;
+  padding: 2% 0;
+  border-radius: 3px;
 }
 
 .form-nav {
@@ -33,19 +42,18 @@ form {
   font-size: 1.2em;
   font-weight: bold;
   text-transform: uppercase;
+  color: #fff;
 }
 
 .form-nav:hover {
   cursor: pointer;
-  color: #900AA1;
   text-decoration: underline;
   text-decoration-thickness: 6px;
 }
 
 .form-nav-active {
-  color: #900AA1;
   text-decoration: underline;
-  text-decoration-thickness: 8px;
+  text-decoration-thickness: 6px;
 }
 
 button:focus {
@@ -69,7 +77,7 @@ button:focus {
 
 .section-description {
   font-style: italic;
-  font-size: .8em;
+  font-size: 0.8em;
   margin: 1% 0 5% 0;
 }
 

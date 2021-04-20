@@ -20,5 +20,5 @@ export const FormNav = (props) => {
     )
   })
 
-  return <span>{buttons}</span>
+  return <div className="step-container">{buttons}</div>
 }
