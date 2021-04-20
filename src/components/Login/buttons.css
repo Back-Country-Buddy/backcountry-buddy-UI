@@ -1,9 +1,21 @@
 .login-button {
-    padding: 3% 5%;
-    font-size: 1.4em;
-    background-color: #900AA1;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
+  padding: 2% 5%;
+  font-size: 1em;
+  background-color: #f8f8ff;
+  color: #900aa1;
+  border: 3px solid #900aa1;
+  font-weight: bold;
+  border-radius: 3px;
+  text-transform: uppercase;
+  margin-top: 3%;
+}
+
+.login-button:hover {
+  color: #FF0076;
+  border: 3px solid #FF0076;
+  cursor: pointer;
+}
+
+.logout-button {
+  margin-bottom: 10%;
 }

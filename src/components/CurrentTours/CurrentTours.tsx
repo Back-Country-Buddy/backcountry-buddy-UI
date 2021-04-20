@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./CurrentTours.css"
-import CurrentTourCard from "./CurrentTourCard"
+
 import { getTours, deleteTour } from "../../util.js"
+import { CurrentTourCard } from "./CurrentTourCard"
+import { NavBar } from "../NavBar/NavBar"
 
 interface Tour {
   id: number
@@ -36,8 +38,8 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   }
 
   useEffect(() => {
-    getAccessTokenSilently().then(token => {
-      getTours(token, userId, false).then(tours => {
+    getAccessTokenSilently().then((token) => {
+      getTours(token, userId, false).then((tours) => {
         setAllTours(tours)
       })
     })
@@ -57,13 +59,12 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ tourId, userId }) =>
   })
 
   return (
-    <main className="current-tours">
-    <div className='current-background-img'>
-      <h1>Current Tours</h1>
-      <section className='card-container'>
-        {tours}
-      </section>
-    </div>
+    <main className="background current-background-img">
+      <div className="sub-container">
+        <h1>Current Tours</h1>
+        <section className="card-container">{tours}</section>
+      </div>
+      <NavBar />
     </main>
   )
 }
