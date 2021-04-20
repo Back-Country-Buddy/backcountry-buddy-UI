@@ -1,52 +1,113 @@
-.past-tours {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.past-background-img {
+  background: url("../../assets/bluepurplejagged.png");
+  background-position: center;
+  background-size: cover;
 }
 
-.tour-card {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: left;
-    width: 30%;
-    border: 2px solid #8420E9;
-    border-radius: 3px;
-    margin: 1% 0;
-}
-
-.card-info {
-    width: 50%;
-}
-
-.tour-details {
+.step-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 85%;
+  margin: 0 3% 8% 3%;
 }
 
-.title-wrapper {
+.title-wrapper,
+.category-wrapper {
   display: flex;
   flex-direction: row;
-  align-self: center;
+  align-items: center;
   justify-content: center;
   width: 100%;
   margin: 0;
-
 }
 
-.title {
+.title-wrapper h2 {
   font-size: 2em;
 }
 
-img {
-  width: 2em;
-  margin-right: 1%;
+.category-wrapper h3 {
+  margin: 2%;
+  font-size: 1.2em;
 }
 
-.plan {
-  display: flex;
-  flex-direction: column;
+.input-wrapper {
+  width: 80vw;
+  border-radius: 3px;
+  border: 2px solid #900aa1;
+  margin-top: 3%;
+}
+
+.border {
+  box-shadow: 3px 3px 10px black;
+  margin: 5%;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 3%;
+}
+
+.departure-check {
+  width: 90vw;
+  box-shadow: 3px 3px 10px black;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 3% 0;
+  margin-bottom: 5%;
+}
+
+.description {
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 1%;
+}
+
+.missing-info {
+  margin: 3% 0 0 0;
+}
+
+.check-icon {
+  width: 8%;
+}
+
+/* SEARCH BAR STYLES: */
+.search-input {
+  margin-top: 3%;
+  background-color: #fff;
+}
+
+.search-bar {
+  display: grid;
+  grid-template-columns: 2.5rem 4fr 1fr;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  overflow: hidden;
+  width: 75vw;
+}
+
+.search-bar:focus-within img {
+  display: none;
+}
+
+.search-bar:focus-within .search-box {
+  grid-column: 1/4;
+}
+
+.search-bar:focus-within .search-box::placeholder {
+  color: transparent;
+}
+
+.search-icon {
+  padding: 0.5rem;
+  grid-row: 1;
+  grid-column: 1/2;
+  z-index: 2;
+}
+
+.search-box {
+  border: 0;
+  padding: 0.5rem;
+  grid-column: 2/4;
+  grid-row: 1;
+  outline: none;
+  align-self: center;
 }

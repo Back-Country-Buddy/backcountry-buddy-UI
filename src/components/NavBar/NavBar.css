@@ -3,11 +3,17 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 3% 1%;
+    padding: 3% 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f8f8ff;
+    box-shadow: 0px -4px 3px rgb(50 50 50 / 25%);
 }
 
 .main-menu-text {
     margin: 5px 0 0 0;
-    color: #8420E9;
+    color: #900AA1;
+    font-size: .8em;
     font-weight: bold;
 }

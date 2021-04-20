@@ -1,61 +1,94 @@
-import { useState } from "react";
-import "./App.css";
-import { LandingPage } from "../LandingPage/LandingPage";
-import { Profile } from "../Profile/Profile";
-import { TourForm } from "../Form/TourForm";
-import { CurrentTours } from "../CurrentTours/CurrentTours";
-import { PastTours } from "../PastTours/PastTours";
-import { userData } from "../../mockdata/UserDummyData";
-import currentToursData from "../../mockdata/CurrentToursDummyData";
-import { tourData } from "../../mockdata/PastTourData";
+import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
-import { Route } from "react-router-dom";
-import { PastTourDetails } from "../PastTours/PastTourDetails.tsx";
-import { NavBar } from "../NavBar/NavBar";
+import { Route, Redirect } from "react-router-dom"
 
-function App() {
-  const [user] = useState(userData);
-  const [currentTours] = useState(currentToursData);
-  const [pastTours] = useState(tourData);
+import "./App.css"
 
-  const { isAuthenticated } = useAuth0()
+import { formatUser, handleLogin } from "../../util"
+import { LandingPage } from "../LandingPage/LandingPage"
+import { Profile } from "../Profile/Profile"
+import { TourForm } from "../Form/TourForm"
+import { CurrentTours } from "../CurrentTours/CurrentTours"
+import { PastTours } from "../PastTours/PastTours"
+import { PastTourDetails } from "../PastTours/PastTourDetails"
+
+const App = () => {
+  const [userState, setUserState] = useState({
+    id: "",
+    user_name: "",
+    email_address: "",
+    emergency_contact_name: "",
+    emergency_number: "",
+    last_name: "",
+    first_name: "",
+    full_name: "",
+    picture: "",
+  })
+
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently().then((token) => {
+        handleLogin(token, user).then((fetchedUser) => {
+          setUserState(formatUser(user, fetchedUser.data[0]))
+        })
+      })
+    }
+  }, [isAuthenticated, getAccessTokenSilently, user])
+
+  const checkAuth = (component) => {
+    if (isAuthenticated) {
+      return component
+    } else {
+      return <Redirect to="/" />
+    }
+  }
 
   return (
-    <div className="App">
-      <Route exact path="/" render={() => <LandingPage name={user.name} />} />
+    <>
+      <div className="App">
+        <Route
+          exact
+          path="/"
+          render={() => <LandingPage name={userState.first_name} />}
+        />
 
-      <Route
-        path="/profile"
-        render={() => (
-          <Profile
-            name={user.name}
-            email={user.email}
-            userName={user.userName}
-            emergencyName={user.emergencyName}
-            emergencyNumber={user.emergencyNumber}
-          />
-        )}
-      />
+        <Route
+          path="/profile"
+          render={() =>
+            checkAuth(<Profile user={userState} setUser={setUserState} />)
+          }
+        />
 
-      <Route
-        path="/add-tour"
-        render={() => <TourForm userId={userData.id} />}
-      />
+        <Route
+          exact
+          path="/add-tour"
+          render={() => checkAuth(<TourForm userId={userState.id} />)}
+        />
 
-      <Route
-        path="/current-tours"
-        render={() => <CurrentTours currentTours={currentTours} />}
-      />
+        <Route path="/current-tour/:userId/:tourId" component={TourForm} />
 
-      <Route
-        path="/past-tours"
-        render={() => <PastTours pastTours={pastTours} />}
-      />
+        <Route
+          path="/current-tours"
+          render={() => checkAuth(<CurrentTours userId={userState.id} />)}
+        />
 
-      <Route path="/tour-details/:id" component={PastTourDetails} />
-      {isAuthenticated && <NavBar />}
-    </div>
-  );
+        <Route
+          exact
+          path="/past-tours"
+          render={() =>
+            checkAuth(<PastTours userId={userState.id} />)
+          }
+        />
+
+        <Route
+          path="/past-tours/:userId/:tourId/:location/:date"
+          component={PastTourDetails}
+        />
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App

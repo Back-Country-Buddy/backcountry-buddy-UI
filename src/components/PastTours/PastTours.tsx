@@ -1,46 +1,84 @@
-import React, { useState } from "react";
-import { PastTourCard } from "./PastTourCard";
-import { SearchBar } from "./SearchBar";
-import "./PastTours.css";
+import React, { useState, useEffect } from "react"
+import { useAuth0 } from "@auth0/auth0-react"
+import "./PastTours.css"
 
-interface pastTour {
-  id: number;
-  date: string;
-  location: string;
-  creator_id: number;
-  complete: boolean;
+import { getTours, deleteTour } from "../../util.js"
+import { PastTourCard } from "./PastTourCard"
+import { SearchBar } from "./SearchBar"
+import { NavBar } from "../NavBar/NavBar"
+
+interface PastTour {
+  id: number
+  date: string
+  location: string
+  creator_id: number
+  complete: boolean
 }
 
 interface TourProps {
-  pastTours: Array<pastTour>;
+  tourId: number
+  userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ pastTours }) => {
-  const [searchResults, setSearchResults] = useState<pastTour[]>(pastTours);
+export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
+  // eslint-disable-next-line
+  const [searchResults, setSearchResults] = useState<Array<PastTour>>([])
+  const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
-  const createPastTourCards = searchResults.map((tour) => {
+  const { getAccessTokenSilently } = useAuth0()
+
+  useEffect(() => {
+      getAccessTokenSilently().then(token => {
+        getTours(token, userId, true).then(tours => {
+          setAllTours(tours)
+        })
+      })
+  }, [getAccessTokenSilently, userId])
+
+  const removeTour = (tourId: number): any => {
+    const confirmationMessage = window.confirm(
+      "Are you sure you want to remove this tour?"
+    )
+    if (confirmationMessage) {
+      getAccessTokenSilently().then((token) => {
+        deleteTour(token, tourId).then(() => {
+          const newTours = allTours.filter((tour) => tour.id !== tourId)
+          setAllTours(newTours)
+        })
+      })
+    } else {
+      return false
+    }
+  }
+
+  const createPastTourCards = allTours.map((tour) => {
     return (
       <PastTourCard
         key={tour.id}
-        id={tour.id}
+        tourId={tour.id}
         date={tour.date}
         location={tour.location}
+        userId={userId}
+        removeTour={removeTour}
       />
     );
   });
 
   const filterTours = (input: string): any => {
-    const filteredTours = pastTours.filter((tour) => {
+    const filteredTours = allTours.filter((tour) => {
       return tour.location.toLowerCase().includes(input.toLowerCase());
     });
-    setSearchResults([...filteredTours]);
+    setSearchResults(filteredTours);
   };
 
   return (
-    <section className="past-tours">
-      <h1>Past Tours</h1>
-      <SearchBar filterTours={filterTours} />
-      {createPastTourCards}
-    </section>
-  );
-};
+    <main className="background past-background-img">
+      <div className="sub-container">
+        <h1>Past Tours</h1>
+        <SearchBar filterTours={filterTours} />
+        <section className="card-container">{createPastTourCards}</section>
+      </div>
+      <NavBar />
+    </main>
+  )
+}

@@ -1,21 +1,20 @@
-import React from 'react'
-
+import React from "react"
 
 interface TextFieldProps {
-  value: string,
-  prompt: string | null,
-  updateForm: (e: React.ChangeEvent<HTMLInputElement>) => void
+  value: string
+  prompt: string | null
+  updateForm: (e: React.ChangeEvent<HTMLTextAreaElement>) => void
 }
 
-export const TextField: React.FC<TextFieldProps> = ({value, prompt, updateForm}) => {
-  return(
+export const TextField: React.FC<TextFieldProps> = ({
+  value,
+  prompt,
+  updateForm,
+}) => {
+  return (
     <>
       <p>{prompt}</p>
-      <input
-        type='text'
-        value={value}
-        onChange={updateForm}
-      />
+      <textarea value={value} onChange={updateForm} />
     </>
   )
 }

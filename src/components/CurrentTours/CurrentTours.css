@@ -1,20 +1,5 @@
-.current-tours {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.current-tours-card {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    text-align: left;
-    width: 30%;
-    border: 2px solid #8420E9;
-    border-radius: 3px;
-    margin: 1% 0;
-}
-
-.card-info {
-    width: 50%;
+.current-background-img {
+  background: url("../../assets/lightpurple.png");
+  background-position: center;
+  background-size: cover;
 }

@@ -1,14 +1,90 @@
-form {
-  display: grid;
-  grid-template-columns: 1fr;
+.tour-form-container {
+  height: 78vh;
+  overflow: scroll;
+}
+
+.ride-img {
+  width: 75%;
+  box-shadow: 3px 3px 10px black;
+}
+
+.form-basic {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 5% 3%;
+  border-bottom: 1px solid #900aa1;
+  padding-bottom: 5%;
+}
+
+.form-subform {
+  height: 68vh;
+}
+
+.step-container {
+  background: linear-gradient(to right, #590fb7, #ff0076);
+  margin: 0 15%;
+  padding: 2% 0;
+  border-radius: 3px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.form-nav {
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.form-nav:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.form-nav-active {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.step {
+  width: 80vw;
 }
 
 .section-title {
-  display: grid;
-  grid-template-columns: 1fr 4fr;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  width: 100%;
 }
 
-.ride-img{
-  width: 90%;
-  height: auto;
+.section-title-ride {
+  margin: 0 0 3% 0;
+}
+
+.section-title h3 {
+  margin: 0;
+}
+
+.checkbox {
+  margin-right: 3%;
+  width: 4%;
+}
+
+.departure {
+  background: none;
+  border: none;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.departure:hover {
+  color: #900aa1;
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
 }
