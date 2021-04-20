@@ -3,7 +3,7 @@ import placeholder from '../../assets/placeholderChartAsset.png'
 // import checkList from '../../assets/departureCheck.png'
 
 interface RideProps {
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>,
+  setChecked: (event:React.MouseEvent<HTMLButtonElement>) => void,
   isChecked: boolean
 }
 
@@ -18,7 +18,7 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
           readOnly={true}
         />
         <button
-          onClick={() => setChecked(!isChecked)}
+          onClick={setChecked}
           className={isChecked? 'checked' : ''}
         >Conduct a Departure Check</button>
       </div>

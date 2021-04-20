@@ -32,6 +32,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
+  // departure_check?: boolean
 }
 
 export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
@@ -45,6 +46,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
     debrief_conditions: "",
     debrief_decisions: "",
     debrief_plan: "",
+    // departure_check: false
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
@@ -89,7 +91,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
    }
  }
 
-  const savePlanUpdates = () => {
+  const savePlanUpdates = (planFields:any) => {
     getAccessTokenSilently().then(token => {
        updatePlan(token, planId, planFields)
     })
@@ -123,6 +125,12 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         />
       )
     })
+  }
+
+  const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    setDepartureCheck(!isDepartureChecked)
+    //make a call to the backend to make a PATCH once that property is added
   }
 
   const isChecked = (fields: string[]) => {
@@ -174,7 +182,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
           <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-          <Ride setChecked={setDepartureCheck} isChecked={isDepartureChecked} />
+          <Ride setChecked={toggleDepartureCheck} isChecked={isDepartureChecked} />
           <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
         </StepWizard>
         <button onClick={savePlanUpdates}>SAVE UPDATES</button>
