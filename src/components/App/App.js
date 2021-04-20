@@ -55,17 +55,19 @@ const App = () => {
   return (
     <>
       {(promiseInProgress || isLoading) &&
-        <Loader
-          type='Oval'
-          color='#900AA1'
-          height={350}
-          width={350}
-          timeout={3000}
-        />
+        <div className='loader'>
+          <Loader
+            type='Oval'
+            color='#900AA1'
+            height={150}
+            width={150}
+            timeout={3000}
+          />
+        </div>
       }
       {err && <Error err={err} setErr={setErr}/>}
       {!err &&
-        <div className='App'>
+        <div className={`App ${((promiseInProgress || isLoading) && 'hidden')}`}>
           <Route
             exact
             path='/'
