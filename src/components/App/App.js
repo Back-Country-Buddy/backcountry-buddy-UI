@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Route } from 'react-router-dom'
 import { usePromiseTracker } from 'react-promise-tracker'
+import Loader from 'react-loader-spinner'
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import './App.css'
 
@@ -13,7 +15,6 @@ import { PastTours } from '../PastTours/PastTours'
 import { PastTourDetails } from '../PastTours/PastTourDetails'
 import { NavBar } from '../NavBar/NavBar'
 import { Error } from '../Error/Error'
-import { Loader } from '../Loader/Loader'
 
 import { handleLogin, } from '../../apiRequests/userRequests'
 import { secureCall } from '../../apiRequests/promiseHandling'
@@ -34,7 +35,7 @@ const App = () => {
 
   const [err, setErr] = useState(null)
 
-  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0()
+  const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
   const { promiseInProgress } = usePromiseTracker()
 
   useEffect(() => {
@@ -46,7 +47,15 @@ const App = () => {
 
   return (
     <>
-      {promiseInProgress && <Loader /> }
+      {(promiseInProgress || isLoading) &&
+        <Loader
+          type='Oval'
+          color='#900AA1'
+          height={350}
+          width={350}
+          timeout={3000}
+        />
+      }
       {err && <Error err={err} setErr={setErr}/>}
       {!err &&
         <div className='App'>
