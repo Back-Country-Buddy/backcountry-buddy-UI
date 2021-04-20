@@ -1,6 +1,6 @@
 import React from "react"
 import route from "../../assets/travel.svg"
-import placeholder from "../../assets/placeholderChartAsset.png"
+import diagram from "../../assets/ride-diagram.png"
 
 interface RideProps {
   setChecked: React.Dispatch<React.SetStateAction<boolean>>
@@ -23,7 +23,7 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
           Conduct a Departure Check
         </button>
       </div>
-      <img src={placeholder} alt="ride flowchart" className="ride-img" />
+      <img src={diagram} alt="ride flowchart" className="ride-img" />
     </form>
   )
 }

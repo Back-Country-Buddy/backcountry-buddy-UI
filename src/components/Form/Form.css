@@ -11,8 +11,8 @@ form {
 }
 
 .ride-img {
-  width: 90%;
-  height: auto;
+  width: 75%;
+  box-shadow: 3px 3px 10px black;
 }
 
 .form-basic {
