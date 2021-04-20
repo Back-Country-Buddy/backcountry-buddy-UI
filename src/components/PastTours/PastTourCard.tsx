@@ -18,23 +18,24 @@ export const PastTourCard: React.FC<TourProps> = ({
   removeTour,
 }) => {
   return (
-    <Link
-      style={{ textDecoration: "none" }}
-      to={`/past-tours/${userId}/${tourId}/${location}/${date}`}
-    >
-      <article className="tour-card">
-        <img
-          src="https://img.icons8.com/nolan/64/mountain.png"
-          alt="mountains icon"
-        />
+    <article className="tour-card">
+      <img
+        src="https://img.icons8.com/nolan/64/mountain.png"
+        alt="mountains icon"
+      />
+      <Link
+        style={{ textDecoration: "none" }}
+        className="card-link"
+        to={`/past-tours/${userId}/${tourId}/${location}/${date}`}
+      >
         <div className="card-info">
           <h3>{location}</h3>
           <p>{date}</p>
         </div>
-        <button className="delete" onClick={() => removeTour(tourId)}>
-          X
-        </button>
-      </article>
-    </Link>
+      </Link>
+      <button className="delete" onClick={() => removeTour(tourId)}>
+        X
+      </button>
+    </article>
   )
 }

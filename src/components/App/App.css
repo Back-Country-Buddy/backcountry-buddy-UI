@@ -67,6 +67,23 @@ button:focus {
   color: #900aa1;
 }
 
+.delete {
+  font-weight: bold;
+  align-self: flex-start;
+  margin-top: 3%;
+  font-size: 1.2em;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #590fb7, #ff0076);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.delete:hover {
+  text-shadow: 3px 3px 10px black;
+}
+
 /* SHARED TOUR CARD STYLES: */
 .card-container {
   display: flex;
@@ -93,12 +110,13 @@ button:focus {
   box-shadow: 3px 3px 10px black;
 }
 
-.tour-card:hover {
-  color: #ffffff;
-  background: #13e2da;
-  border-color: #13e2da;
-  transition: all 0.4s ease 0s;
+.card-link {
+  color: #000000;
   cursor: pointer;
+}
+
+.card-link:hover {
+  color: #900AA1;
 }
 
 /* SHARED FORM STYLES: */

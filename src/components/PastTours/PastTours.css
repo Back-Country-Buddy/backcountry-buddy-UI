@@ -4,23 +4,6 @@
   background-size: cover;
 }
 
-.delete {
-  font-weight: bold;
-  align-self: flex-start;
-  margin-top: 3%;
-  font-size: 1.2em;
-  cursor: pointer;
-  border: none;
-  background: linear-gradient(to right, #590fb7, #ff0076);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.delete:hover {
-  text-shadow: 3px 3px 10px black;
-}
-
 .tour-details {
   display: flex;
   flex-direction: column;
