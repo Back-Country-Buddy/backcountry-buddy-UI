@@ -56,8 +56,8 @@ export const addUser = (
   const body = {
     user_name: name,
     email_address: email,
-    emergency_contact_name: '',
-    emergency_number: ''
+    emergency_contact_name: 'placeholder',
+    emergency_number: 'placeholder'
   }
 
   return fetch(
@@ -147,6 +147,18 @@ export const addTour = (auth, id, data) => {
       "Authorization": `Bearer ${auth}`
     },
     body: JSON.stringify(data)
+  }).then(response => checkResponse(response))
+}
+
+export const getTour = (auth, userId, tourId) => {
+  return fetch(`https://backcountry-restapi.herokuapp.com/api/private/v1/user/${userId}/tour/${tourId}`,
+ 
+    {
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "Authorization": `Bearer ${auth}`
+    }
   }).then(response => checkResponse(response))
 }
 
