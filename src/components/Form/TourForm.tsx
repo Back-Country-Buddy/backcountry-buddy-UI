@@ -59,6 +59,8 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
+  const [basicChange, setBasicChange] = useState<boolean>(false)
+  const [planChange, setPlanChange] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -90,7 +92,14 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             .then((response: any) => setPlanId(response.data.id))
           })
       } else {
-        secureCall(getAccessTokenSilently, updatePlan, planId, planFields)
+        if (planChange) {
+          secureCall(getAccessTokenSilently, updatePlan, planId, planFields)
+          setPlanChange(false)
+        }
+        if (basicChange) {
+          secureCall(getAccessTokenSilently, updateTour, userId ? userId : match.params.userId, basicFields, tourId)
+          setBasicChange(false)
+        }
       }
   }
 
@@ -110,9 +119,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           key={i}
           prompt={prompts ? prompts[i] : null}
           value={planFields[field as keyof PlanFields]}
-          updateForm={(e) =>
+          updateForm={(e) => {
             setPlanFields({ ...planFields, [field]: e.target.value })
-          }
+            setPlanChange(true)
+          }}
         />
       )
     })
@@ -136,9 +146,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             type='date'
             name='date'
             value={basicFields.date}
-            onChange={(e) =>
+            onChange={(e) => {
               setBasicFields({ ...basicFields, date: e.target.value })
-            }
+              setBasicChange(true)
+            }}
             min={getDateString(new Date())}
           />
         </div>
@@ -150,9 +161,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             type='text'
             name='location'
             value={basicFields.location}
-            onChange={(e) =>
+            onChange={(e) => {
               setBasicFields({ ...basicFields, location: e.target.value })
-            }
+              setBasicChange(true)
+            }}
           />
         </div>
       </form>
