@@ -1,7 +1,8 @@
 import React, { useState } from "react"
 import "./PastTours.css"
+import searchIcon from "../../assets/icons8-search-30.png"
 
-interface pastTour {
+interface PastTour {
   id: number
   date: string
   location: string
@@ -9,11 +10,11 @@ interface pastTour {
   complete: boolean
 }
 
-interface searchProps {
-  filterTours: (input: string) => pastTour[]
+interface SearchProps {
+  filterTours: (input: string) => PastTour[]
 }
 
-export const SearchBar: React.FC<searchProps> = ({ filterTours }) => {
+export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
   const [input, setInput] = useState<string>("")
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,16 +23,18 @@ export const SearchBar: React.FC<searchProps> = ({ filterTours }) => {
   }
 
   return (
-    <div className='search-wrapper'>
-      <form className="search-input">
+    <form className="search-input">
+      <div className="search-bar">
+        <img className="search-icon" src={searchIcon} alt="search icon" />
         <input
-          type="text"
-          name="input"
-          placeholder="Search By Location"
+          type="search"
+          name="search"
+          className="search-box"
+          placeholder="Search by location"
           value={input}
           onChange={(event) => handleChange(event)}
         />
-      </form>
-    </div>
+      </div>
+    </form>
   )
 }

@@ -7,6 +7,7 @@ import { Plan } from './Plan'
 import { Debrief } from './Debrief'
 import { TextField } from './TextField'
 import { FormNav } from './FormNav'
+import { NavBar } from '../NavBar/NavBar'
 
 import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
 import { getTour, addTour,  updateTour } from '../../apiRequests/tourRequests.js'
@@ -149,59 +150,84 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find(
-      (field) => planFields[field as keyof PlanFields] === ''
-    )
+    return !fields.find(field => planFields[field as keyof PlanFields] === '')
   }
 
   return (
     <main>
-      <h1>Current Tour</h1>
-      <form className='form-basic'>
-        <div className='form-section'>
-          <label htmlFor='date' className='form-label'>
-            DATE
-          </label>
-          <input
-            required
-            type="date"
-            name="date"
-            value={basicFields.date}
-            onChange={(e) => {
-              setBasicFields({ ...basicFields, date: e.target.value })
-              setBasicChange(true)
-            }}
-            min={cleanDate(new Date().toISOString())}
-          />
+      <div>
+        <div className="tour-form-container">
+          <h1>Upcoming Tour</h1>
+
+          <form className="form-basic">
+            <div className="form-section">
+              <label htmlFor="date" className="form-label">
+                DATE
+              </label>
+              <input
+                required
+                type="date"
+                name="date"
+                value={basicFields.date}
+                onChange={(e) =>
+                  setBasicFields({ ...basicFields, date: e.target.value })
+                }
+                min={cleanDate(new Date().toISOString())}
+              />
+            </div>
+            <div className="form-section">
+              <label htmlFor="location" className="form-label">
+                LOCATION
+              </label>
+              <input
+                required
+                type="text"
+                name="location"
+                placeholder="Trailhead, zone, etc."
+                value={basicFields.location}
+                onChange={(e) =>
+                  setBasicFields({ ...basicFields, location: e.target.value })
+                }
+              />
+            </div>
+          </form>
+
+          {planId ? (
+            <div className="form-subform">
+              <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
+                <Plan
+                  renderTextInputs={renderTextInputs}
+                  isChecked={isChecked}
+                />
+                <Ride
+                  setChecked={toggleDepartureCheck}
+                  isChecked={isDepartureChecked}
+                />
+                <Debrief
+                  markComplete={markComplete}
+                  renderTextInputs={renderTextInputs}
+                  isChecked={isChecked}
+                />
+              </StepWizard>
+            </div>
+          ) : (
+            <button
+              className={!basicFields.location ? "disabled" : "button-save"}
+              disabled={!basicFields.location}
+              onClick={createTour}
+            >
+              CREATE TOUR
+            </button>
+          )}
         </div>
-        <div className='form-section'>
-          <label htmlFor='location' className='form-label'>
-            LOCATION
-          </label>
-          <input
-            required
-            placeholder='Add a Location'
-            type="text"
-            name="location"
-            value={basicFields.location}
-            onChange={(e) => {
-              setBasicFields({ ...basicFields, location: e.target.value })
-              setBasicChange(true)
-            }}
-          />
-        </div>
-      </form>
-      {!planId ?
-        <button disabled={!basicFields.location} onClick={createTour}>CREATE TOUR</button>
-        :
-        <button onClick={sendFormUpdate}>SAVE UPDATES</button>
-      }
-      <div className="form-subform">
-        <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
-          <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-          <Ride setChecked={toggleDepartureCheck} isChecked={isDepartureChecked} />
-          <Debrief markComplete={markComplete} renderTextInputs={renderTextInputs} isChecked={isChecked} />
-        </StepWizard>
+
+        {planId > 0 && (
+          <button className="button-save" onClick={savePlanUpdates}>
+            SAVE UPDATES
+          </button>
+        )}
+
+        <NavBar />
       </div>
     </main>
   )

@@ -5,6 +5,7 @@ import CurrentTourCard from './CurrentTourCard'
 import { getTours, deleteTour } from '../../apiRequests/tourRequests.js'
 import { cleanTours } from '../../apiRequests/dataCleaners.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
+import { NavBar } from "../NavBar/NavBar"
 
 interface Tour {
   id: number
@@ -53,13 +54,12 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId, setErr }) =>
   })
 
   return (
-    <main className='current-tours'>
-    <div className='current-background-img'>
-      <h1>Current Tours</h1>
-      <section className='card-container'>
-        {tours}
-      </section>
-    </div>
+    <main className="background current-background-img">
+      <div className="sub-container">
+        <h1>Current Tours</h1>
+        <section className="card-container">{tours}</section>
+      </div>
+      <NavBar />
     </main>
   )
 }

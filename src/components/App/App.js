@@ -13,7 +13,6 @@ import { TourForm } from '../Form/TourForm'
 import { CurrentTours } from '../CurrentTours/CurrentTours'
 import { PastTours } from '../PastTours/PastTours'
 import { PastTourDetails } from '../PastTours/PastTourDetails'
-import { NavBar } from '../NavBar/NavBar'
 import { Error } from '../Error/Error'
 
 import { handleLogin, } from '../../apiRequests/userRequests'
@@ -22,15 +21,15 @@ import { formatUser } from '../../apiRequests/dataCleaners.js'
 
 const App = () => {
   const [userState, setUserState] = useState({
-    id: '',
-    user_name: '',
-    email_address: '',
-    emergency_contact_name: '',
-    emergency_number: '',
-    last_name: '',
-    first_name: '',
-    full_name: '',
-    picture: ''
+    id: "",
+    user_name: "",
+    email_address: "",
+    emergency_contact_name: "",
+    emergency_number: "",
+    last_name: "",
+    first_name: "",
+    full_name: "",
+    picture: "",
   })
 
   const [err, setErr] = useState(null)
@@ -49,7 +48,7 @@ const App = () => {
     if (isAuthenticated) {
       return component
     } else {
-      return (<Redirect to='/'/>)
+      return <Redirect to="/" />
     }
   }
 
@@ -106,7 +105,6 @@ const App = () => {
           />
         </div>
       }
-      {isAuthenticated && <NavBar />}
     </>
   )
 }

@@ -1,22 +1,26 @@
-.landing {
-  display: flex;
-  flex-direction: column;
-  font-family: 'Karantina';
-  font-weight: 700;
-  font-size: 1.5em;
-}
-
 .landing-img {
   background: url("../../assets/brightpurple.png");
   background-position: center;
   background-size: cover;
-  width: 100%;
-  height: 100%;
+}
+
+.landing-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .logo {
-  font-size: 3em;
+  font-size: 4em;
   background: linear-gradient(to right, #590fb7,#ff0076, #590fb7);
-	-webkit-background-clip: text;
+  background-clip: text;
+  -webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+}
+
+.welcome {
+  color: #fff;
+  text-shadow: 3px 3px 10px black;
+  margin-bottom: 18%;
+  font-size: 2em;
 }

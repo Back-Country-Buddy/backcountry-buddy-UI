@@ -3,36 +3,42 @@ import './CurrentTours.css'
 import { Link } from 'react-router-dom'
 import { cleanDate } from '../../apiRequests/dataCleaners'
 
-interface Props {
+import "./CurrentTours.css"
+
+interface TourProps {
   date: string
   location: string
   tourId: number
   userId: number
-  removeTour: (tourId:number) => any
+  removeTour: (tourId: number) => any
 }
 
-const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId, removeTour }) => {
+export const CurrentTourCard: React.FC<TourProps> = ({
+  date,
+  location,
+  tourId,
+  userId,
+  removeTour,
+}) => {
   return (
-    <div className='card-wrapper'>
-      <div
-        className='delete-wrapper'
-        onClick={()=>removeTour(tourId)}
-        >X
-      </div>
-      <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
-          <article className='current-tours-card'>
-            <img
-              src='https://img.icons8.com/nolan/64/mountain.png'
-              alt='mountains icon'
-            />
-            <div className='card-info'>
-              <h3>{location}</h3>
-              <p>{new Date(date).toDateString()}</p>
-            </div>
-          </article>
+    <article className="tour-card">
+      <img
+        src="https://img.icons8.com/nolan/64/mountain.png"
+        alt="mountains icon"
+      />
+      <Link
+        style={{ textDecoration: "none" }}
+        className="card-link"
+        to={`/current-tour/${userId}/${tourId}`}
+      >
+        <div className="card-info">
+          <h3>{location}</h3>
+          <p>{new Date(date).toDateString()}</p>
+        </div>
       </Link>
-    </div>
+      <button className="delete" onClick={() => removeTour(tourId)}>
+        X
+      </button>
+    </article>
   )
 }
-
-export default CurrentTourCard
