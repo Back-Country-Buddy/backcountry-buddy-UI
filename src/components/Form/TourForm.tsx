@@ -97,7 +97,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           setPlanChange(false)
         }
         if (basicChange) {
-          secureCall(getAccessTokenSilently, updateTour, userId ? userId : match.params.userId, basicFields, tourId)
+          secureCall(getAccessTokenSilently, updateTour, tourId, basicFields)
           setBasicChange(false)
         }
       }
