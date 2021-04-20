@@ -1,7 +1,9 @@
 .current-tours {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 87vh;
+  overflow: scroll;
 }
 
 .current-background-img {
@@ -9,7 +11,7 @@
   background-position: center;
   background-size: cover;
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 
 .current-tours-card {
@@ -26,7 +28,7 @@
 }
 
 .card-info {
-    width: 50%;
+  width: 50%;
 }
 
 .card-container {
@@ -44,8 +46,8 @@
   margin: 1%;
   padding: 1rem;
   position: relative;
-  background: linear-gradient(to right,#737dfe, #900AA1, #737dfe);
-  padding: .3%;
+  background: linear-gradient(to right, #737dfe, #900aa1, #737dfe);
+  padding: 0.3%;
   width: 85vw;
   border-radius: 3px;
 }
