@@ -3,5 +3,6 @@ export const header = auth => {
       'Content-Type': 'application/json',
       'Accept': 'application/json',
       'Authorization': `Bearer ${auth}`
-    })
+    }
+  )
 }

@@ -9,7 +9,7 @@ import { TextField } from './TextField'
 import { FormNav } from './FormNav'
 
 import { getDateString, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
-import { addTour,  updateTour } from '../../apiRequests/tourRequests.js'
+import { getTour, addTour,  updateTour } from '../../apiRequests/tourRequests.js'
 import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -51,8 +51,8 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: 'place',
-    date: '00000',
+    location: '',
+    date: '',
     complete: false
   })
 
@@ -64,10 +64,6 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
 
   const { getAccessTokenSilently } = useAuth0()
 
-  const sendTourUpdate = () => {
-    secureCall(getAccessTokenSilently, userId ? userId : match.params.userId, tourId, basicFields)
-    }
-
   useEffect(() => {
     if (tourId.length && match) {
       secureCall(getAccessTokenSilently, getPlan, match.params.userId, tourId)
@@ -75,6 +71,19 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
         })
+
+      secureCall(getAccessTokenSilently, getTour, tourId)
+        .then((tour: any) => {
+          console.log(tour)
+          setBasicFields(
+            {
+              location: tour.data.attributes.location,
+              date: tour.data.attributes.date,
+              complete: tour.data.attributes.complete
+            }
+          )
+        }
+      )
     }
   }, [getAccessTokenSilently, tourId, match])
 
