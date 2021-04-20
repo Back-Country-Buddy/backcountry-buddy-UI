@@ -19,7 +19,6 @@ const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId, remo
         >X
       </div>
       <Link style={{textDecoration: 'none'}} to={`/current-tour/${userId}/${tourId}`}>
-      {console.log(tourId)}
           <article className="current-tours-card">
             <img
               src="https://img.icons8.com/nolan/64/mountain.png"
