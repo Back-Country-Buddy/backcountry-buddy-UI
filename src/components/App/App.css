@@ -108,6 +108,7 @@ button:focus {
   border-radius: 3px;
   margin: 2% 0;
   box-shadow: 3px 3px 10px black;
+  padding-left: 3%;
 }
 
 .card-link {

@@ -27,7 +27,7 @@ export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
       <div className="search-bar">
         <img className="search-icon" src={searchIcon} alt="search icon" />
         <input
-          type="text"
+          type="search"
           name="search"
           className="search-box"
           placeholder="Search by location"

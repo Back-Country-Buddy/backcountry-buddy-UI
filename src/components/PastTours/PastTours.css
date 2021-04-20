@@ -28,23 +28,41 @@
 
 .category-wrapper h3 {
   margin: 2%;
-  font-size: 1.4em;
-}
-
-.plan,
-.ride,
-.debrief {
-  background-color: #f8f8ff;
-  margin: 1.5%;
-  padding: 2% 2% 6% 2%;
+  font-size: 1.2em;
 }
 
 .input-wrapper {
   width: 80vw;
-  height: fit-content;
   border-radius: 3px;
-  background: #f8f8ff;
+  border: 2px solid #900aa1;
+  margin-top: 3%;
+}
+
+.border {
   box-shadow: 3px 3px 10px black;
+  margin: 5%;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 3%;
+}
+
+.departure-check {
+  width: 90vw;
+  box-shadow: 3px 3px 10px black;
+  border-radius: 3px;
+  background-color: #fff;
+  padding: 3% 0;
+  margin-bottom: 5%;
+}
+
+.description {
+  font-style: italic;
+  font-size: 0.8em;
+  margin: 1%;
+}
+
+.missing-info {
+  margin: 3% 0 0 0;
 }
 
 .check-icon {
@@ -61,7 +79,7 @@
   display: grid;
   grid-template-columns: 2.5rem 4fr 1fr;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 3px;
   overflow: hidden;
   width: 75vw;
 }
@@ -91,4 +109,5 @@
   grid-column: 2/4;
   grid-row: 1;
   outline: none;
+  align-self: center;
 }
