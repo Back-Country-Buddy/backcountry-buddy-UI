@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { Route } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react"
 import { Route, Redirect } from "react-router-dom"
 
@@ -52,7 +51,7 @@ const App = () => {
         <Route
           exact
           path="/"
-          render={() => <LandingPage name={userData.name} />}
+          render={() => <LandingPage name={userState.first_name} />}
         />
 
         <Route
@@ -79,7 +78,7 @@ const App = () => {
           exact
           path="/past-tours"
           render={() =>
-            checkAuth(<PastTours userId={userState.id} pastTours={pastTours} />)
+            checkAuth(<PastTours userId={userState.id} />)
           }
         />
 

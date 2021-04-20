@@ -67,6 +67,17 @@ button:focus {
   color: #900aa1;
 }
 
+.disabled {
+  width: 30%;
+  margin: 3%;
+  padding: 2%;
+  background-color: gray;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 3px;
+  cursor: not-allowed;
+}
+
 .delete {
   font-weight: bold;
   align-self: flex-start;

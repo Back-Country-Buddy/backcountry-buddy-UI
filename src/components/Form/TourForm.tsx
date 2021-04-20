@@ -198,31 +198,36 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
             </div>
           </form>
 
-          <div className="form-subform">
-            <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
-              <Plan renderTextInputs={renderTextInputs} isChecked={isChecked} />
-              <Ride
-                setChecked={toggleDepartureCheck}
-                isChecked={isDepartureChecked}
-              />
-              <Debrief
-                markComplete={markComplete}
-                renderTextInputs={renderTextInputs}
-                isChecked={isChecked}
-              />
-            </StepWizard>
-          </div>
+          {planId ? (
+            <div className="form-subform">
+              <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
+                <Plan
+                  renderTextInputs={renderTextInputs}
+                  isChecked={isChecked}
+                />
+                <Ride
+                  setChecked={toggleDepartureCheck}
+                  isChecked={isDepartureChecked}
+                />
+                <Debrief
+                  markComplete={markComplete}
+                  renderTextInputs={renderTextInputs}
+                  isChecked={isChecked}
+                />
+              </StepWizard>
+            </div>
+          ) : (
+            <button
+              className={!basicFields.location ? "disabled" : "button-save"}
+              disabled={!basicFields.location}
+              onClick={createTour}
+            >
+              CREATE TOUR
+            </button>
+          )}
         </div>
 
-        {!planId ? (
-          <button
-            className="button-save"
-            disabled={!basicFields.location}
-            onClick={createTour}
-          >
-            CREATE TOUR
-          </button>
-        ) : (
+        {planId > 0 && (
           <button className="button-save" onClick={savePlanUpdates}>
             SAVE UPDATES
           </button>
