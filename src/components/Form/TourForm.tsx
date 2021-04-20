@@ -58,13 +58,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-  const [createMode, setCreateMode] = useState<boolean>(true)
-
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
     if (tourId.length && match) {
-      setCreateMode(false)
       getAccessTokenSilently().then(token => { 
         getTour(token, userId, tourId).then(tour => setBasicFields({
           ...basicFields,
@@ -79,7 +76,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         })
       })
     }
-  }, [getAccessTokenSilently, tourId, match])
+  }, [getAccessTokenSilently, tourId, match, basicFields, userId])
 
  const createTour = () => {
     if(!tourId) {
@@ -94,10 +91,8 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         .then(response => setPlanId(response.data.id))
       })
       })
-      setCreateMode(false)
    }
  }
-
 
   const savePlanUpdates = () => {
     getAccessTokenSilently().then(token => {
@@ -106,10 +101,9 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }
 
   const sendTourUpdate = () => {
-    console.log('hey')
     getAccessTokenSilently().then(token => {
       updateTour(token, userId ? userId : match.params.userId, tourId, basicFields)
-      console.log(tourId, basicFields)
+
     })
   }
 
@@ -184,11 +178,10 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
           />
         </div>
       </form>
-        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
-      {createMode ?
+      {!planId ?
         <button disabled={!basicFields.location} onClick={createTour}>CREATE TOUR</button>
         :
-        <></>
+        <button onClick={savePlanUpdates}>SAVE UPDATES</button>
       }
       <div className="form-subform">
         <StepWizard nav={<FormNav steps={["PLAN", "RIDE", "DEBRIEF"]} />}>
