@@ -1,5 +1,6 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React from 'react'
+import './CurrentTours.css'
+import { Link } from 'react-router-dom'
 
 import "./CurrentTours.css"
 
@@ -31,7 +32,7 @@ export const CurrentTourCard: React.FC<TourProps> = ({
       >
         <div className="card-info">
           <h3>{location}</h3>
-          <p>{date}</p>
+          <p>{new Date(date).toDateString()}</p>
         </div>
       </Link>
       <button className="delete" onClick={() => removeTour(tourId)}>

@@ -30,7 +30,7 @@ export const PastTourCard: React.FC<TourProps> = ({
       >
         <div className="card-info">
           <h3>{location}</h3>
-          <p>{date}</p>
+          <p>{new Date(date).toDateString()}</p>
         </div>
       </Link>
       <button className="delete" onClick={() => removeTour(tourId)}>

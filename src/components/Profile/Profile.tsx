@@ -1,7 +1,7 @@
 import React from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./Profile.css"
-import { updateUser } from "../../util.js"
+import { updateUser } from "../../apiRequests/userRequests.js"
 import { LogoutButton } from "../Login/LogoutButton"
 import { NavBar } from "../NavBar/NavBar"
 
