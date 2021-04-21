@@ -1,4 +1,4 @@
-describe.skip("Profile Page", () => {
+describe("Profile Page", () => {
   const baseUrl = "http://localhost:3000"
   const profileUrl = "http://localhost:3000/profile"
 
@@ -46,11 +46,26 @@ describe.skip("Profile Page", () => {
 
   it("Should display name, email, and username", () => {
     cy.get(".name")
-      .should("have.text", "Test User")
+      .should("contain", "Test User")
       .get(".email")
-      .should("have.text", "bcbtestuser@gmail.com")
+      .should("contain", "bcbtestuser@gmail.com")
       .get(".userName")
-      .should("have.text", "bcbtestuser")
+      .should("contain", "Test User")
+
+    logOut()
+  })
+  
+
+  it("Should be able to save an emergency contacy name and number", () => {
+    cy.get(".emergency-form")
+      .find("input").eq(0).clear()
+      .type('Test Name')
+      .get(".emergency-form")
+      .find("input").eq(1).clear()
+      .type('1234567')
+      .get(".emergency-form")
+      .find("button")
+      .should("contain", "Save").click()
 
     logOut()
   })
