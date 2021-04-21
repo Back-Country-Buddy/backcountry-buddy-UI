@@ -1,4 +1,4 @@
-import { trackPromise} from 'react-promise-tracker'
+import { trackPromise } from 'react-promise-tracker'
 
 const checkResponse = response => {
   if (response.status === 204) {
