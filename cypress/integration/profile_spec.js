@@ -54,7 +54,6 @@ describe("Profile Page", () => {
 
     logOut()
   })
-  
 
   it("Should be able to save an emergency contacy name and number", () => {
     cy.get(".emergency-form")

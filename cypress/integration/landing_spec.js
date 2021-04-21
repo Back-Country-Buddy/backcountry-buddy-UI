@@ -1,4 +1,4 @@
-describe.skip("Landing Page", () => {
+describe("Landing Page", () => {
   const baseUrl = "http://localhost:3000"
 
   const logIn = () => {
@@ -37,8 +37,8 @@ describe.skip("Landing Page", () => {
 
     cy.get("header h1")
       .should("have.text", "Backcountry Buddy")
-      .get("header h2")
-      .contains("Welcome")
+      .get(".welcome")
+      .contains("Welcome, friend!")
 
     logOut()
   })
