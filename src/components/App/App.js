@@ -15,7 +15,7 @@ import { PastTours } from '../PastTours/PastTours'
 import { PastTourDetails } from '../PastTours/PastTourDetails'
 import { Error } from '../Error/Error'
 
-import { handleLogin, } from '../../apiRequests/userRequests'
+import { handleLogin } from '../../apiRequests/userRequests'
 import { secureCall } from '../../apiRequests/promiseHandling'
 import { formatUser } from '../../apiRequests/dataCleaners.js'
 

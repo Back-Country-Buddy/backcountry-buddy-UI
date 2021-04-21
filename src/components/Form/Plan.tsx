@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import StepWizard from "react-step-wizard"
 import { SectionTitle } from "./SectionTitle"
 import { FormNav } from "./FormNav"
@@ -7,9 +7,13 @@ import lightbulb from "../../assets/light-bulb (1).svg"
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
+  userList: Array<any>
+  addToGroup: (e: React.FormEvent<HTMLFormElement>, input: string) => void
 }
 
-export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
+export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userList, addToGroup }) => {
+  const [userQuery, setUserQuery] = useState<string>('')
+
   const hazardFields: string[] = [
     "hazard_weather",
     "hazard_avalanche",
@@ -26,8 +30,20 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
     "When uncertain discuss a less exposed alternate route:",
   ]
 
+  const renderUserList = () => {
+    return userList.map((user, i) => {
+      return (
+        <div key={i}>
+          <h4>{user.name}</h4>
+          <p>Emergency Contact: <br />
+          {user.emergency_contact_name} - {user.emergency_number}</p>
+        </div>
+      )
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={e => addToGroup(e, userQuery)}>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
@@ -40,7 +56,14 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             isChecked={isChecked}
           />
           <p className="section-description">Group check in.</p>
-          {renderTextInputs(["group"])}
+          <input
+            type='text'
+            value={userQuery}
+            onChange={e => setUserQuery(e.target.value)}
+          />
+          <br />
+          <input type="submit" className='button-secondary'/>
+          {renderUserList()}
         </div>
         <div className="step">
           <SectionTitle
