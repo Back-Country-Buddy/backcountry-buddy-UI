@@ -28,10 +28,8 @@ export const PastTourCard: React.FC<TourProps> = ({
         className="card-link"
         to={`/past-tours/${userId}/${tourId}/${location}/${date}`}
       >
-        <div className="card-info">
-          <h3>{location}</h3>
-          <p>{new Date(date).toDateString()}</p>
-        </div>
+        <h3>{location}</h3>
+        <p>{new Date(date).toDateString()}</p>
       </Link>
       <button className="delete" onClick={() => removeTour(tourId)}>
         X

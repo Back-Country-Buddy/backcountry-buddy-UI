@@ -107,23 +107,18 @@ button:focus {
   margin: 5% 0;
 }
 
-.card-info {
-  width: 50%;
-}
-
 .tour-card {
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: left;
-  width: 83vw;
+  width: 85vw;
   color: #000000;
   text-decoration: none;
   background: #f8f8ff;
   border-radius: 3px;
   margin: 2% 0;
   box-shadow: 3px 3px 10px black;
-  padding-left: 3%;
 }
 
 .card-link {
