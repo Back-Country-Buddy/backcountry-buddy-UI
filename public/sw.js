@@ -1,35 +1,31 @@
 const CACHE = 'cache';
-const staticCache = [
+
+self.addEventListener('install', function(evt) {
+  console.log('The service worker is being installed.');
+
+  evt.waitUntil(precache());
+});
+
+self.addEventListener('fetch', function(evt) {
+  console.log('The service worker is serving the asset.');
+  evt.respondWith(fromCache(evt.request));
+});
+
+function precache() {
+  return caches.open(CACHE).then(function (cache) {
+    return cache.addAll([
       '/index.html',
       '/index.css',
       '/App.css',
       '/index.js',
       '/bluepurplejagged.png',
       '/archcloud.png'
-]
-
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE)
-      .then(cache => cache.addAll(staticCache))
-  )
-})
-
-self.addEventListener('activate', (e) => {
-  let cacheCleaned = caches.keys()
-    .then(keys => {
-      keys.forEach(key => {
-        if (key !== CACHE) {
-          return caches.delete(key)
-        }
-      })
-    })
-  e.waitUntil(cacheCleaned)
-})
+    ]);
+  });
+}
 
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
-      if (!(evt.request.url.indexOf('http') === 0)) return;
     return cache.match(request).then(function (matching) {
       return matching || Promise.reject('no-match');
     });
