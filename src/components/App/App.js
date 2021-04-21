@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import { Route, Redirect } from 'react-router-dom'
-import { usePromiseTracker } from 'react-promise-tracker'
-import Loader from 'react-loader-spinner'
+import React, { useState, useEffect } from "react"
+import { useAuth0 } from "@auth0/auth0-react"
+import { Route, Redirect } from "react-router-dom"
+import { usePromiseTracker } from "react-promise-tracker"
+import Loader from "react-loader-spinner"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
-import './App.css'
+import "./App.css"
 
-import { LandingPage } from '../LandingPage/LandingPage'
-import { Profile } from '../Profile/Profile'
-import { TourForm } from '../Form/TourForm'
-import { CurrentTours } from '../CurrentTours/CurrentTours'
-import { PastTours } from '../PastTours/PastTours'
-import { PastTourDetails } from '../PastTours/PastTourDetails'
-import { Error } from '../Error/Error'
+import { LandingPage } from "../LandingPage/LandingPage"
+import { Profile } from "../Profile/Profile"
+import { TourForm } from "../Form/TourForm"
+import { CurrentTours } from "../CurrentTours/CurrentTours"
+import { PastTours } from "../PastTours/PastTours"
+import { PastTourDetails } from "../PastTours/PastTourDetails"
+import { Error } from "../Error/Error"
 
-import { handleLogin, } from '../../apiRequests/userRequests'
-import { secureCall } from '../../apiRequests/promiseHandling'
-import { formatUser } from '../../apiRequests/dataCleaners.js'
+import { handleLogin } from "../../apiRequests/userRequests"
+import { secureCall } from "../../apiRequests/promiseHandling"
+import { formatUser } from "../../apiRequests/dataCleaners.js"
 
 const App = () => {
   const [userState, setUserState] = useState({
@@ -34,15 +34,26 @@ const App = () => {
 
   const [err, setErr] = useState(null)
 
-  const { user, isAuthenticated, getAccessTokenSilently, isLoading } = useAuth0()
+  const {
+    user,
+    isAuthenticated,
+    getAccessTokenSilently,
+    isLoading,
+  } = useAuth0()
   const { promiseInProgress } = usePromiseTracker()
 
   useEffect(() => {
     if (isAuthenticated) {
-      secureCall(getAccessTokenSilently, setErr, handleLogin, user)
-        .then(fetchedUser => setUserState(formatUser(user, fetchedUser.data[0])))
-      }
-    }, [isAuthenticated, user, getAccessTokenSilently])
+      secureCall(
+        getAccessTokenSilently,
+        setErr,
+        handleLogin,
+        user
+      ).then((fetchedUser) =>
+        setUserState(formatUser(user, fetchedUser.data[0]))
+      )
+    }
+  }, [isAuthenticated, user, getAccessTokenSilently])
 
   const checkAuth = (component) => {
     if (isAuthenticated) {
@@ -54,59 +65,77 @@ const App = () => {
 
   return (
     <>
-      {(promiseInProgress || isLoading) &&
-        <div className='loader'>
+      {(promiseInProgress || isLoading) && (
+        <div className="loader">
           <Loader
-            type='Oval'
-            color='#900AA1'
+            type="Oval"
+            color="#900AA1"
             height={150}
             width={150}
             timeout={3000}
           />
         </div>
-      }
-      {err && <Error err={err} setErr={setErr}/>}
-      {!err &&
-        <div className={`App ${((promiseInProgress || isLoading) && 'hidden')}`}>
+      )}
+      {err && <Error err={err} setErr={setErr} />}
+      {!err && (
+        <div className={`App ${(promiseInProgress || isLoading) && "hidden"}`}>
           <Route
             exact
-            path='/'
-            render={() => <LandingPage name={userState.name} setErr={setErr}/>}
+            path="/"
+            render={() => <LandingPage name={userState.name} setErr={setErr} />}
           />
 
           <Route
-            path='/profile'
-            render={() => checkAuth(<Profile user={userState} setUser={setUserState} setErr={setErr}/>)}
-          />
-
-          <Route
-            exact
-            path='/add-tour'
-            render={() => checkAuth(<TourForm userId={userState.id} setErr={setErr}/>)}
-          />
-
-          <Route
-            path='/current-tour/:userId/:tourId'
-            render={({match}) => checkAuth(<TourForm match={match} setErr={setErr}/>)}
-          />
-
-          <Route
-            path='/current-tours'
-            render={() => checkAuth(<CurrentTours userId={userState.id} setErr={setErr}/>)}
+            path="/profile"
+            render={() =>
+              checkAuth(
+                <Profile
+                  user={userState}
+                  setUser={setUserState}
+                  setErr={setErr}
+                />
+              )
+            }
           />
 
           <Route
             exact
-            path='/past-tours'
-            render={() => checkAuth(<PastTours userId={userState.id} setErr={setErr}/>)}
+            path="/add-tour"
+            render={() =>
+              checkAuth(<TourForm userId={userState.id} setErr={setErr} />)
+            }
           />
 
           <Route
-            path='/past-tours/:userId/:tourId/:location/:date'
-            render={({match}) => checkAuth(<PastTourDetails match={match} setErr={setErr}/>)}
+            path="/current-tour/:userId/:tourId"
+            render={({ match }) =>
+              checkAuth(<TourForm match={match} setErr={setErr} />)
+            }
+          />
+
+          <Route
+            path="/current-tours"
+            render={() =>
+              checkAuth(<CurrentTours userId={userState.id} setErr={setErr} />)
+            }
+          />
+
+          <Route
+            exact
+            path="/past-tours"
+            render={() =>
+              checkAuth(<PastTours userId={userState.id} setErr={setErr} />)
+            }
+          />
+
+          <Route
+            path="/past-tours/:userId/:tourId/:location/:date"
+            render={({ match }) =>
+              checkAuth(<PastTourDetails match={match} setErr={setErr} />)
+            }
           />
         </div>
-      }
+      )}
     </>
   )
 }

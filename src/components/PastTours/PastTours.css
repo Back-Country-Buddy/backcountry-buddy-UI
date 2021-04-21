@@ -46,15 +46,6 @@
   padding: 3%;
 }
 
-.departure-check {
-  width: 90vw;
-  box-shadow: 3px 3px 10px black;
-  border-radius: 3px;
-  background-color: #fff;
-  padding: 3% 0;
-  margin-bottom: 5%;
-}
-
 .description {
   font-style: italic;
   font-size: 0.8em;
@@ -111,15 +102,4 @@
   grid-row: 1;
   outline: none;
   align-self: center;
-}
-
-@media screen and (max-width: 320px) {
-  .departure-check {
-    width: 90vw;
-    box-shadow: 3px 3px 10px black;
-    border-radius: 3px;
-    background-color: #fff;
-    padding: 3% 0;
-    margin: 5%;
-  }
 }

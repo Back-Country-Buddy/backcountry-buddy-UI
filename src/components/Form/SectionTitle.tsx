@@ -9,7 +9,7 @@ interface SectionTitleProps {
 export const SectionTitle: React.FC<SectionTitleProps> = ({
   title,
   fields,
-  isChecked
+  isChecked,
 }) => {
   return (
     <div className="section-title">

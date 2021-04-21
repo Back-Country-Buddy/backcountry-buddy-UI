@@ -16,7 +16,10 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
       </div>
       <div className="section-title section-title-ride">
         <input type="checkbox" checked={isChecked} readOnly={true} />
-        <button onClick={setChecked} className={isChecked ? "checked departure" : "departure"}>
+        <button
+          onClick={setChecked}
+          className={isChecked ? "checked departure" : "departure"}
+        >
           Conduct a Departure Check
         </button>
       </div>

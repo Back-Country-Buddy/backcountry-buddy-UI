@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import './PastTours.css'
-import { useAuth0 } from '@auth0/auth0-react'
+import React, { useState, useEffect } from "react"
+import "./PastTours.css"
+import { useAuth0 } from "@auth0/auth0-react"
 
-import { PastTourCard } from './PastTourCard'
-import { SearchBar } from './SearchBar'
+import { PastTourCard } from "./PastTourCard"
+import { SearchBar } from "./SearchBar"
 import { NavBar } from "../NavBar/NavBar"
 
-import { getTours, deleteTour } from '../../apiRequests/tourRequests.js'
-import { secureCall } from '../../apiRequests/promiseHandling.js'
-import { cleanTours } from '../../apiRequests/dataCleaners.js'
-
+import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
+import { secureCall } from "../../apiRequests/promiseHandling.js"
+import { cleanTours } from "../../apiRequests/dataCleaners.js"
 
 interface PastTour {
   id: number
@@ -27,24 +26,27 @@ interface TourProps {
 
 export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
   // eslint-disable-next-line
-  const [searchQuery, setSearchQuery] = useState<string>('')
+  const [searchQuery, setSearchQuery] = useState<string>("")
   const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, setErr, getTours, userId)
-      .then((tours: any) => {
+    secureCall(getAccessTokenSilently, setErr, getTours, userId).then(
+      (tours: any) => {
         setAllTours(cleanTours(tours, true))
-      })
-    }, [getAccessTokenSilently, userId, setErr])
+      }
+    )
+  }, [getAccessTokenSilently, userId, setErr])
 
-
-  const removeTour = (tourId:number):any => {
-    const confirmationMessage = window.confirm('Are you sure you want to remove this tour?')
-      if (confirmationMessage) {
-        secureCall(getAccessTokenSilently, setErr, deleteTour, tourId)
-          .then(() => setAllTours(allTours.filter(tour => tour.id !== tourId)))
+  const removeTour = (tourId: number): any => {
+    const confirmationMessage = window.confirm(
+      "Are you sure you want to remove this tour?"
+    )
+    if (confirmationMessage) {
+      secureCall(getAccessTokenSilently, setErr, deleteTour, tourId).then(() =>
+        setAllTours(allTours.filter((tour) => tour.id !== tourId))
+      )
     } else {
       return false
     }
@@ -52,29 +54,29 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
 
   const renderPastTourCards = () => {
     return allTours
-      .filter(tour => {
+      .filter((tour) => {
         return tour.location.toLowerCase().includes(searchQuery.toLowerCase())
-      }).map((tour) => {
-          return (
-            <PastTourCard
-              key={tour.id}
-              tourId={tour.id}
-              date={tour.date}
-              location={tour.location}
-              userId={userId}
-              removeTour={removeTour}
-            />
-          )
-        })
+      })
+      .map((tour) => {
+        return (
+          <PastTourCard
+            key={tour.id}
+            tourId={tour.id}
+            date={tour.date}
+            location={tour.location}
+            userId={userId}
+            removeTour={removeTour}
+          />
+        )
+      })
   }
-
 
   return (
     <main className="background past-background-img">
       <div className="sub-container">
         <h1>Past Tours</h1>
         <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        <section className='card-container'>{renderPastTourCards()}</section>
+        <section className="card-container">{renderPastTourCards()}</section>
       </div>
       <NavBar />
     </main>

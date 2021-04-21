@@ -7,10 +7,10 @@
 }
 
 h1 {
-  font-family: 'Karantina';
+  font-family: "Karantina";
   font-size: 3em;
   margin: 3%;
-  border-bottom: 1px solid #900AA1;
+  border-bottom: 1px solid #900aa1;
   padding: 3%;
 }
 
@@ -54,6 +54,21 @@ main {
   cursor: pointer;
 }
 
+.button-submit {
+  background-color: #fff;
+  color: #900aa1;
+  font-weight: bold;
+  border: 3px solid #900aa1;
+  border-radius: 3px;
+  margin: 3% 0;
+}
+
+.button-submit:hover {
+  background-color: #900aa1;
+  color: #fff;
+  cursor: pointer;
+}
+
 button:focus {
   outline: none;
 }
@@ -91,10 +106,8 @@ button:focus {
   font-size: 1.2em;
   cursor: pointer;
   border: none;
-  background: linear-gradient(to right, #590fb7, #ff0076);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #900aa1;
+  background: none;
 }
 
 .delete:hover {
@@ -113,7 +126,6 @@ button:focus {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  text-align: left;
   width: 85vw;
   color: #000000;
   text-decoration: none;
@@ -129,7 +141,7 @@ button:focus {
 }
 
 .card-link:hover {
-  color: #900AA1;
+  color: #900aa1;
 }
 
 /* SHARED FORM STYLES: */
