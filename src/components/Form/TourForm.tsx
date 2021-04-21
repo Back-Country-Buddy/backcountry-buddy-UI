@@ -9,8 +9,8 @@ import { TextField } from './TextField'
 import { FormNav } from './FormNav'
 import { NavBar } from '../NavBar/NavBar'
 
-import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
-import { getTour, addTour,  updateTour } from '../../apiRequests/tourRequests.js'
+import { cleanDate, cleanInputStrings, formatUser } from '../../apiRequests/dataCleaners.js'
+import { getTour, addTour,  updateTour, getUsersInTour } from '../../apiRequests/tourRequests.js'
 import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -64,6 +64,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
   const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
+  const [usersInTour, setUsersInTour] =useState<Array<any>>([])
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -86,6 +87,15 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
         }
       )
+
+      secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId)
+        .then(users => setUsersInTour(users.data.map((user: any) => {
+          return {
+            name: user.attributes.user_name,
+            emergency_contact_name: user.attributes.emergency_contact_name,
+            emergency_number: user.attributes.emergency_number
+          }
+        })))
 
       secureCall(getAccessTokenSilently, setErr, getTour, tourId)
         .then((tour: any) => {
@@ -114,6 +124,16 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
        })
        .then(response => {
          setTourId(response.data.id)
+
+         secureCall(getAccessTokenSilently, setErr, getUsersInTour, response.data.id)
+           .then(users => setUsersInTour(users.data.map((user: any) => {
+             return {
+               name: user.attributes.user_name,
+               emergency_contact_name: user.attributes.emergency_contact_name,
+               emergency_number: user.attributes.emergency_number
+             }
+           })))
+
          secureCall(getAccessTokenSilently, setErr, addPlan, userId, null, response.data.id)
           .then(response => setPlanId(response.data.id))
        })
@@ -198,6 +218,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
                 <Plan
                   renderTextInputs={renderTextInputs}
                   isChecked={isChecked}
+                  userList={usersInTour}
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}

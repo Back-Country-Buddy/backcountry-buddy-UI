@@ -7,9 +7,10 @@ import lightbulb from "../../assets/light-bulb (1).svg"
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
+  userList: Array<any>
 }
 
-export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
+export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userList }) => {
   const hazardFields: string[] = [
     "hazard_weather",
     "hazard_avalanche",
@@ -26,8 +27,20 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
     "When uncertain discuss a less exposed alternate route:",
   ]
 
+  const renderUserList = () => {
+    return userList.map(user => {
+      return (
+        <>
+          <h4>{user.name}</h4>
+          <p>Emergency Contact: <br />
+          {user.emergency_contact_name} - {user.emergency_number}</p>
+        </>
+      )
+    })
+  }
+
   return (
-    <form>
+    <form onSubmit={e => e.preventDefault()}>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
@@ -40,7 +53,8 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
             isChecked={isChecked}
           />
           <p className="section-description">Group check in.</p>
-          {renderTextInputs(["group"])}
+          <input type='text' />
+          {renderUserList()}
         </div>
         <div className="step">
           <SectionTitle
