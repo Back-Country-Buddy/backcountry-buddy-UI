@@ -88,3 +88,17 @@
   text-decoration: underline;
   text-decoration-thickness: 3px;
 }
+
+@media screen and (max-width: 320px) {
+  .form-basic {
+    flex-direction: column;
+    margin: 5% 3%;
+    border-bottom: 1px solid #900aa1;
+    padding-bottom: 5%;
+    height: 25%;
+  }
+
+  .form-label {
+    text-align: center;
+  }
+}

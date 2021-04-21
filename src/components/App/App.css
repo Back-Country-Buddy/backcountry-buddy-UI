@@ -32,6 +32,10 @@ main {
   height: 100vh;
 }
 
+.location {
+  width: 100%;
+}
+
 /* SHARED BUTTON STYLES: */
 .button-secondary {
   padding: 2% 4%;
@@ -55,7 +59,6 @@ button:focus {
 }
 
 .button-save {
-  width: 30%;
   margin: 3%;
   padding: 2%;
   background-color: #900aa1;
@@ -72,7 +75,6 @@ button:focus {
 }
 
 .disabled {
-  width: 30%;
   margin: 3%;
   padding: 2%;
   background-color: gray;
@@ -107,23 +109,18 @@ button:focus {
   margin: 5% 0;
 }
 
-.card-info {
-  width: 50%;
-}
-
 .tour-card {
   display: flex;
   justify-content: space-around;
   align-items: center;
   text-align: left;
-  width: 83vw;
+  width: 85vw;
   color: #000000;
   text-decoration: none;
   background: #f8f8ff;
   border-radius: 3px;
   margin: 2% 0;
   box-shadow: 3px 3px 10px black;
-  padding-left: 3%;
 }
 
 .card-link {
