@@ -1,4 +1,4 @@
-const CACHE = 'network-or-cache';
+const CACHE = 'cache';
 const staticCache = [
       '/index.html',
       '/index.css',
@@ -7,39 +7,29 @@ const staticCache = [
       '/bluepurplejagged.png',
       '/archcloud.png'
 ]
- 
-self.addEventListener('install', function(evt) {
-  console.log('The service worker is being installed.');
- 
-  evt.waitUntil(precache());
-});
 
-self.addEventListener('fetch', function(evt) {
-  console.log('The service worker is serving the asset.');
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(cache => cache.addAll(staticCache))
+  )
+})
 
-  evt.respondWith(fromNetwork(evt.request, 400).catch(function () {
-    return fromCache(evt.request);
-  }));
-});
+self.addEventListener('activate', (e) => {
+  let cacheCleaned = caches.keys()
+    .then(keys => {
+      keys.forEach(key => {
+        if (key !== CACHE) {
+          return caches.delete(key)
+        }
+      })
+    })
+  e.waitUntil(cacheCleaned)
+})
 
-function precache() {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.addAll(staticCache);
-  });
-}
-
-function fromNetwork(request, timeout) {
-  return new Promise(function (fulfill, reject) {
-    var timeoutId = setTimeout(reject, timeout);
-    fetch(request).then(function (response) {
-      clearTimeout(timeoutId);
-      fulfill(response);
-    }, reject);
-  });
-}
- 
 function fromCache(request) {
   return caches.open(CACHE).then(function (cache) {
+      if (!(evt.request.url.indexOf('http') === 0)) return;
     return cache.match(request).then(function (matching) {
       return matching || Promise.reject('no-match');
     });
