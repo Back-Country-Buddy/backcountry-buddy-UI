@@ -1,29 +1,17 @@
-import React, { useState } from "react"
+import React from "react"
 import "./PastTours.css"
 import searchIcon from "../../assets/icons8-search-30.png"
 
-interface PastTour {
-  id: number
-  date: string
-  location: string
-  creator_id: number
-  complete: boolean
-}
 
 interface SearchProps {
-  filterTours: (input: string) => PastTour[]
+  searchQuery: string
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>
 }
 
-export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
-  const [input, setInput] = useState<string>("")
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value)
-    filterTours(event.target.value)
-  }
+export const SearchBar: React.FC<SearchProps> = ({ searchQuery, setSearchQuery }) => {
 
   return (
-    <form className="search-input">
+    <form className="search-input" onSubmit={(event) => event.preventDefault()}>
       <div className="search-bar">
         <img className="search-icon" src={searchIcon} alt="search icon" />
         <input
@@ -31,8 +19,8 @@ export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
           name="search"
           className="search-box"
           placeholder="Search by location"
-          value={input}
-          onChange={(event) => handleChange(event)}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
         />
       </div>
     </form>

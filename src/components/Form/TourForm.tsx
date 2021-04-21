@@ -1,29 +1,24 @@
-import React, { useState, useEffect } from "react"
-import { useAuth0 } from "@auth0/auth0-react"
-import StepWizard from "react-step-wizard"
-import "./Form.css"
+import React, { useState, useEffect } from 'react'
+import StepWizard from 'react-step-wizard'
+import './Form.css'
 
-import { Ride } from "./Ride"
-import { Plan } from "./Plan"
-import { Debrief } from "./Debrief"
-import { TextField } from "./TextField"
-import { FormNav } from "./FormNav"
-import { NavBar } from "../NavBar/NavBar"
+import { Ride } from './Ride'
+import { Plan } from './Plan'
+import { Debrief } from './Debrief'
+import { TextField } from './TextField'
+import { FormNav } from './FormNav'
+import { NavBar } from '../NavBar/NavBar'
 
-import {
-  getDateString,
-  addTour,
-  updatePlan,
-  addPlan,
-  getTour,
-  getPlan,
-  cleanInputStrings,
-  updateTour,
-} from "../../util.js"
+import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
+import { getTour, addTour,  updateTour } from '../../apiRequests/tourRequests.js'
+import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
+import { secureCall } from '../../apiRequests/promiseHandling.js'
+import { useAuth0 } from '@auth0/auth0-react'
 
 interface TourFormProps {
   userId?: number
   match?: any
+  setErr: () => any
 }
 
 interface BasicFields {
@@ -45,105 +40,104 @@ interface PlanFields {
   // departure_check?: boolean
 }
 
-export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
-  const { getAccessTokenSilently } = useAuth0()
-
-  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
-  const [planId, setPlanId] = useState<number>(0)
-  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
-
+export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => {
   const [planFields, setPlanFields] = useState<PlanFields>({
-    hazard_weather: "",
-    hazard_avalanche: "",
-    hazard_summary: "",
-    route_preview: "",
-    route_alternative: "",
-    emergency_plan: "",
-    debrief_conditions: "",
-    debrief_decisions: "",
-    debrief_plan: "",
-    // departure_check: false
+    hazard_weather: '',
+    hazard_avalanche: '',
+    hazard_summary: '',
+    route_preview: '',
+    route_alternative: '',
+    emergency_plan: '',
+    debrief_conditions: '',
+    debrief_decisions: '',
+    debrief_plan: '',
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "",
-    date: "00000",
-    complete: false,
+    location: '',
+    date: cleanDate(new Date().toISOString()),
+    complete: false
   })
 
+  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
+  const [planId, setPlanId] = useState<number>(0)
+  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
+  const [basicChange, setBasicChange] = useState<boolean>(false)
+  const [planChange, setPlanChange] = useState<boolean>(false)
+
+  const { getAccessTokenSilently } = useAuth0()
+
+  const sendFormUpdate = () => {
+    if (planChange) {
+      secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
+      setPlanChange(false)
+    }
+    if (basicChange) {
+      secureCall(getAccessTokenSilently, setErr, updateTour, tourId, { ...basicFields, date: cleanDate(basicFields.date)})
+      setBasicChange(false)
+    }
+  }
+
   useEffect(() => {
-    if (tourId.length && match) {
-      getAccessTokenSilently().then((token) => {
-        getTour(token, userId, tourId).then((tour) =>
-          setBasicFields({
-            ...basicFields,
-            location: tour.data.attributes.location,
-            date: tour.data.attributes.date,
-          })
-        )
-      })
-      getAccessTokenSilently().then((token) => {
-        getPlan(token, match.params.userId, tourId).then((plan) => {
+    if (tourId.length && match && !planId) {
+      secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
+        .then((plan: any) => {
           setPlanId(plan.data[0].id)
           setPlanFields(cleanInputStrings(plan.data[0].attributes))
-        })
-      })
+        }
+      )
+
+      secureCall(getAccessTokenSilently, setErr, getTour, tourId)
+        .then((tour: any) => {
+          setBasicFields(
+            {
+              location: tour.data.attributes.location,
+              date: cleanDate(tour.data.attributes.date),
+              complete: tour.data.attributes.complete
+            }
+          )
+        }
+      )
     }
-  }, [getAccessTokenSilently, tourId, match, basicFields, userId])
+    if (basicFields.complete) {
+        sendFormUpdate()
+    }
+  })
+
 
   const createTour = () => {
-    if (!tourId) {
-      getAccessTokenSilently().then((token) => {
-        addTour(token, userId, {
-          creator_id: userId,
-          location: basicFields.location,
-          date: basicFields.date,
-        }).then((response) => {
-          setTourId(response.data.id)
-          addPlan(token, userId, response.data.id).then((response) =>
-            setPlanId(response.data.id)
-          )
-        })
-      })
+     if(!tourId) {
+     secureCall(getAccessTokenSilently, setErr, addTour, userId, {
+         creator_id: userId,
+         location: basicFields.location,
+         date: basicFields.date
+       })
+       .then(response => {
+         setTourId(response.data.id)
+         secureCall(getAccessTokenSilently, setErr, addPlan, userId, null, response.data.id)
+          .then(response => setPlanId(response.data.id))
+       })
     }
-  }
-
-  const savePlanUpdates = () => {
-    getAccessTokenSilently().then((token) => {
-      updatePlan(token, planId, planFields)
-    })
-  }
-
-  const sendTourUpdate = () => {
-    getAccessTokenSilently().then((token) => {
-      updateTour(
-        token,
-        userId ? userId : match.params.userId,
-        tourId,
-        basicFields
-      )
-    })
   }
 
   const markComplete = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setBasicFields({ ...basicFields, complete: true })
-    sendTourUpdate()
+    setBasicFields({...basicFields, complete: true})
+    setBasicChange(true)
   }
 
-  const renderTextInputs = (
-    fields: string[],
-    prompts?: string[]
-  ): JSX.Element[] => {
+  const renderTextInputs =
+  (fields: string[], prompts?: string[]): JSX.Element[] => {
     return fields.map((field, i) => {
       return (
         <TextField
           key={i}
           prompt={prompts ? prompts[i] : null}
           value={planFields[field as keyof PlanFields]}
-          updateForm={(e) =>
+          updateForm={(e) => {
             setPlanFields({ ...planFields, [field]: e.target.value })
-          }
+            setPlanChange(true)
+          }}
         />
       )
     })
@@ -156,7 +150,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find((field) => planFields[field as keyof PlanFields] === "")
+    return !fields.find(field => planFields[field as keyof PlanFields] === '')
   }
 
   return (
@@ -178,7 +172,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, date: e.target.value })
                 }
-                min={getDateString(new Date())}
+                min={cleanDate(new Date().toISOString())}
               />
             </div>
             <div className="form-section">
@@ -228,7 +222,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match }) => {
         </div>
 
         {planId > 0 && (
-          <button className="button-save" onClick={savePlanUpdates}>
+          <button className="button-save" onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>
         )}

@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.hidden {
+  display: none;
+}
+
 h1 {
   font-family: 'Karantina';
   font-size: 3em;
@@ -171,4 +175,12 @@ textarea {
   font-style: italic;
   font-size: 0.8em;
   margin: 1% 0 5% 0;
+}
+
+/* LOADER STYLES */
+.loader {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 40%;
 }

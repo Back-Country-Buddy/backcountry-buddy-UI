@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react"
-import { RouteComponentProps } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react"
 
 import "./PastTours.css"
 
-import { getPlan, cleanInputStrings } from "../../util.js"
+import { getPlan } from '../../apiRequests/planRequests.js'
+import { cleanInputStrings } from '../../apiRequests/dataCleaners.js'
+import { secureCall } from '../../apiRequests/promiseHandling'
 import { NavBar } from "../NavBar/NavBar"
 
 import circleCheck from "../../assets/purplebluecircle.png"
@@ -24,15 +25,9 @@ interface TourPlan {
   debrief_plan: string
 }
 
-interface TParams {
-  userId: string
-  tourId: string
-  location: string
-  date: string
-}
 
-export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
-  match,
+export const PastTourDetails: React.FC<any> = ({
+  match, setErr
 }) => {
   const { getAccessTokenSilently } = useAuth0()
 
@@ -53,21 +48,17 @@ export const PastTourDetails: React.FC<RouteComponentProps<TParams>> = ({
   })
 
   useEffect(() => {
-    if (tourId.length && match) {
-      getAccessTokenSilently().then((token) =>
-        getPlan(token, match.params.userId, tourId).then((plan) => {
-          setPastTour(cleanInputStrings(plan.data[0].attributes))
-        })
-      )
-    }
-  }, [getAccessTokenSilently, tourId, match])
+    secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
+      .then((plan: any) => setPastTour(cleanInputStrings(plan.data[0].attributes)))
+
+  }, [getAccessTokenSilently, match.params.userId, setErr, tourId])
 
   return (
     <main className="background">
       <div className="sub-container">
         <div className="location">
           <h1>{location}</h1>
-          <p className="date">{date}</p>
+          <p className="date">{new Date(date).toDateString()}</p>
         </div>
 
         <section>
