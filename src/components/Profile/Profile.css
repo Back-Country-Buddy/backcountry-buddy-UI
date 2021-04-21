@@ -31,3 +31,9 @@
 .emergency-label {
   margin-right: 3%;
 }
+
+@media screen and (max-width: 320px) {
+  .emergency-form {
+    width: 80%;
+  }
+}
