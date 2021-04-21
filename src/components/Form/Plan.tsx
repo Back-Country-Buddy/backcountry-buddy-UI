@@ -61,7 +61,8 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userLis
             value={userQuery}
             onChange={e => setUserQuery(e.target.value)}
           />
-          <input type="submit"  />
+          <br />
+          <input type="submit" className='button-secondary'/>
           {renderUserList()}
         </div>
         <div className="step">
