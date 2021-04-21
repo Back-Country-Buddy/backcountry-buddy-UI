@@ -10,6 +10,7 @@ cache:
 install:
   - npm i
   - npm ci
+  - npm update
   - npm run build
 before_script:
   - npm start -- --silent &

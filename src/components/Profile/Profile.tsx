@@ -44,13 +44,13 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
         />
 
         <div>
-          <p>
+          <p className='name'>
             <strong>Name:</strong> {user.full_name}
           </p>
-          <p>
+          <p className='userName'>
             <strong>Username:</strong> {user.user_name}
           </p>
-          <p>
+          <p className='email'>
             <strong>Email:</strong> {user.email_address}
           </p>
         </div>
