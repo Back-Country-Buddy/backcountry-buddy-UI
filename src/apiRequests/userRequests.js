@@ -1,12 +1,12 @@
-import { cleanInputStrings } from './dataCleaners'
-import { header } from './header'
+import { cleanInputStrings } from "./dataCleaners"
+import { header } from "./header"
 
 export const addUser = (auth, { name, email }) => {
   const body = {
     user_name: name,
     email_address: email,
-    emergency_contact_name: 'nil',
-    emergency_number: 'nil'
+    emergency_contact_name: "nil",
+    emergency_number: "nil",
   }
 
   return fetch(
@@ -23,21 +23,19 @@ export const getUser = (auth, data) => {
   return fetch(
     `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${data.email}`,
     {
-      headers: header(auth)
+      headers: header(auth),
     }
   )
 }
 
 export const handleLogin = (auth, data) => {
-  return getUser(auth, data)
-    .then(response => {
-      if (response.status === 404) {
-        return addUser(auth, data)
-          .then(() => getUser(auth, data))
-      } else {
-        return response
-      }
-    })
+  return getUser(auth, data).then((response) => {
+    if (response.status === 404) {
+      return addUser(auth, data).then(() => getUser(auth, data))
+    } else {
+      return response
+    }
+  })
 }
 
 export const updateUser = (auth, id, data) => {
