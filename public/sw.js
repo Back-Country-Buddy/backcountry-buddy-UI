@@ -1,33 +1,42 @@
-const CACHE = 'cache';
+const CACHE_NAME = 'backcountry-buddy-task-manager';
+const appShellFiles = [
+  '/',
+];
 
-self.addEventListener('install', function(evt) {
-  console.log('The service worker is being installed.');
-
-  evt.waitUntil(precache());
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Opened cache');
+        return cache.addAll(appShellFiles);
+      })
+  );
 });
 
-self.addEventListener('fetch', function(evt) {
-  console.log('The service worker is serving the asset.');
-  evt.respondWith(fromCache(evt.request));
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response;
+        }
+        return fetch(event.request);
+      }
+    )
+  );
 });
 
-function precache() {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.addAll([
-      '/index.html',
-      '/index.css',
-      '/App.css',
-      '/index.js',
-      '/bluepurplejagged.png',
-      '/archcloud.png'
-    ]);
-  });
-}
-
-function fromCache(request) {
-  return caches.open(CACHE).then(function (cache) {
-    return cache.match(request).then(function (matching) {
-      return matching || Promise.reject('no-match');
-    });
-  });
-}
+self.addEventListener('activate', event => {
+  const cacheWhitelist = ['backcountry-buddy-task-manager'];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
