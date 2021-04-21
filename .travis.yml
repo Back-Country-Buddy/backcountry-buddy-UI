@@ -8,6 +8,7 @@ cache:
   directories:
     - ~/.cache
 install:
+  - npm i
   - npm ci
   - npm run build
   - npm update --force
