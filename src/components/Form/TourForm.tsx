@@ -9,7 +9,7 @@ import { TextField } from './TextField'
 import { FormNav } from './FormNav'
 import { NavBar } from '../NavBar/NavBar'
 
-import { cleanDate, cleanInputStrings, formatUser } from '../../apiRequests/dataCleaners.js'
+import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
 import { getTour, addTour,  updateTour, getUsersInTour, addUsersToTour } from '../../apiRequests/tourRequests.js'
 import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
@@ -90,11 +90,11 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
 
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId)
         .then(users => setUsersInTour(users.data.map((user: any) => {
-          return {
+          return cleanInputStrings({
             name: user.attributes.user_name,
             emergency_contact_name: user.attributes.emergency_contact_name,
             emergency_number: user.attributes.emergency_number
-          }
+          })
         })))
 
       secureCall(getAccessTokenSilently, setErr, getTour, tourId)
@@ -127,11 +127,11 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
 
          secureCall(getAccessTokenSilently, setErr, getUsersInTour, response.data.id)
            .then(users => setUsersInTour(users.data.map((user: any) => {
-             return {
+             return cleanInputStrings({
                name: user.attributes.user_name,
                emergency_contact_name: user.attributes.emergency_contact_name,
                emergency_number: user.attributes.emergency_number
-             }
+             })
            })))
 
          secureCall(getAccessTokenSilently, setErr, addPlan, userId, null, response.data.id)

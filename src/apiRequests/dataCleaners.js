@@ -6,8 +6,21 @@ export const cleanDate = date => {
   }
 }
 
+export const cleanInputStrings = stringObj => {
+  const formState = Object.assign({}, stringObj)
+  for (const field in formState) {
+    if (formState[field] === 'nil') {
+      formState[field] = ''
+    } else if (formState[field] === '') {
+      formState[field] = 'nil'
+    }
+  }
+
+  return formState
+}
+
 export const formatUser = (authUser, apiUser) => {
-  return {
+  return cleanInputStrings({
     id: apiUser.id,
     user_name: apiUser.attributes.user_name,
     email_address: apiUser.attributes.email_address,
@@ -17,7 +30,7 @@ export const formatUser = (authUser, apiUser) => {
     first_name: authUser.given_name,
     full_name: authUser.name,
     picture: authUser.picture
-  }
+  })
 }
 
 
@@ -30,17 +43,4 @@ export const cleanTours = (tours, completed) => {
         location: tour.attributes.location
       }
     })
-}
-
-export const cleanInputStrings = stringObj => {
-  const formState = Object.assign({}, stringObj)
-  for (const field in formState) {
-    if (formState[field] === 'nil') {
-      formState[field] = ''
-    } else if (formState[field] === '') {
-      formState[field] = 'nil'
-    }
-  }
-
-  return formState
 }
