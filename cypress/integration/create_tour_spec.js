@@ -63,14 +63,14 @@ describe('Current Tours', () => {
         .contains('Current Tours').click()
         .get('.card-container').get('.tour-card').last().click()
       cy.get('.step-container').find('.form-nav').contains('2').click()
-        .get('form').find('textarea').eq('1').type('Blue bird sky, possible chance of snow')
-        .get('form').find('textarea').eq('2').type('Thin snow pack and wind')
-        .get('form').find('textarea').eq('3').type('Low angle terrain, avoid trigger points')
+        .get('form').find('textarea').eq('0').type('Blue bird sky, possible chance of snow')
+        .get('form').find('textarea').eq('1').type('Thin snow pack and wind')
+        .get('form').find('textarea').eq('2').type('Low angle terrain, avoid trigger points')
       cy.get('.step-container').find('.form-nav').contains('3').click()
-        .get('form').find('textarea').eq('4').type('Find appropriate pit locations. practice observations')
-        .get('form').find('textarea').eq('5').type('Black lake zone')
+        .get('form').find('textarea').eq('3').type('Find appropriate pit locations. practice observations')
+        .get('form').find('textarea').eq('4').type('Black lake zone')
       cy.get('.step-container').find('.form-nav').contains('4').click()
-        .get('form').find('textarea').eq('6').type('All have water, layers, food')
+        .get('form').find('textarea').eq('5').type('All have water, layers, food')
       // cy.get('.tour-form-container')
       //   .find('.button-save').should('contain', 'SAVE UPDATES').click()
     logOut()
@@ -94,22 +94,23 @@ describe('Current Tours', () => {
         .contains('Current Tours').click()
         .get('.card-container').get('.tour-card').last().click()
       cy.get('.form-subform').find('.step-container').find('.form-nav').contains('Debrief').click()
-        .get('form').find('textarea').eq('7').type('Blue bird sky, possible chance of snow')
-        .get('form').find('textarea').eq('8').type('Blue bird sky, possible chance of snow')
-        .get('form').find('textarea').eq('9').type('Blue bird sky, possible chance of snow')
-        // .get('form').find('.departure').should('contain', 'Conduct a Departure Check').click()
+        .get('form').find('textarea').eq('6').type('Beautiful day!')
+        .get('form').find('textarea').eq('7').type('Everyone was safe')
+        .get('form').find('textarea').eq('8').type('Watch for trees')
       // cy.get('.tour-form-container')
       //   .find('.button-save').should('contain', 'SAVE UPDATES').click()
       logOut()
   })
 
-  it.skip('Should be able to mark tour complete when fields are filled out and that tour will show up in past tours', () => {
+  it('Should be able to mark tour complete when fields are filled out and that tour should show up in past tours', () => {
     cy
-    
+      .get('.main-menu')
+      .contains('Current Tours').click()
+      .get('.card-container').get('.tour-card').last().click()
+    cy.get('.form-subform').find('.step-container').find('.form-nav').contains('Debrief').click()
+    cy.get('form').find('button').last().should('contain', 'COMPLETE TOUR').last().click()
+
 
     logOut()
   })
 })
-
-
-//write tests to delete 

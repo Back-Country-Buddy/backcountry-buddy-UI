@@ -63,13 +63,13 @@ describe.skip("Add Tour Form Page", () => {
     logOut()
   })
 
-  // it("Should start out with 3 unchecked check boxes", () => {
-  //   cy.get('input[type="checkbox"]')
-  //     .should("have.length", 7)
-  //     .should("not.be.checked")
+  it("Should start out with 3 unchecked check boxes", () => {
+    cy.get('input[type="checkbox"]')
+      .should("have.length", 7)
+      .should("not.be.checked")
 
-  //   logOut()
-  // })
+    logOut()
+  })
 
   it("Should check the Anticipate the Hazard checkbox if all section inputs have text", () => {
     cy
