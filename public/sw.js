@@ -1,39 +1,42 @@
-// const pwaCache = 'pwa-cache-1'
-// const staticCache = [
-//       '/index.html',
-//       '/index.css',
-//       '/index.js'
-// ]
-//
-// self.addEventListener('install', (e) => {
-//   e.waitUntil(
-//     caches.open(pwaCache)
-//       .then(cache => cache.addAll(staticCache))
-//   )
-// })
-//
-// self.addEventListener('activate', (e) => {
-//   let cacheCleaned = caches.keys()
-//     .then(keys => {
-//       keys.forEach(key => {
-//         if (key !== pwaCache) {
-//           return caches.delete(key)
-//         }
-//       })
-//     })
-//   e.waitUntil(cacheCleaned)
-// })
-//
-//
-// self.addEventListener('fetch', (e) => {
-//   e.respondWith(
-//     caches.match(e.request).then((res) => {
-//       if (res) return res
-//
-//       return fetch(e.request).then((newRes) => {
-//         caches.open(pwaCache).then((cache) => cache.put(e.request, newRes))
-//         return newRes.clone()
-//       })
-//     })
-//   )
-//   })
+const CACHE_NAME = 'backcountry-buddy-task-manager';
+const appShellFiles = [
+  '/',
+];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log('Opened cache');
+        return cache.addAll(appShellFiles);
+      })
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => {
+        if (response) {
+          return response;
+        }
+        return fetch(event.request);
+      }
+    )
+  );
+});
+
+self.addEventListener('activate', event => {
+  const cacheWhitelist = ['backcountry-buddy-task-manager'];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
+});
