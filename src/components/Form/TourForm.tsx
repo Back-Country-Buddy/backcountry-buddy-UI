@@ -10,7 +10,7 @@ import { FormNav } from './FormNav'
 import { NavBar } from '../NavBar/NavBar'
 
 import { cleanDate, cleanInputStrings, formatUser } from '../../apiRequests/dataCleaners.js'
-import { getTour, addTour,  updateTour, getUsersInTour } from '../../apiRequests/tourRequests.js'
+import { getTour, addTour,  updateTour, getUsersInTour, addUsersToTour } from '../../apiRequests/tourRequests.js'
 import { updatePlan, addPlan, getPlan, } from '../../apiRequests/planRequests.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -163,6 +163,21 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
     })
   }
 
+  const addToGroup = (e: React.FormEvent<HTMLFormElement>, input: string) => {
+    e.preventDefault()
+    secureCall(getAccessTokenSilently, null, addUsersToTour, tourId, null, input)
+      .then(() => {
+        secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId)
+          .then(users => setUsersInTour(users.data.map((user: any) => {
+            return {
+              name: user.attributes.user_name,
+              emergency_contact_name: user.attributes.emergency_contact_name,
+              emergency_number: user.attributes.emergency_number
+            }
+          })))
+      })
+  }
+
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     setDepartureCheck(!isDepartureChecked)
@@ -219,6 +234,7 @@ export const TourForm: React.FC<TourFormProps> = ({ userId, match, setErr }) => 
                   renderTextInputs={renderTextInputs}
                   isChecked={isChecked}
                   userList={usersInTour}
+                  addToGroup={addToGroup}
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}
