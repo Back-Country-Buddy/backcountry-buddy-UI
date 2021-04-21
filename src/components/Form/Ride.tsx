@@ -1,31 +1,26 @@
-import React from 'react'
-import placeholder from '../../assets/placeholderChartAsset.png'
+import React from "react"
+import route from "../../assets/travel.svg"
+import diagram from "../../assets/ride-diagram.png"
 
 interface RideProps {
-  setChecked: React.Dispatch<React.SetStateAction<boolean>>,
+  setChecked: (event: React.MouseEvent<HTMLButtonElement>) => void
   isChecked: boolean
 }
 
 export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
   return (
     <form>
-      <h2>RIDE safely</h2>
-      <div>
-        <input
-          type='checkbox'
-          checked={isChecked}
-          readOnly={true}
-        />
-        <button
-          onClick={() => setChecked(!isChecked)}
-          className={isChecked? 'checked' : ''}
-        >Conduct a Departure Check</button>
+      <div className="title-wrapper">
+        <img src={route} alt="route" className="form-icon" />
+        <h2 className="title">RIDE safely</h2>
       </div>
-      <img
-        src={placeholder}
-        alt='ride flowchart'
-        className='ride-img'
-      />
+      <div className="section-title section-title-ride">
+        <input type="checkbox" checked={isChecked} readOnly={true} />
+        <button onClick={setChecked} className={isChecked ? "checked departure" : "departure"}>
+          Conduct a Departure Check
+        </button>
+      </div>
+      <img src={diagram} alt="ride flowchart" className="ride-img" />
     </form>
   )
 }

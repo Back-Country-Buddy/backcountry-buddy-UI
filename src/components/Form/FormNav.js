@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react"
 
 export const FormNav = (props) => {
   const advanceSubForm = (event, step) => {
@@ -7,18 +7,18 @@ export const FormNav = (props) => {
   }
 
   const buttons = props.steps.map((step, i) => {
-    return(
+    return (
       <button
         key={i}
-        onClick={e => advanceSubForm(e, i+1)}
-        className='form-nav'
-      >{step}</button>
+        onClick={(e) => advanceSubForm(e, i + 1)}
+        className={
+          props.currentStep === i + 1 ? "form-nav form-nav-active" : "form-nav"
+        }
+      >
+        {step}
+      </button>
     )
   })
 
-  return (
-    <span>
-      {buttons}
-    </span>
-  )
+  return <div className="step-container">{buttons}</div>
 }

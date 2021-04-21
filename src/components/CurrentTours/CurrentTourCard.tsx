@@ -2,30 +2,40 @@ import React from "react"
 import "./CurrentTours.css"
 import { Link } from "react-router-dom"
 
-interface Props {
+import "./CurrentTours.css"
+
+interface TourProps {
   date: string
   location: string
   tourId: number
   userId: number
+  removeTour: (tourId: number) => any
 }
 
-const CurrentTourCard: React.FC<Props> = ({ date, location, tourId, userId }) => {
+export const CurrentTourCard: React.FC<TourProps> = ({
+  date,
+  location,
+  tourId,
+  userId,
+  removeTour,
+}) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/tour-form/${userId}/${tourId}`}>
-      <div className='card-wrapper'>
-        <article className="current-tours-card">
-          <img
-            src="https://img.icons8.com/nolan/64/mountain.png"
-            alt="mountains icon"
-          />
-          <div className="card-info">
-            <h3>{location}</h3>
-            <p>{date}</p>
-          </div>
-        </article>
-      </div>
-    </Link>
+    <article className="tour-card">
+      <img
+        src="https://img.icons8.com/nolan/64/mountain.png"
+        alt="mountains icon"
+      />
+      <Link
+        style={{ textDecoration: "none" }}
+        className="card-link"
+        to={`/current-tour/${userId}/${tourId}`}
+      >
+        <h3>{location}</h3>
+        <p>{new Date(date).toDateString()}</p>
+      </Link>
+      <button className="delete" onClick={() => removeTour(tourId)}>
+        X
+      </button>
+    </article>
   )
 }
-
-export default CurrentTourCard

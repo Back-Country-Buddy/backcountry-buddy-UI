@@ -3,26 +3,37 @@ import { Link } from "react-router-dom"
 import "./PastTours.css"
 
 interface TourProps {
-  id: number
+  userId: number
+  tourId: number
   date: string
   location: string
+  removeTour: (tourId: number) => any
 }
 
-export const PastTourCard: React.FC<TourProps> = ({ id, date, location }) => {
+export const PastTourCard: React.FC<TourProps> = ({
+  userId,
+  date,
+  location,
+  tourId,
+  removeTour,
+}) => {
   return (
-    <Link style={{textDecoration: 'none'}} to={`/tour-details/:${id}`}>
-    <div className='card-wrapper'>
-      <article className="tour-card">
-        <img
-          src="https://img.icons8.com/nolan/64/mountain.png"
-          alt="mountains icon"
-        />
-        <div className="card-info">
-          <h3>{location}</h3>
-          <p>{date}</p>
-        </div>
-      </article>
-    </div>
-    </Link>
+    <article className="tour-card">
+      <img
+        src="https://img.icons8.com/nolan/64/mountain.png"
+        alt="mountains icon"
+      />
+      <Link
+        style={{ textDecoration: "none" }}
+        className="card-link"
+        to={`/past-tours/${userId}/${tourId}/${location}/${date}`}
+      >
+        <h3>{location}</h3>
+        <p>{new Date(date).toDateString()}</p>
+      </Link>
+      <button className="delete" onClick={() => removeTour(tourId)}>
+        X
+      </button>
+    </article>
   )
 }

@@ -8,9 +8,9 @@ cache:
   directories:
     - ~/.cache
 install:
+  - npm i
   - npm ci
   - npm run build
-  - npm update --force
 before_script:
   - npm start -- --silent &
 script:
