@@ -34,14 +34,17 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
 
   useEffect(() => {
     secureCall(getAccessTokenSilently, setErr, getTours, userId)
-      .then((tours: any) => setAllTours(cleanTours(tours, true)))
+      .then((tours: any) => {
+        setAllTours(cleanTours(tours, true))
+        setSearchResults(cleanTours(tours, true))
+      })
     }, [getAccessTokenSilently, userId, setErr])
 
   const filterTours = (input: string): any => {
     const filteredTours = allTours.filter((tour) => {
       return tour.location.includes(input)
     })
-    setSearchResults([...filteredTours])
+    setSearchResults(filteredTours)
   }
 
   const removeTour = (tourId:number):any => {
@@ -54,7 +57,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
     }
   }
 
-  const createPastTourCards = allTours.map((tour) => {
+  const createPastTourCards = searchResults.map((tour) => {
     return (
       <PastTourCard
         key={tour.id}

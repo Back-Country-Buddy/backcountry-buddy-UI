@@ -18,12 +18,13 @@ export const SearchBar: React.FC<SearchProps> = ({ filterTours }) => {
   const [input, setInput] = useState<string>("")
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
     setInput(event.target.value)
     filterTours(event.target.value)
   }
 
   return (
-    <form className="search-input">
+    <form className="search-input" onSubmit={(event) => event.preventDefault()}>
       <div className="search-bar">
         <img className="search-icon" src={searchIcon} alt="search icon" />
         <input

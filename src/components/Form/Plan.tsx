@@ -67,11 +67,11 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked }) => {
         <div className="step">
           <SectionTitle
             title="Discuss Your Emergency Plan"
-            fields={["emergencyPlan"]}
+            fields={["emergency_plan"]}
             isChecked={isChecked}
           />
           <p className="section-description">Assign group gear.</p>
-          {renderTextInputs(["emergencyPlan"])}
+          {renderTextInputs(["emergency_plan"])}
         </div>
       </StepWizard>
     </form>
