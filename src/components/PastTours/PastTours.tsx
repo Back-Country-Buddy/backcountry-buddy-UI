@@ -27,7 +27,7 @@ interface TourProps {
 
 export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
   // eslint-disable-next-line
-  const [searchResults, setSearchResults] = useState<Array<PastTour>>([])
+  const [searchQuery, setSearchQuery] = useState<string>('')
   const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
@@ -36,16 +36,9 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
     secureCall(getAccessTokenSilently, setErr, getTours, userId)
       .then((tours: any) => {
         setAllTours(cleanTours(tours, true))
-        setSearchResults(cleanTours(tours, true))
       })
     }, [getAccessTokenSilently, userId, setErr])
 
-  const filterTours = (input: string): any => {
-    const filteredTours = allTours.filter((tour) => {
-      return tour.location.includes(input)
-    })
-    setSearchResults(filteredTours)
-  }
 
   const removeTour = (tourId:number):any => {
     const confirmationMessage = window.confirm('Are you sure you want to remove this tour?')
@@ -57,25 +50,31 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
     }
   }
 
-  const createPastTourCards = searchResults.map((tour) => {
-    return (
-      <PastTourCard
-        key={tour.id}
-        tourId={tour.id}
-        date={tour.date}
-        location={tour.location}
-        userId={userId}
-        removeTour={removeTour}
-      />
-    )
-  })
+  const renderPastTourCards = () => {
+    return allTours
+      .filter(tour => {
+        return tour.location.toLowerCase().includes(searchQuery.toLowerCase())
+      }).map((tour) => {
+          return (
+            <PastTourCard
+              key={tour.id}
+              tourId={tour.id}
+              date={tour.date}
+              location={tour.location}
+              userId={userId}
+              removeTour={removeTour}
+            />
+          )
+        })
+  }
+
 
   return (
     <main className="background past-background-img">
       <div className="sub-container">
         <h1>Past Tours</h1>
-        <SearchBar filterTours={filterTours} />
-        <section className='card-container'>{createPastTourCards}</section>
+        <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <section className='card-container'>{renderPastTourCards()}</section>
       </div>
       <NavBar />
     </main>
