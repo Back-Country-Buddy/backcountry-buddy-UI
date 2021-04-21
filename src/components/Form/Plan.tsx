@@ -11,8 +11,13 @@ interface PlanProps {
   addToGroup: (e: React.FormEvent<HTMLFormElement>, input: string) => void
 }
 
-export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userList, addToGroup }) => {
-  const [userQuery, setUserQuery] = useState<string>('')
+export const Plan: React.FC<PlanProps> = ({
+  renderTextInputs,
+  isChecked,
+  userList,
+  addToGroup,
+}) => {
+  const [userQuery, setUserQuery] = useState<string>("")
 
   const hazardFields: string[] = [
     "hazard_weather",
@@ -35,15 +40,17 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userLis
       return (
         <div key={i}>
           <h4>{user.name}</h4>
-          <p>Emergency Contact: <br />
-          {user.emergency_contact_name} - {user.emergency_number}</p>
+          <p>
+            Emergency Contact: <br />
+            {user.emergency_contact_name} - {user.emergency_number}
+          </p>
         </div>
       )
     })
   }
 
   return (
-    <form onSubmit={e => addToGroup(e, userQuery)}>
+    <form onSubmit={(e) => addToGroup(e, userQuery)}>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
@@ -55,14 +62,17 @@ export const Plan: React.FC<PlanProps> = ({ renderTextInputs, isChecked, userLis
             fields={["group"]}
             isChecked={isChecked}
           />
-          <p className="section-description">Group check in.</p>
+          <p className="section-description">
+            Add tour partners by email below. (Note that they must create an
+            account first to be added.)
+          </p>
           <input
-            type='text'
+            type="text"
             value={userQuery}
-            onChange={e => setUserQuery(e.target.value)}
+            onChange={(e) => setUserQuery(e.target.value)}
           />
           <br />
-          <input type="submit" className='button-secondary'/>
+          <input type="submit" className="button-submit" />
           {renderUserList()}
         </div>
         <div className="step">
