@@ -190,7 +190,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
             <h2>RIDE safely</h2>
           </div>
 
-          <article className="departure-check">
+          <article className="border">
             <div className="category-wrapper">
               <img src={circleCheck} alt="checkmark" className="check-icon" />
               <h3>Conduct a Departure Check</h3>
