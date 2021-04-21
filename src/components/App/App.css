@@ -7,10 +7,10 @@
 }
 
 h1 {
-  font-family: 'Karantina';
+  font-family: "Karantina";
   font-size: 3em;
   margin: 3%;
-  border-bottom: 1px solid #900AA1;
+  border-bottom: 1px solid #900aa1;
   padding: 3%;
 }
 
@@ -144,7 +144,7 @@ button:focus {
 }
 
 .card-link:hover {
-  color: #900AA1;
+  color: #900aa1;
 }
 
 /* SHARED FORM STYLES: */

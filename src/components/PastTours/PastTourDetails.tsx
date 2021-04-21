@@ -3,9 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react"
 
 import "./PastTours.css"
 
-import { getPlan } from '../../apiRequests/planRequests.js'
-import { cleanInputStrings } from '../../apiRequests/dataCleaners.js'
-import { secureCall } from '../../apiRequests/promiseHandling'
+import { getPlan } from "../../apiRequests/planRequests.js"
+import { cleanInputStrings } from "../../apiRequests/dataCleaners.js"
+import { secureCall } from "../../apiRequests/promiseHandling"
 import { NavBar } from "../NavBar/NavBar"
 
 import circleCheck from "../../assets/purplebluecircle.png"
@@ -25,10 +25,7 @@ interface TourPlan {
   debrief_plan: string
 }
 
-
-export const PastTourDetails: React.FC<any> = ({
-  match, setErr
-}) => {
+export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   const tourId = match.params.tourId
@@ -48,9 +45,16 @@ export const PastTourDetails: React.FC<any> = ({
   })
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, setErr, getPlan, match.params.userId, null, tourId)
-      .then((plan: any) => setPastTour(cleanInputStrings(plan.data[0].attributes)))
-
+    secureCall(
+      getAccessTokenSilently,
+      setErr,
+      getPlan,
+      match.params.userId,
+      null,
+      tourId
+    ).then((plan: any) =>
+      setPastTour(cleanInputStrings(plan.data[0].attributes))
+    )
   }, [getAccessTokenSilently, match.params.userId, setErr, tourId])
 
   return (
