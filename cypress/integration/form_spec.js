@@ -1,4 +1,4 @@
-describe("Add Tour Form Page", () => {
+describe.skip("Add Tour Form Page", () => {
   const baseUrl = "http://localhost:3000"
   const tourUrl = "http://localhost:3000/add-tour"
 
