@@ -85,6 +85,7 @@ describe('Current Tours', () => {
         .get('form').find('.departure').should('contain', 'Conduct a Departure Check').click()
       // cy.get('.tour-form-container')
       //   .find('.button-save').should('contain', 'SAVE UPDATES').click()
+      logOut()
   })
 
   it('Should be able to select current tour card and update debrief form fields', () => {
@@ -99,6 +100,7 @@ describe('Current Tours', () => {
         // .get('form').find('.departure').should('contain', 'Conduct a Departure Check').click()
       // cy.get('.tour-form-container')
       //   .find('.button-save').should('contain', 'SAVE UPDATES').click()
+      logOut()
   })
 
   it.skip('Should be able to mark tour complete when fields are filled out and that tour will show up in past tours', () => {
