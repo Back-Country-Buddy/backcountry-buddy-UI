@@ -150,7 +150,7 @@ More improvements are documented in issues in our [Project Board](https://github
 Successfully learning 3 new stretch technologies over the course of 2 weeks: TypeScript, Progressive Web Apps, Auth0  
 
 Solid teamwork and collaboration:
-* Working and communicating with a backend team In order to get data we needed on the front end. 
+* Working and communicating with a backend team in order to get data we needed on the front end. 
 * Asynchronous workflow that allowed us to efficiently implement features, styling and testing in a short amount of time
 * Our team was able to create a harmonious and inspiring teamwork environment. This allowed us to take on tasks independently while also brainstorm, troubleshoot, and pair program together, and come to compromises when needed. In the end, we produced a product we are each very proud of!  
 
