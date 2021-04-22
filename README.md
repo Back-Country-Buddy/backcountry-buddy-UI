@@ -1,5 +1,5 @@
 # Backcountry Buddy
-###### Plan backcountry ski tours with friends.
+###### Plan safer backcountry ski tours with friends.
 ---
 ## Table of Contents
 * [Introduction](#Introduction)
