@@ -78,8 +78,10 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 
 #### Log In
 On initial visit, you'll see a login page. It'll redirect you to an Auth0 site, and then back to the welcome landing page. From there, you can access everything in the app.
+<p>
 <img width="292" alt="login" src="https://user-images.githubusercontent.com/66852774/115636176-9281b680-a2ca-11eb-8faf-e39909a7bc97.png">
 <img width="292" alt="welcome" src="https://user-images.githubusercontent.com/66852774/115636198-a0cfd280-a2ca-11eb-9076-eace1d95c9d0.png">
+</p>
   <details>
     <summary>Under the Hood</summary>
     We connected both the front and back end to Auth0, and (after much trouble shooting) we able to get the "current user" all hooked up.
