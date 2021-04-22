@@ -130,7 +130,7 @@ Visit the Profile page to view your info, update tour emergency contact informat
   </details>
 
 ### Future Features
-We built this app to scale. Now that we have the basic functionality down, there is so much more we can build! Here are our top priorities moving forawrd:
+We built this app to scale. Now that we have the basic functionality down, there is so much more we can build! Here are our top priorities moving forward:
 - Expand the "Add Friends" functionality so that they can see and edit tours they've been included on. Add the ability to remove someone from a tour, too.
 - Bring in a weather API so a user can see the forecast for their tour location right in the app.
 - Add a field for users to share a link to their GPX track(s) for a given tour.
