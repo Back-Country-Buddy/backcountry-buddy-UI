@@ -7,7 +7,7 @@
 * [Deployment](#Deployment)
 * [Features](#Features)
 * [Future Features](#Future-Features)
-* [Wins & Challenges](#Wins-&-Challenges)
+* [Wins And Challenges](#Wins-And-Challenges)
 * [Authors](#Authors)
 
 ## Introduction
@@ -144,7 +144,7 @@ More improvements are documented in issues in our [Project Board](https://github
 
 ---
 
-## Wins & Challenges
+## Wins And Challenges
 
 ### Wins
 Successfully learning 3 new stretch technologies over the course of 2 weeks: TypeScript, Progressive Web Apps, Auth0  
