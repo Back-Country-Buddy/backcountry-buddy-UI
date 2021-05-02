@@ -40,6 +40,7 @@ const App = () => {
     getAccessTokenSilently,
     isLoading,
   } = useAuth0()
+
   const { promiseInProgress } = usePromiseTracker()
 
   useEffect(() => {
@@ -76,7 +77,9 @@ const App = () => {
           />
         </div>
       )}
+
       {err && <Error err={err} setErr={setErr} />}
+
       {!err && (
         <div className={`App ${(promiseInProgress || isLoading) && "hidden"}`}>
           <Route
