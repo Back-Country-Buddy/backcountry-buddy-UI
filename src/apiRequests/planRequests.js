@@ -23,9 +23,9 @@ export const addPlan = (auth, userId, emptyData, tourId) => {
 
 export const updatePlan = (auth, planId, data) => {
   return fetch(
-    `https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/plan/${planId}`,
+    `https://backcountry-restapi.herokuapp.com/api/private/v1/plan/${planId}`,
     {
-      method: "PATCH",
+      method: "PUT",
       headers: header(auth),
       body: JSON.stringify(cleanInputStrings(data)),
     }
