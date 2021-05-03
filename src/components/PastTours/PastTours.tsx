@@ -25,7 +25,6 @@ interface TourProps {
 }
 
 export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
-  // eslint-disable-next-line
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
