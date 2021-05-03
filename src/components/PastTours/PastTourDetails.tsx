@@ -7,6 +7,8 @@ import { getPlan } from "../../apiRequests/planRequests.js"
 import { cleanInputStrings } from "../../apiRequests/dataCleaners.js"
 import { secureCall } from "../../apiRequests/promiseHandling"
 import { NavBar } from "../NavBar/NavBar"
+import { TourCategory } from "./TourCategory"
+import { TourStep } from "./TourStep"
 
 import circleCheck from "../../assets/purplebluecircle.png"
 import question from "../../assets/question-sign.svg"
@@ -43,8 +45,6 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
     debrief_decisions: "",
     debrief_plan: "",
   })
-
-  const missingMessage = "Nothing to see here! Looks like you never filled out this step."
 
   useEffect(() => {
     secureCall(
@@ -89,7 +89,10 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_weather}</p>
                 </div>
               ) : (
-                <p className="missing-info">{missingMessage}</p>
+                <p className="missing-info">
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
               )}
             </div>
 
@@ -103,7 +106,10 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_avalanche}</p>
                 </div>
               ) : (
-                <p className="missing-info">{missingMessage}</p>
+                <p className="missing-info">
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
               )}
             </div>
 
@@ -114,7 +120,10 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_summary}</p>
                 </div>
               ) : (
-                <p className="missing-info">{missingMessage}</p>
+                <p className="missing-info">
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
               )}
             </div>
           </article>
@@ -133,7 +142,10 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.route_preview}</p>
                 </div>
               ) : (
-                <p className="missing-info">{missingMessage}</p>
+                <p className="missing-info">
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
               )}
             </div>
 
@@ -144,27 +156,17 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.route_alternative}</p>
                 </div>
               ) : (
-                <p className="missing-info">{missingMessage}</p>
+                <p className="missing-info">
+                  Nothing to see here! Looks like you never filled out this
+                  step.
+                </p>
               )}
             </div>
           </article>
 
           <article className="border">
-            <div className="category-wrapper">
-              <img src={circleCheck} alt="checkmark" className="check-icon" />
-              <h3>Discuss Your Emergency Plan:</h3>
-            </div>
-
-            <div className="step-wrapper">
-              <p className="description">Emergency Plan:</p>
-              {pastTour.emergency_plan ? (
-                <div className="input-wrapper">
-                  <p>{pastTour.emergency_plan}</p>
-                </div>
-              ) : (
-                <p className="missing-info">{missingMessage}</p>
-              )}
-            </div>
+            <TourCategory title={"Discuss Your Emergency Plan"} />
+            <TourStep inputProp={pastTour.emergency_plan} />
           </article>
         </section>
 
@@ -175,10 +177,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
           </div>
 
           <article className="border">
-            <div className="category-wrapper">
-              <img src={circleCheck} alt="checkmark" className="check-icon" />
-              <h3>Conduct a Departure Check</h3>
-            </div>
+            <TourCategory title={"Conduct a Departure Check"} />
           </article>
         </section>
 
@@ -189,52 +188,18 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
           </div>
 
           <article className="border">
-            <div className="category-wrapper">
-              <img src={circleCheck} alt="checkmark" className="check-icon" />
-              <h3>Summarize Conditions</h3>
-            </div>
-
-            <div className="step-wrapper">
-              {pastTour.debrief_conditions ? (
-                <div className="input-wrapper">
-                  <p>{pastTour.debrief_conditions}</p>
-                </div>
-              ) : (
-                <p className="missing-info">{missingMessage}</p>
-              )}
-            </div>
+            <TourCategory title={"Summarize Conditions"} />
+            <TourStep inputProp={pastTour.debrief_conditions} />
           </article>
 
           <article className="border">
-            <div className="category-wrapper">
-              <img src={circleCheck} alt="checkmark" className="check-icon" />
-              <h3>Review Decisions</h3>
-            </div>
-            <div className="step-wrapper">
-              {pastTour.debrief_decisions ? (
-                <div className="input-wrapper">
-                  <p>{pastTour.debrief_decisions}</p>
-                </div>
-              ) : (
-                <p className="missing-info">{missingMessage}</p>
-              )}
-            </div>
+            <TourCategory title={"Review Decisions"} />
+            <TourStep inputProp={pastTour.debrief_decisions} />
           </article>
 
           <article className="border">
-            <div className="category-wrapper">
-              <img src={circleCheck} alt="checkmark" className="check-icon" />
-              <h3>Improve Your Plan</h3>
-            </div>
-            <div className="step-wrapper">
-              {pastTour.debrief_decisions ? (
-                <div className="input-wrapper">
-                  <p>{pastTour.debrief_plan}</p>
-                </div>
-              ) : (
-                <p className="missing-info">{missingMessage}</p>
-              )}
-            </div>
+            <TourCategory title={"Improve Your Plan"} />
+            <TourStep inputProp={pastTour.debrief_plan} />
           </article>
         </section>
       </div>
