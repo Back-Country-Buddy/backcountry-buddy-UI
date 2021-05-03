@@ -40,9 +40,9 @@ export const handleLogin = (auth, data) => {
 
 export const updateUser = (auth, id, data) => {
   return fetch(
-    `https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
+    `https://backcountry-restapi.herokuapp.com/api/private/v1/user/${id}`,
     {
-      method: "PATCH",
+      method: "PUT",
       headers: header(auth),
       body: JSON.stringify(cleanInputStrings(data)),
     }

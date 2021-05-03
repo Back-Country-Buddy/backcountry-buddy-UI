@@ -51,9 +51,9 @@ export const addUsersToTour = (auth, tourId, emptyData, email) => {
 
 export const updateTour = (auth, tourId, data) => {
   return fetch(
-    `https://cors-anywhere.herokuapp.com/https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}`,
+    `https://backcountry-restapi.herokuapp.com/api/private/v1/tour/${tourId}`,
     {
-      method: "PATCH",
+      method: "PUT",
       headers: header(auth),
       body: JSON.stringify(cleanInputStrings(data)),
     }
