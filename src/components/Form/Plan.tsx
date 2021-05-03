@@ -41,10 +41,7 @@ export const Plan: React.FC<PlanProps> = ({
         <div key={i}>
           <h4>{user.name}</h4>
           <p>Emergency Contact:</p>
-          {!user.emergency_contact_name ||
-          !user.emergency_number ||
-          user.emergency_contact_name === "nil" ||
-          user.emergency_number === "nil" ? (
+          {!user.emergency_contact_name || !user.emergency_number ? (
             <p className="missing-info">None added yet!</p>
           ) : (
             <p>
@@ -57,7 +54,12 @@ export const Plan: React.FC<PlanProps> = ({
   }
 
   return (
-    <form onSubmit={(e) => addToGroup(e, userQuery)}>
+    <form
+      onSubmit={(e) => {
+        addToGroup(e, userQuery)
+        setUserQuery("")
+      }}
+    >
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
