@@ -39,7 +39,7 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 ---
 
 ## Deployment
-[Deployment Link](https://backcountry-buddy.vercel.app/)
+[Deployment Link](https://backcountry-buddy.netlify.app/)
 
 *NOTE: Due to issues with PATCH requests & CORS related to Auth0, you must click "Request temporary access to the demo server" at the link [here](https://cors-anywhere.herokuapp.com/corsdemo) in order to access the backend. This is a temporary workaround while we explore alternative solutions.*
 
