@@ -41,7 +41,10 @@ export const Plan: React.FC<PlanProps> = ({
         <div key={i}>
           <h4>{user.name}</h4>
           <p>Emergency Contact:</p>
-          {!user.emergency_contact_name || !user.emergency_number ? (
+          {!user.emergency_contact_name ||
+          !user.emergency_number ||
+          user.emergency_contact_name === "nil" ||
+          user.emergency_number === "nil" ? (
             <p className="missing-info">None added yet!</p>
           ) : (
             <p>
