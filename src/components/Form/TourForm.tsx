@@ -111,11 +111,11 @@ export const TourForm: React.FC<TourFormProps> = ({
         (users) =>
           setUsersInTour(
             users.data.map((user: any) => {
-              return cleanInputStrings({
+              return cleanInputStrings(cleanInputStrings({
                 name: user.attributes.user_name,
                 emergency_contact_name: user.attributes.emergency_contact_name,
                 emergency_number: user.attributes.emergency_number,
-              })
+              }))
             })
           )
       )
