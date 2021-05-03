@@ -41,7 +41,7 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 ## Deployment
 [Deployment Link](https://backcountry-buddy.netlify.app/)
 
-*NOTE: Due to issues with PATCH requests & CORS related to Auth0, you must click "Request temporary access to the demo server" at the link [here](https://cors-anywhere.herokuapp.com/corsdemo) in order to access the backend. This is a temporary workaround while we explore alternative solutions.*
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1c9582d4-422e-4572-a122-bd27f8b4604a/deploy-status)](https://app.netlify.com/sites/backcountry-buddy/deploys) [![Build Status](https://travis-ci.org/Back-Country-Buddy/backcountry-buddy-UI.svg?branch=main)](https://travis-ci.org/Back-Country-Buddy/backcountry-buddy-UI)
 
 **To view in browser on desktop:**
 1. Visit the deployment link
@@ -131,13 +131,11 @@ Visit the Profile page to view your info, update tour emergency contact informat
 
 ### Future Features
 Now that we have the basic functionality down, there is so much more we can build! Here are our top priorities moving forward:
-- Expand the "Add Friends" functionality so that they can see and edit tours they've been included on. Add the ability to remove someone from a tour, too.
 - Bring in a weather API so a user can see the forecast for their tour location right in the app.
 - Add a field for users to share a link to their GPX track(s) for a given tour.
 - Allow users to upload photos from a given tour.
 - Expand search/filter functionality for Past Tours.
 - Bring in notifications if a user went on a tour but has not yet completed the Debrief. (Maybe even game-ify it with tour stats to add incentive to complete all the checklist steps.)
-- Find a workaround to the CORS proxy.
 - Make fully functional offline (it's already halfway there).  
 
 More improvements are documented in issues in our [Project Board](https://github.com/orgs/Back-Country-Buddy/projects/1)
@@ -159,7 +157,7 @@ Creating, planning and organizing the largest project we all have ever worked on
 Overcoming unforeseen challenges together while keeping morale up. The challenges we encountered with CORS took up valuable time could have derailed our progress - instead we made sure to use our resources and encourage one another until we found a solution.
 
 ### Challenges
-* The biggest challenge we faced was circumventing CORS issues on our PATCH requests. We received very generic error messages when our OPTIONS preflight requests failed, and spent a large chunk of our time blindly trying to fix this bug. Although we never found documentation on this, we now think this is a common issue when using a Rails backend and we might be able to solve it by changing our PATCH requests to PUT requests and hope to resolve it soon. For now our app works with the assistance of an API proxy server.  
+* The biggest challenge we faced was circumventing CORS issues on our PATCH requests. We received very generic error messages when our OPTIONS preflight requests failed, and spent a large chunk of our time blindly trying to fix this bug. Although we never found documentation on this, we now think this is a common issue when using a Rails backend. In the end, we were able to solve it by changing our PATCH requests to PUT requests.
 * We originally planned on using a GraphQL backend for this project but ran into major issues with deployment. As a result we were without a backend for several days while our team built a RESTful API. We were able to stay on schedule, but it was challenging, and required some over-reliance on temporary, hard-coded data.  
 * Originally we planned to use TypeScript (which we had never used before) for this entire project. After the code base reached a certain size, however, we realized we needed a bit more experience before we could manage all the moving parts. We pivoted to using JavaScript for more complex files, like fetch requests.  
 
