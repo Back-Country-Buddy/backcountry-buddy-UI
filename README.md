@@ -41,7 +41,7 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 ## Deployment
 [Deployment Link](https://backcountry-buddy.netlify.app/)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/1c9582d4-422e-4572-a122-bd27f8b4604a/deploy-status)](https://app.netlify.com/sites/backcountry-buddy/deploys) [![Build Status](https://travis-ci.org/Back-Country-Buddy/backcountry-buddy-UI.svg?branch=main)](https://travis-ci.org/Back-Country-Buddy/backcountry-buddy-UI)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/1c9582d4-422e-4572-a122-bd27f8b4604a/deploy-status)](https://app.netlify.com/sites/backcountry-buddy/deploys) [![Build Status](https://travis-ci.com/Back-Country-Buddy/backcountry-buddy-UI.svg?branch=main)](https://travis-ci.com/Back-Country-Buddy/backcountry-buddy-UI)
 
 **To view in browser on desktop:**
 1. Visit the deployment link
