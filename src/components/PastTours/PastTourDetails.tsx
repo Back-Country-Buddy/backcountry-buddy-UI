@@ -44,6 +44,8 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
     debrief_plan: "",
   })
 
+  const missingMessage = "Nothing to see here! Looks like you never filled out this step."
+
   useEffect(() => {
     secureCall(
       getAccessTokenSilently,
@@ -87,10 +89,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_weather}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
 
@@ -104,10 +103,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_avalanche}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
 
@@ -118,10 +114,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.hazard_summary}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
@@ -140,10 +133,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.route_preview}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
 
@@ -154,10 +144,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.route_alternative}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
@@ -175,10 +162,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.emergency_plan}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
@@ -216,10 +200,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.debrief_conditions}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
@@ -235,10 +216,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.debrief_decisions}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
@@ -254,10 +232,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
                   <p>{pastTour.debrief_plan}</p>
                 </div>
               ) : (
-                <p className="missing-info">
-                  Nothing to see here! Looks like you never filled out this
-                  step.
-                </p>
+                <p className="missing-info">{missingMessage}</p>
               )}
             </div>
           </article>
