@@ -3,17 +3,19 @@ import { NavLink } from "react-router-dom"
 import "./NavBar.css"
 
 export const NavBar: React.FC = () => {
+  const navActiveStyle = {
+    textDecoration: "underline",
+    textDecorationThickness: "3px",
+    textDecorationColor: "#ff0076",
+  }
+
   return (
     <nav className="main-menu">
       <div>
         <NavLink
           to="/add-tour"
           style={{ textDecoration: "none" }}
-          activeStyle={{
-            textDecoration: "underline",
-            textDecorationThickness: "3px",
-            textDecorationColor: "#ff0076",
-          }}
+          activeStyle={navActiveStyle}
         >
           <img
             src="https://img.icons8.com/ios-glyphs/48/900AA1/plus.png"
@@ -26,11 +28,7 @@ export const NavBar: React.FC = () => {
         <NavLink
           to="/current-tours"
           style={{ textDecoration: "none" }}
-          activeStyle={{
-            textDecoration: "underline",
-            textDecorationThickness: "3px",
-            textDecorationColor: "#ff0076",
-          }}
+          activeStyle={navActiveStyle}
         >
           <img
             src="https://img.icons8.com/ios/48/900AA1/skiing.png"
@@ -43,11 +41,7 @@ export const NavBar: React.FC = () => {
         <NavLink
           to="/past-tours"
           style={{ textDecoration: "none" }}
-          activeStyle={{
-            textDecoration: "underline",
-            textDecorationThickness: "3px",
-            textDecorationColor: "#ff0076",
-          }}
+          activeStyle={navActiveStyle}
         >
           <img
             src="https://img.icons8.com/windows/48/900AA1/mobile-navigator.png"
@@ -60,11 +54,7 @@ export const NavBar: React.FC = () => {
         <NavLink
           to="/profile"
           style={{ textDecoration: "none" }}
-          activeStyle={{
-            textDecoration: "underline",
-            textDecorationThickness: "3px",
-            textDecorationColor: "#ff0076",
-          }}
+          activeStyle={navActiveStyle}
         >
           <img
             src="https://img.icons8.com/material-outlined/48/900AA1/user--v1.png"
