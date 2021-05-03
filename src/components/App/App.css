@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
 h1 {
   font-family: "Karantina";
   font-size: 3em;
@@ -16,6 +12,14 @@ h1 {
 
 main {
   height: 100vh;
+}
+
+.hidden {
+  display: none;
+}
+
+.missing-info {
+  margin: 3% 0 0 0;
 }
 
 .sub-container {
