@@ -54,7 +54,10 @@ export const Plan: React.FC<PlanProps> = ({
   }
 
   return (
-    <form onSubmit={(e) => addToGroup(e, userQuery)}>
+    <form onSubmit={(e) => {
+      addToGroup(e, userQuery)
+      setUserQuery('')
+    }}>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
