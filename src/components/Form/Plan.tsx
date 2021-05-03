@@ -40,10 +40,14 @@ export const Plan: React.FC<PlanProps> = ({
       return (
         <div key={i}>
           <h4>{user.name}</h4>
-          <p>
-            Emergency Contact: <br />
-            {user.emergency_contact_name} - {user.emergency_number}
-          </p>
+          <p>Emergency Contact:</p>
+          {!user.emergency_contact_name || !user.emergency_number ? (
+            <p className="missing-info">None added yet!</p>
+          ) : (
+            <p>
+              {user.emergency_contact_name}, {user.emergency_number}
+            </p>
+          )}
         </div>
       )
     })
