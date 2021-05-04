@@ -97,8 +97,6 @@ export const TourForm: React.FC<TourFormProps> = ({
       })
       setBasicChange(false)
       completeAlert()
-      // if(basicFields.location || basicFields.date){
-      // }
     }
   }
 
@@ -152,7 +150,6 @@ export const TourForm: React.FC<TourFormProps> = ({
         date: basicFields.date,
       }).then((response) => {
         setTourId(response.data.id)
-
         secureCall(
           getAccessTokenSilently,
           setErr,
@@ -186,15 +183,6 @@ export const TourForm: React.FC<TourFormProps> = ({
     event.preventDefault()
     setBasicFields({ ...basicFields, complete: true })
     setBasicChange(true)
-    // sendFormUpdate()
-    // if (basicFields.complete) {
-    //   sendFormUpdate()
-    //   completeAlert()
-    // }
-    // console.log(basicFields.complete)
-    // if(basicFields.complete === true) {
-    //   completeAlert()
-    // }
   }
 
   const renderTextInputs = (
@@ -225,10 +213,8 @@ export const TourForm: React.FC<TourFormProps> = ({
       tourId,
       null,
       input
-    )
-    // errorAlert()
-    .then(() => {
-      successAlert()
+    ).then(() => {
+      // successAlert()
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(
