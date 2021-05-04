@@ -79,7 +79,6 @@ export const TourForm: React.FC<TourFormProps> = ({
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
-  const [userFound, setUserFound] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -214,9 +213,8 @@ export const TourForm: React.FC<TourFormProps> = ({
       tourId,
       null,
       input
-    ).then(() => {
-      setUserFound(true)
-      if (userFound) {
+    ).then((response) => {
+      if (response.ok) {
         successAlert()
       }
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
@@ -232,7 +230,6 @@ export const TourForm: React.FC<TourFormProps> = ({
           )
       )
     })
-    setUserFound(false)
   }
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
