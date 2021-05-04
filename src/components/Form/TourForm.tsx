@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
-import { successAlert } from '../Alert/Alert.js'
+import { successAlert, errorAlert } from '../Alert/Alert.js'
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -212,7 +212,10 @@ export const TourForm: React.FC<TourFormProps> = ({
       tourId,
       null,
       input
-    ).then(() => {
+    )
+    // errorAlert()
+    .then(() => {
+      successAlert()
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(

@@ -8,7 +8,7 @@ export const successAlert = () => toast.success("Success!", {
         autoClose: 2000
 })
 
-export const errorAlert = () => toast.error("Unsuccessful Request!", {
+export const errorAlert = () => toast.error("User not found!", {
         position: toast.POSITION.BOTTOM_CENTER,
         hideProgressBar: true,
         autoClose: 2000

@@ -19,7 +19,7 @@ import { Error } from "../Error/Error"
 import { handleLogin } from "../../apiRequests/userRequests"
 import { secureCall } from "../../apiRequests/promiseHandling"
 import { formatUser } from "../../apiRequests/dataCleaners.js"
-toast.configure()
+// toast.configure()
 const App = () => {
   const [userState, setUserState] = useState({
     id: "",
