@@ -148,6 +148,14 @@ button:focus {
   color: #900aa1;
 }
 
+.card-icon {
+  padding-left: 3%;
+}
+
+.card-location {
+  font-size: 1em;
+}
+
 /* SHARED FORM STYLES: */
 form {
   display: flex;
