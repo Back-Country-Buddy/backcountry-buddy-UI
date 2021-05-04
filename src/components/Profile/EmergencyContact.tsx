@@ -2,7 +2,7 @@ import React from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./Profile.css"
 import { updateUser } from "../../apiRequests/userRequests.js"
-import { notify } from "../Alert/Alert.js"
+import { successAlert } from "../Alert/Alert.js"
 
 interface EmergencyProps {
   user: {
@@ -33,7 +33,7 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
         emergency_number: user.emergency_number,
       })
     })
-    notify()
+    successAlert()
   }
 
   return (

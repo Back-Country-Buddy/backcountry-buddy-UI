@@ -6,7 +6,6 @@ import Loader from "react-loader-spinner"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
 import "./App.css"
 
 import { LandingPage } from "../LandingPage/LandingPage"
