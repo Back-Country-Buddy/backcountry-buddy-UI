@@ -15,11 +15,11 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
         <h2 className="title">RIDE safely</h2>
       </div>
       <div className="section-title section-title-ride">
-        <label htmlFor="checkbox" className="hidden-label">
+        <label htmlFor="ride-checkbox" className="hidden-label">
           Completed
         </label>
         <input
-          id="checkbox"
+          id="ride-checkbox"
           type="checkbox"
           className="checkbox"
           checked={isChecked}
