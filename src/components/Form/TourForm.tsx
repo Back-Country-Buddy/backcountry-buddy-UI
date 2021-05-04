@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
-import notify from '../Alert/Alert'
+import { notify } from '../Alert/Alert.js'
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -81,10 +81,6 @@ export const TourForm: React.FC<TourFormProps> = ({
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
   const { getAccessTokenSilently } = useAuth0()
-
-  const notify = () => toast.success("Success!", {
-        position: toast.POSITION.BOTTOM_CENTER
-      });
 
   const sendFormUpdate = () => {
     if (planChange) {
