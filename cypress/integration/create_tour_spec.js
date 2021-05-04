@@ -52,7 +52,7 @@ describe('Current Tours', () => {
     cy.get('.card-container').get('.tour-card').last()
       .get('[alt="mountains icon"]')
       .should('be.visible')
-      .get('.card-container').get('.tour-card').last().find('h3').should('have.text', 'Jones Pass')
+      .get('.card-container').get('.tour-card').last().find('h2').should('have.text', 'Jones Pass')
 
       logOut()
   })
