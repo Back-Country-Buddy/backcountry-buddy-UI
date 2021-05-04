@@ -14,10 +14,7 @@ export const TextField: React.FC<TextFieldProps> = ({
   return (
     <>
       <p>{prompt}</p>
-      <label htmlFor={value} className="hidden-label">
-        {`Add ${value}`}
-      </label>
-      <textarea id={value} value={value} onChange={updateForm} />
+      <textarea value={value} onChange={updateForm} />
     </>
   )
 }
