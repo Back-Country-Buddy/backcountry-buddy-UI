@@ -26,7 +26,7 @@ export const Profile: React.FC<ProfileProps> = ({ user, setUser }) => {
         <h1>My Account</h1>
         <img
           src={user.picture}
-          alt="user photo"
+          alt="user avatar"
           className="profile-photo"
         />
 

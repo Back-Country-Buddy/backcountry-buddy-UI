@@ -248,6 +248,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="date"
                 name="date"
+                id="date"
                 value={basicFields.date}
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, date: e.target.value })
@@ -263,6 +264,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="text"
                 name="location"
+                id="location"
                 placeholder="Trailhead, zone, etc."
                 value={basicFields.location}
                 onChange={(e) =>

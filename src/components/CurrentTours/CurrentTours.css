@@ -3,3 +3,11 @@
   background-position: center;
   background-size: cover;
 }
+
+.card-icon {
+  padding-left: 3%;
+}
+
+.card-location {
+  font-size: 1em;
+}
