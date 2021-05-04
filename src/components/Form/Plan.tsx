@@ -75,7 +75,11 @@ export const Plan: React.FC<PlanProps> = ({
             Add tour partners by email below. (Note that they must create an
             account first to be added.)
           </p>
+          <label htmlFor="tour-partners" className="hidden-label">
+            Add Tour Partners
+          </label>
           <input
+            id="tour-partners"
             type="text"
             value={userQuery}
             onChange={(e) => setUserQuery(e.target.value)}
