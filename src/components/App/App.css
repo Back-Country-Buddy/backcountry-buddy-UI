@@ -78,8 +78,8 @@ button:focus {
 }
 
 .button-save {
-  margin: 3%;
-  padding: 2%;
+  margin: 2%;
+  padding: 2% 5%;
   background-color: #900aa1;
   color: #fff;
   font-weight: bold;
