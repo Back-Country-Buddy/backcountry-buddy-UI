@@ -45,7 +45,7 @@ export const Plan: React.FC<PlanProps> = ({
             <p className="missing-info">None added yet!</p>
           ) : (
             <p>
-              {user.emergency_contact_name}, {user.emergency_number}
+              {user.emergency_contact_name}, <a href={`tel:${user.emergency_number}`}>{user.emergency_number}</a>
             </p>
           )}
         </div>
