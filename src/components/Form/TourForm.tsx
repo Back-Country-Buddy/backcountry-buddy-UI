@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
 import { successAlert, errorAlert, completeAlert } from '../Alert/Alert.js'
-import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
+import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 import "./Form.css"
@@ -79,6 +79,7 @@ export const TourForm: React.FC<TourFormProps> = ({
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
+  const [userFound, setUserFound] = useState<boolean>(false)
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -214,7 +215,10 @@ export const TourForm: React.FC<TourFormProps> = ({
       null,
       input
     ).then(() => {
-      // successAlert()
+      setUserFound(true)
+      if (userFound) {
+        successAlert()
+      }
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(
@@ -228,6 +232,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           )
       )
     })
+    setUserFound(false)
   }
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
