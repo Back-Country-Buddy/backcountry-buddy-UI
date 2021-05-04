@@ -4,6 +4,10 @@
   background-size: cover;
 }
 
+.section-wrapper {
+  width: 100%;
+}
+
 .step-wrapper {
   display: flex;
   flex-direction: column;
