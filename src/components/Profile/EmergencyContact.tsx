@@ -2,7 +2,7 @@ import React from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./Profile.css"
 import { updateUser } from "../../apiRequests/userRequests.js"
-import { successAlert } from "../Alert/Alert.js"
+import { successAlert } from "../../Alert/Alert.js"
 
 interface EmergencyProps {
   user: {

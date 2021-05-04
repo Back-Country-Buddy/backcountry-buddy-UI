@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
-import { successAlert, errorAlert, completeAlert } from '../Alert/Alert.js'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { successAlert, completeAlert } from "../../Alert/Alert.js"
+import "react-toastify/dist/ReactToastify.css"
 
 import "./Form.css"
 
@@ -86,9 +85,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     if (planChange) {
       secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
       setPlanChange(false)
-      if(!basicFields.complete) {
       successAlert()
-      }
     }
     if (basicChange) {
       secureCall(getAccessTokenSilently, setErr, updateTour, tourId, {
@@ -317,7 +314,6 @@ export const TourForm: React.FC<TourFormProps> = ({
             SAVE UPDATES
           </button>
         )}
-
         <NavBar />
       </div>
     </main>
