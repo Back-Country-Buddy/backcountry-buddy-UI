@@ -1,7 +1,7 @@
 import React from "react"
 import { SectionTitle } from "./SectionTitle"
 import question from "../../assets/question-sign.svg"
-import { completeAlert } from "../Alert/Alert.js"
+
 
 interface DebriefProps {
   renderTextInputs: (fields: string[]) => JSX.Element[]

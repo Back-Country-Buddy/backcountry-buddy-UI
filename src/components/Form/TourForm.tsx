@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
-import { successAlert, errorAlert } from '../Alert/Alert.js'
+import { successAlert, errorAlert, completeAlert } from '../Alert/Alert.js'
 import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -86,7 +86,9 @@ export const TourForm: React.FC<TourFormProps> = ({
     if (planChange) {
       secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
       setPlanChange(false)
+      if(!basicFields.complete) {
       successAlert()
+      }
     }
     if (basicChange) {
       secureCall(getAccessTokenSilently, setErr, updateTour, tourId, {
@@ -94,7 +96,9 @@ export const TourForm: React.FC<TourFormProps> = ({
         date: cleanDate(basicFields.date),
       })
       setBasicChange(false)
-      successAlert()
+      completeAlert()
+      // if(basicFields.location || basicFields.date){
+      // }
     }
   }
 
@@ -182,6 +186,15 @@ export const TourForm: React.FC<TourFormProps> = ({
     event.preventDefault()
     setBasicFields({ ...basicFields, complete: true })
     setBasicChange(true)
+    // sendFormUpdate()
+    // if (basicFields.complete) {
+    //   sendFormUpdate()
+    //   completeAlert()
+    // }
+    // console.log(basicFields.complete)
+    // if(basicFields.complete === true) {
+    //   completeAlert()
+    // }
   }
 
   const renderTextInputs = (
