@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import "./CurrentTours.css"
 import { CurrentTourCard } from "./CurrentTourCard"
-import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
-import { cleanTours } from "../../apiRequests/dataCleaners.js"
+import { getTours, deleteTour, getUsersInTour } from "../../apiRequests/tourRequests.js"
+import { cleanTours, cleanInputStrings } from "../../apiRequests/dataCleaners.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { NavBar } from "../NavBar/NavBar"
 
@@ -16,16 +16,21 @@ interface Tour {
 }
 
 interface CurrentToursProps {
+  tourId: number
   userId: number
+  id: number
   setErr: () => any
 }
 
 export const CurrentTours: React.FC<CurrentToursProps> = ({
   userId,
   setErr,
+  tourId
 }) => {
   const [allTours, setAllTours] = useState<Array<Tour>>([])
+  const [usersInTour, setUsersInTour] = useState<Array<any>>([])
   const { getAccessTokenSilently } = useAuth0()
+  
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
@@ -58,6 +63,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({
         tourId={tour.id}
         userId={userId}
         removeTour={removeTour}
+        setErr={setErr}
       />
     )
   })
