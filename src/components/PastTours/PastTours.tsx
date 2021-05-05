@@ -65,6 +65,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
             location={tour.location}
             userId={userId}
             removeTour={removeTour}
+            setErr={setErr}
           />
         )
       })

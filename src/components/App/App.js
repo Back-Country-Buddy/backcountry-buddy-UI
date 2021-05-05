@@ -8,7 +8,7 @@ import { ToastContainer, toast} from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import "./App.css"
 
-import { LandingPage } from "../LandingPage/LandingPage"
+import { LandingPage } from "../LandingPage/LandingPage.js"
 import { Profile } from "../Profile/Profile"
 import { TourForm } from "../Form/TourForm"
 import { CurrentTours } from "../CurrentTours/CurrentTours"
