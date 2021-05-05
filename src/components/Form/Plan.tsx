@@ -60,7 +60,6 @@ export const Plan: React.FC<PlanProps> = ({
   }
 
   const submitUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // e.preventDefault()
     addToGroup(e, userQuery)
     setUserQuery("")
   }
