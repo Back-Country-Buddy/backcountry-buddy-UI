@@ -44,7 +44,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
-  // departure_check?: boolean // will update this once backend bug is fixed soon
+  departure_check: any
 }
 
 export const TourForm: React.FC<TourFormProps> = ({
@@ -62,6 +62,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     debrief_conditions: "",
     debrief_decisions: "",
     debrief_plan: "",
+    departure_check: false
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
@@ -72,7 +73,6 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
   const [planId, setPlanId] = useState<number>(0)
-  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
@@ -228,8 +228,8 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setDepartureCheck(!isDepartureChecked)
-    //make a call to the backend to make a PATCH once that property is added
+    setPlanFields({ ...planFields, departure_check: !planFields.departure_check})
+    setPlanChange(true)
   }
 
   const isChecked = (fields: string[]) => {
@@ -288,7 +288,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}
-                  isChecked={isDepartureChecked}
+                  isChecked={planFields.departure_check}
                 />
                 <Debrief
                   markComplete={markComplete}
