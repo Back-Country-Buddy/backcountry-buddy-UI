@@ -198,7 +198,10 @@ export const TourForm: React.FC<TourFormProps> = ({
     })
   }
 
-  const addToGroup = (e: React.FormEvent<HTMLFormElement>, input: string) => {
+  const addToGroup = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    input: string
+  ) => {
     e.preventDefault()
     secureCall(
       getAccessTokenSilently,

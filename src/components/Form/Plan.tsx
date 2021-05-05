@@ -8,7 +8,10 @@ interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
   userList: Array<any>
-  addToGroup: (e: React.FormEvent<HTMLFormElement>, input: string) => void
+  addToGroup: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    input: string
+  ) => void
 }
 
 export const Plan: React.FC<PlanProps> = ({
@@ -45,7 +48,10 @@ export const Plan: React.FC<PlanProps> = ({
             <p className="missing-info">None added yet!</p>
           ) : (
             <p>
-              {user.emergency_contact_name}, <a href={`tel:${user.emergency_number}`}>{user.emergency_number}</a>
+              {user.emergency_contact_name},{" "}
+              <a href={`tel:${user.emergency_number}`}>
+                {user.emergency_number}
+              </a>
             </p>
           )}
         </div>
@@ -53,13 +59,14 @@ export const Plan: React.FC<PlanProps> = ({
     })
   }
 
+  const submitUser = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    // e.preventDefault()
+    addToGroup(e, userQuery)
+    setUserQuery("")
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        addToGroup(e, userQuery)
-        setUserQuery("")
-      }}
-    >
+    <form>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
@@ -85,7 +92,9 @@ export const Plan: React.FC<PlanProps> = ({
             onChange={(e) => setUserQuery(e.target.value)}
           />
           <br />
-          <input type="submit" className="button-submit" />
+          <button className="button-submit" onClick={(e) => submitUser(e)}>
+            Submit
+          </button>
           {renderUserList()}
         </div>
         <div className="step">
@@ -117,7 +126,12 @@ export const Plan: React.FC<PlanProps> = ({
             isChecked={isChecked}
           />
           <p className="section-description">Assign group gear.</p>
-          {renderTextInputs(["emergency_plan"], ["Who else has our itinerary? Invite the devil's advocate into the conversation. Try to identify any holes and what's necessary to carry out the plan."])}
+          {renderTextInputs(
+            ["emergency_plan"],
+            [
+              "Who else has our itinerary? Invite the devil's advocate into the conversation. Try to identify any holes and what's necessary to carry out the plan.",
+            ]
+          )}
         </div>
       </StepWizard>
     </form>
