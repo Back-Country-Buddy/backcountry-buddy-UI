@@ -226,9 +226,8 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    console.log('hi')
     setPlanFields({ ...planFields, departure_check: !planFields.departure_check})
-    console.log(planFields)
+    setPlanChange(true)
   }
 
   const isChecked = (fields: string[]) => {
