@@ -30,7 +30,7 @@ const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 useEffect(() => {
   secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
     (users) => setUsersInTour(users.data))
-}, [])
+}, [getAccessTokenSilently, setErr, tourId])
 
   return (
     <article className="tour-card">
