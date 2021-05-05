@@ -226,8 +226,9 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setDepartureCheck(!isDepartureChecked)
-    //make a call to the backend to make a PATCH once that property is added
+    console.log('hi')
+    setPlanFields({ ...planFields, departure_check: !planFields.departure_check})
+    console.log(planFields)
   }
 
   const isChecked = (fields: string[]) => {
@@ -284,7 +285,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}
-                  isChecked={isDepartureChecked}
+                  isChecked={planFields.departure_check}
                 />
                 <Debrief
                   markComplete={markComplete}
