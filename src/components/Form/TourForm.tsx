@@ -73,7 +73,6 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
   const [planId, setPlanId] = useState<number>(0)
-  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
