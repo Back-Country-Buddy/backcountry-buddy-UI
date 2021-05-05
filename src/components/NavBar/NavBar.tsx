@@ -19,7 +19,7 @@ export const NavBar: React.FC = () => {
         >
           <img
             src="https://img.icons8.com/ios-glyphs/48/900AA1/plus.png"
-            alt="add tour"
+            alt="plus sign"
           />
           <p className="main-menu-text">Add Tour</p>
         </NavLink>
@@ -32,7 +32,7 @@ export const NavBar: React.FC = () => {
         >
           <img
             src="https://img.icons8.com/ios/48/900AA1/skiing.png"
-            alt="current tours"
+            alt="skiier"
           />
           <p className="main-menu-text">Current Tours</p>
         </NavLink>
@@ -45,7 +45,7 @@ export const NavBar: React.FC = () => {
         >
           <img
             src="https://img.icons8.com/windows/48/900AA1/mobile-navigator.png"
-            alt="past tours"
+            alt="location history"
           />
           <p className="main-menu-text">Past Tours</p>
         </NavLink>
@@ -58,7 +58,7 @@ export const NavBar: React.FC = () => {
         >
           <img
             src="https://img.icons8.com/material-outlined/48/900AA1/user--v1.png"
-            alt="profile"
+            alt="avatar"
           />
           <p className="main-menu-text">Profile</p>
         </NavLink>

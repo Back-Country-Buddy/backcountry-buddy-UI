@@ -3,7 +3,7 @@ import { SectionTitle } from "./SectionTitle"
 import question from "../../assets/question-sign.svg"
 
 interface DebriefProps {
-  renderTextInputs: (fields: string[]) => JSX.Element[]
+  renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
   markComplete: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
@@ -25,7 +25,10 @@ export const Debrief: React.FC<DebriefProps> = ({
           fields={["debrief_conditions"]}
           isChecked={isChecked}
         />
-        {renderTextInputs(["debrief_conditions"])}
+        {renderTextInputs(
+          ["debrief_conditions"],
+          ["How did today's weather affect conditions?"]
+        )}
       </div>
       <div className="step">
         <SectionTitle
@@ -33,7 +36,12 @@ export const Debrief: React.FC<DebriefProps> = ({
           fields={["debrief_decisions"]}
           isChecked={isChecked}
         />
-        {renderTextInputs(["debrief_decisions"])}
+        {renderTextInputs(
+          ["debrief_decisions"],
+          [
+            "What were the strengths & shortcomings of today's plan? Where were we most exposed to avalanche risk?",
+          ]
+        )}
       </div>
       <div className="step">
         <SectionTitle
@@ -41,7 +49,10 @@ export const Debrief: React.FC<DebriefProps> = ({
           fields={["debrief_plan"]}
           isChecked={isChecked}
         />
-        {renderTextInputs(["debrief_plan"])}
+        {renderTextInputs(
+          ["debrief_plan"],
+          ["What could we have done better?"]
+        )}
       </div>
       <button className="button-secondary" onClick={markComplete}>
         COMPLETE TOUR

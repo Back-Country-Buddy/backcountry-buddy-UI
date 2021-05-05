@@ -1,7 +1,12 @@
 import React from "react"
 import "./PastTours.css"
 
-export const TourStep: React.FC<any> = ({ description, inputProp }) => {
+interface StepProps {
+  description?: string
+  inputProp: string
+}
+
+export const TourStep: React.FC<StepProps> = ({ description, inputProp }) => {
   return (
     <div className="step-wrapper">
       {description && <p className="description">{description}</p>}

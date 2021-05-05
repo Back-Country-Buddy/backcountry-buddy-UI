@@ -78,8 +78,8 @@ button:focus {
 }
 
 .button-save {
-  margin: 3%;
-  padding: 2%;
+  margin: 2%;
+  padding: 2% 5%;
   background-color: #900aa1;
   color: #fff;
   font-weight: bold;
@@ -106,7 +106,7 @@ button:focus {
 .delete {
   font-weight: bold;
   align-self: flex-start;
-  margin-top: 3%;
+  margin: 2%;
   font-size: 1.2em;
   cursor: pointer;
   border: none;
@@ -128,7 +128,7 @@ button:focus {
 
 .tour-card {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 85vw;
   color: #000000;
@@ -146,6 +146,14 @@ button:focus {
 
 .card-link:hover {
   color: #900aa1;
+}
+
+.card-icon {
+  padding-left: 3%;
+}
+
+.card-location {
+  font-size: 1em;
 }
 
 /* SHARED FORM STYLES: */
@@ -177,6 +185,18 @@ textarea {
 .form-label {
   text-align: left;
   margin-bottom: 5%;
+}
+
+.hidden-label {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  white-space: nowrap;
+  clip-path: inset(1px);
 }
 
 .form-icon {

@@ -5,6 +5,7 @@
 
 .ride-img {
   width: 75%;
+  margin-bottom: 5%;
   box-shadow: 3px 3px 10px black;
 }
 
@@ -78,7 +79,7 @@
 .departure {
   background: none;
   border: none;
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: bold;
   cursor: pointer;
 }
@@ -101,4 +102,8 @@
   .form-label {
     text-align: center;
   }
+
+  .ride-img {
+  margin-bottom: none;
+}
 }

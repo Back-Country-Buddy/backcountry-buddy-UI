@@ -187,7 +187,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       return (
         <TextField
           key={i}
-          prompt={prompts ? prompts[i] : null}
+          prompt={prompts ? prompts[i] : undefined}
           value={planFields[field as keyof PlanFields]}
           updateForm={(e) => {
             setPlanFields({ ...planFields, [field]: e.target.value })
@@ -198,7 +198,10 @@ export const TourForm: React.FC<TourFormProps> = ({
     })
   }
 
-  const addToGroup = (e: React.FormEvent<HTMLFormElement>, input: string) => {
+  const addToGroup = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    input: string
+  ) => {
     e.preventDefault()
     secureCall(
       getAccessTokenSilently,
@@ -248,6 +251,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="date"
                 name="date"
+                id="date"
                 value={basicFields.date}
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, date: e.target.value })
@@ -263,6 +267,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="text"
                 name="location"
+                id="location"
                 placeholder="Trailhead, zone, etc."
                 value={basicFields.location}
                 onChange={(e) =>
