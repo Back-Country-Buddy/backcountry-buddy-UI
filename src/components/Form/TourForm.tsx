@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import StepWizard from "react-step-wizard"
+import { successAlert, completeAlert } from "../../Alert/Alert.js"
+import "react-toastify/dist/ReactToastify.css"
 
 import "./Form.css"
 
@@ -83,6 +85,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     if (planChange) {
       secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
       setPlanChange(false)
+      successAlert()
     }
     if (basicChange) {
       secureCall(getAccessTokenSilently, setErr, updateTour, tourId, {
@@ -90,6 +93,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         date: cleanDate(basicFields.date),
       })
       setBasicChange(false)
+      completeAlert()
     }
   }
 
@@ -143,7 +147,6 @@ export const TourForm: React.FC<TourFormProps> = ({
         date: basicFields.date,
       }).then((response) => {
         setTourId(response.data.id)
-
         secureCall(
           getAccessTokenSilently,
           setErr,
@@ -210,7 +213,10 @@ export const TourForm: React.FC<TourFormProps> = ({
       tourId,
       null,
       input
-    ).then(() => {
+    ).then((response) => {
+      if (response.ok) {
+        successAlert()
+      }
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(
@@ -313,7 +319,6 @@ export const TourForm: React.FC<TourFormProps> = ({
             SAVE UPDATES
           </button>
         )}
-
         <NavBar />
       </div>
     </main>

@@ -4,7 +4,8 @@ import { Route, Redirect } from "react-router-dom"
 import { usePromiseTracker } from "react-promise-tracker"
 import Loader from "react-loader-spinner"
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
-
+import { ToastContainer, toast} from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 import "./App.css"
 
 import { LandingPage } from "../LandingPage/LandingPage"
@@ -19,6 +20,7 @@ import { handleLogin } from "../../apiRequests/userRequests"
 import { secureCall } from "../../apiRequests/promiseHandling"
 import { formatUser } from "../../apiRequests/dataCleaners"
 
+toast.configure()
 const App = () => {
   const [userState, setUserState] = useState({
     id: "",
@@ -137,6 +139,7 @@ const App = () => {
               checkAuth(<PastTourDetails match={match} setErr={setErr} />)
             }
           />
+          <ToastContainer />
         </div>
       )}
     </>
