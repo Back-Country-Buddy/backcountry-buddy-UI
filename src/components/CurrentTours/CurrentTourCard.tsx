@@ -37,13 +37,14 @@ useEffect(() => {
       <img
         src="https://img.icons8.com/nolan/64/mountain.png"
         alt="mountains icon"
+        className="card-icon"
       />
       <Link
         style={{ textDecoration: "none" }}
         className="card-link"
         to={`/current-tour/${userId}/${tourId}`}
       >
-        <h3>{location}</h3>
+        <h2 className="card-location">{location}</h2>
         <p>{new Date(date).toDateString()}</p>
         {usersInTour[0] && (
           <p style={{fontSize: ".7em"}}>Created By: {usersInTour[0].attributes.user_name}</p>

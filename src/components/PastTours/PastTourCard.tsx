@@ -36,13 +36,14 @@ export const PastTourCard: React.FC<TourProps> = ({
       <img
         src="https://img.icons8.com/nolan/64/mountain.png"
         alt="mountains icon"
+        className="card-icon"
       />
       <Link
         style={{ textDecoration: "none" }}
         className="card-link"
         to={`/past-tours/${userId}/${tourId}/${location}/${date}`}
       >
-        <h3>{location}</h3>
+        <h3 className="card-location">{location}</h3>
         <p>{new Date(date).toDateString()}</p>
         {usersInTour[0] && (
           <p style={{fontSize: ".7em"}}>Created By: {usersInTour[0].attributes.user_name}</p>

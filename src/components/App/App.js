@@ -17,7 +17,7 @@ import { Error } from "../Error/Error"
 
 import { handleLogin } from "../../apiRequests/userRequests"
 import { secureCall } from "../../apiRequests/promiseHandling"
-import { formatUser } from "../../apiRequests/dataCleaners.js"
+import { formatUser } from "../../apiRequests/dataCleaners"
 
 const App = () => {
   const [userState, setUserState] = useState({

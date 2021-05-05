@@ -13,7 +13,11 @@ export const SectionTitle: React.FC<SectionTitleProps> = ({
 }) => {
   return (
     <div className="section-title">
+      <label htmlFor={title} className="hidden-label">
+        Completed
+      </label>
       <input
+        id={title}
         type="checkbox"
         className="checkbox"
         checked={isChecked(fields)}

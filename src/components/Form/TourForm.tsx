@@ -44,7 +44,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
-  // departure_check?: boolean // will update this once backend bug is fixed soon
+  departure_check: any
 }
 
 export const TourForm: React.FC<TourFormProps> = ({
@@ -62,6 +62,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     debrief_conditions: "",
     debrief_decisions: "",
     debrief_plan: "",
+    departure_check: false
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
@@ -72,7 +73,6 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
   const [planId, setPlanId] = useState<number>(0)
-  const [isDepartureChecked, setDepartureCheck] = useState<boolean>(false)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
@@ -187,7 +187,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       return (
         <TextField
           key={i}
-          prompt={prompts ? prompts[i] : null}
+          prompt={prompts ? prompts[i] : undefined}
           value={planFields[field as keyof PlanFields]}
           updateForm={(e) => {
             setPlanFields({ ...planFields, [field]: e.target.value })
@@ -198,7 +198,10 @@ export const TourForm: React.FC<TourFormProps> = ({
     })
   }
 
-  const addToGroup = (e: React.FormEvent<HTMLFormElement>, input: string) => {
+  const addToGroup = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    input: string
+  ) => {
     e.preventDefault()
     secureCall(
       getAccessTokenSilently,
@@ -225,8 +228,8 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setDepartureCheck(!isDepartureChecked)
-    //make a call to the backend to make a PATCH once that property is added
+    setPlanFields({ ...planFields, departure_check: !planFields.departure_check})
+    setPlanChange(true)
   }
 
   const isChecked = (fields: string[]) => {
@@ -248,6 +251,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="date"
                 name="date"
+                id="date"
                 value={basicFields.date}
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, date: e.target.value })
@@ -263,6 +267,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 required
                 type="text"
                 name="location"
+                id="location"
                 placeholder="Trailhead, zone, etc."
                 value={basicFields.location}
                 onChange={(e) =>
@@ -283,7 +288,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}
-                  isChecked={isDepartureChecked}
+                  isChecked={planFields.departure_check}
                 />
                 <Debrief
                   markComplete={markComplete}

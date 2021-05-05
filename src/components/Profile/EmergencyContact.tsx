@@ -36,14 +36,14 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
 
   return (
     <form className="emergency-form">
-      <h3>Emergency Contact</h3>
-      <div className="emergency-form-section">
-        <label htmlFor="emergencyName" className="emergency-label">
-          Name:
-        </label>
+      <h2>Emergency Contact</h2>
+      <label htmlFor="name" className="emergency-label">
+        Name:
         <input
           type="text"
-          name="emergencyName"
+          name="name"
+          id="name"
+          className="emergency-input"
           value={user.emergency_contact_name}
           onChange={(e) =>
             setUser({
@@ -52,14 +52,14 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
             })
           }
         />
-      </div>
-      <div className="emergency-form-section">
-        <label htmlFor="phone" className="emergency-label">
-          Phone:
-        </label>
+      </label>
+      <label htmlFor="phone" className="emergency-label">
+        Phone:
         <input
           type="text"
           name="phone"
+          id="phone"
+          className="emergency-input"
           placeholder="123-456-7890"
           value={user.emergency_number}
           onChange={(e) =>
@@ -69,7 +69,7 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
             })
           }
         />
-      </div>
+      </label>
       <button className="button-save" onClick={(e) => submitInfo(e)}>
         <strong>Save</strong>
       </button>

@@ -67,7 +67,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
           <p className="date">{new Date(date).toDateString()}</p>
         </div>
 
-        <section>
+        <section className="section-wrapper">
           <div className="title-wrapper">
             <img src={lightbulb} alt="lightbulb" className="form-icon" />
             <h2>PLAN your trip</h2>
@@ -111,7 +111,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
           </article>
         </section>
 
-        <section>
+        <section className="section-wrapper">
           <div className="title-wrapper">
             <img src={route} alt="route" className="form-icon" />
             <h2>RIDE safely</h2>
@@ -122,7 +122,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
           </article>
         </section>
 
-        <section>
+        <section className="section-wrapper">
           <div className="title-wrapper">
             <img src={question} alt="question mark" className="form-icon" />
             <h2>DEBRIEF</h2>
