@@ -27,8 +27,8 @@ export const PastTourCard: React.FC<TourProps> = ({
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
   useEffect(() => {
-  secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
-    (users) => setUsersInTour(users.data))
+    secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
+      (users) => setUsersInTour(users.data))
   }, [getAccessTokenSilently, setErr, tourId])
 
   return (
@@ -44,6 +44,9 @@ export const PastTourCard: React.FC<TourProps> = ({
       >
         <h3>{location}</h3>
         <p>{new Date(date).toDateString()}</p>
+        {usersInTour[0] && (
+          <p style={{fontSize: ".7em"}}>Created By: {usersInTour[0].attributes.user_name}</p>
+        )}
       </Link>
       <button className="delete" onClick={() => removeTour(tourId)}>
         X
