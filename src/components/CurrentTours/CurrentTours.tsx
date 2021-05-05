@@ -16,6 +16,7 @@ interface Tour {
 }
 
 interface CurrentToursProps {
+  tourId: number
   userId: number
   setErr: () => any
 }
@@ -23,9 +24,11 @@ interface CurrentToursProps {
 export const CurrentTours: React.FC<CurrentToursProps> = ({
   userId,
   setErr,
+  tourId
 }) => {
   const [allTours, setAllTours] = useState<Array<Tour>>([])
   const { getAccessTokenSilently } = useAuth0()
+  
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
@@ -58,6 +61,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({
         tourId={tour.id}
         userId={userId}
         removeTour={removeTour}
+        setErr={setErr}
       />
     )
   })

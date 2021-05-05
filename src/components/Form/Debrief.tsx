@@ -2,6 +2,7 @@ import React from "react"
 import { SectionTitle } from "./SectionTitle"
 import question from "../../assets/question-sign.svg"
 
+
 interface DebriefProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
   isChecked: (fields: string[]) => boolean
