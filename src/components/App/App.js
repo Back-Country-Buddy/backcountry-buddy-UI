@@ -7,7 +7,7 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 import "./App.css"
 
-import { LandingPage } from "../LandingPage/LandingPage"
+import { LandingPage } from "../LandingPage/LandingPage.js"
 import { Profile } from "../Profile/Profile"
 import { TourForm } from "../Form/TourForm"
 import { CurrentTours } from "../CurrentTours/CurrentTours"
