@@ -39,7 +39,7 @@ describe("Profile Page", () => {
   })
 
   it("Should render a profile icon", () => {
-    cy.get('[alt="Test User"]').should("be.visible")
+    cy.get('[alt="user avatar"]').should("be.visible")
 
     logOut()
   })
