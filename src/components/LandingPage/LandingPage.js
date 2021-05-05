@@ -5,7 +5,7 @@ import { NavBar } from "../NavBar/NavBar"
 
 import "./LandingPage.css"
 
-export const LandingPage: React.FC = () => {
+export const LandingPage = () => {
   const { user, isAuthenticated } = useAuth0()
 
   return (
