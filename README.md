@@ -35,6 +35,7 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 * React Promise Tracker
 * React Loader Spinners
 * React Step Wizard
+* React Toastify
 
 ---
 
