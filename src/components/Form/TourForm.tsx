@@ -187,7 +187,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       return (
         <TextField
           key={i}
-          prompt={prompts ? prompts[i] : null}
+          prompt={prompts ? prompts[i] : undefined}
           value={planFields[field as keyof PlanFields]}
           updateForm={(e) => {
             setPlanFields({ ...planFields, [field]: e.target.value })

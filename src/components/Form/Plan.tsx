@@ -117,7 +117,7 @@ export const Plan: React.FC<PlanProps> = ({
             isChecked={isChecked}
           />
           <p className="section-description">Assign group gear.</p>
-          {renderTextInputs(["emergency_plan"])}
+          {renderTextInputs(["emergency_plan"], ["Who else has our itinerary? Invite the devil's advocate into the conversation. Try to identify any holes and what's necessary to carry out the plan."])}
         </div>
       </StepWizard>
     </form>
