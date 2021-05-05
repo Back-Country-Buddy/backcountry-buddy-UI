@@ -18,7 +18,6 @@ interface Tour {
 interface CurrentToursProps {
   tourId: number
   userId: number
-  id: number
   setErr: () => any
 }
 
