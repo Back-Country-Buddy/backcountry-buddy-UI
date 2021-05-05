@@ -14,6 +14,7 @@ export const Ride: React.FC<RideProps> = ({ setChecked, isChecked }) => {
         <img src={route} alt="route" className="form-icon" />
         <h2 className="title">RIDE safely</h2>
       </div>
+      <button className="button-secondary">Get Directions to the Trailhead</button>
       <div className="section-title section-title-ride">
         <label htmlFor="ride-checkbox" className="hidden-label">
           Completed

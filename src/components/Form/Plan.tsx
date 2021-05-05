@@ -105,6 +105,23 @@ export const Plan: React.FC<PlanProps> = ({
           <p className="section-description">
             Read the local avalanche advisory. Seek expert opinion.
           </p>
+
+          {/* <h4>Add trailhead coordinates to get the forecast (optional):</h4>
+          <section className="form-basic">
+            <div className="form-section">
+              <label htmlFor="latitude" className="form-label">
+                Latitude
+              </label>
+              <input required type="text" id="latitude" value="" />
+            </div>
+            <div className="form-section">
+              <label htmlFor="longitude" className="form-label">
+                Longitude
+              </label>
+              <input type="text" id="longitude" value="" />
+            </div>
+          </section> */}
+
           {renderTextInputs(hazardFields, hazardPrompts)}
         </div>
         <div className="step">
