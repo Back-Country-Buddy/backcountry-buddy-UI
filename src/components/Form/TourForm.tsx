@@ -44,7 +44,7 @@ interface PlanFields {
   debrief_conditions: string
   debrief_decisions: string
   debrief_plan: string
-  // departure_check?: boolean // will update this once backend bug is fixed soon
+  departure_check: any
 }
 
 export const TourForm: React.FC<TourFormProps> = ({
@@ -62,6 +62,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     debrief_conditions: "",
     debrief_decisions: "",
     debrief_plan: "",
+    departure_check: false
   })
 
   const [basicFields, setBasicFields] = useState<BasicFields>({
