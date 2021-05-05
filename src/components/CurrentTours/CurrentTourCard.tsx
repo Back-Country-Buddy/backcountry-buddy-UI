@@ -27,17 +27,9 @@ export const CurrentTourCard: React.FC<TourProps> = ({
 const { getAccessTokenSilently } = useAuth0()
 const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
-const getUsers = (tourId: number):any => {
-  secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
-    (users) => {
-      setUsersInTour(users.data)
-      return users
-    }
-  )
-}
-
 useEffect(() => {
-  getUsers(tourId)
+  secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
+    (users) => setUsersInTour(users.data))
 }, [])
 
   return (
