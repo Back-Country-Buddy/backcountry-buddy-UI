@@ -52,7 +52,7 @@ interface PlanFields {
 export const TourForm: React.FC<TourFormProps> = ({
   userId,
   match,
-  setErr,
+  setErr
 }) => {
   const [planFields, setPlanFields] = useState<PlanFields>({
     hazard_weather: "",
@@ -291,6 +291,7 @@ export const TourForm: React.FC<TourFormProps> = ({
                   isChecked={isChecked}
                   userList={usersInTour}
                   addToGroup={addToGroup}
+                  // tourDate={date}
                 />
                 <Ride
                   setChecked={toggleDepartureCheck}

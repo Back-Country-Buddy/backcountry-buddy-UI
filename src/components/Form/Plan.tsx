@@ -3,6 +3,7 @@ import StepWizard from "react-step-wizard"
 import { SectionTitle } from "./SectionTitle"
 import { FormNav } from "./FormNav"
 import lightbulb from "../../assets/light-bulb (1).svg"
+import { getWeather } from "../../apiRequests/planRequests"
 
 interface PlanProps {
   renderTextInputs: (fields: string[], prompts?: string[]) => JSX.Element[]
@@ -21,6 +22,8 @@ export const Plan: React.FC<PlanProps> = ({
   addToGroup,
 }) => {
   const [userQuery, setUserQuery] = useState<string>("")
+  const [latitude, setLatitude] = useState<string>("")
+  const [longitude, setLongitude] = useState<string>("")
 
   const hazardFields: string[] = [
     "hazard_weather",
@@ -64,13 +67,31 @@ export const Plan: React.FC<PlanProps> = ({
     setUserQuery("")
   }
 
+  const submitCoordinates = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault()
+    getWeather(latitude, longitude)
+    // .then((weatherData) => {
+      // conditional to make sure the tour date is within 7 days
+      // get the tour date from TourForm
+      // convert the tour date to unix
+      // .find to get the forecast day that matches the tour date
+      // return high and low temps for that day plus, sunrise, sunset,
+        // wind speed, wind deg, main, description, icon
+    // })
+
+    // may want to add this to a useEffect instead so that it refreshes the forecast
+      // every time you visit the Plan page
+
+    // may need local storage as temp solution if BE can't get fields done in time
+  }
+
   return (
     <form>
       <div className="title-wrapper">
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
       </div>
-      <StepWizard nav={<FormNav steps={["1", "2", "3", "4"]} />}>
+      <StepWizard nav={<FormNav steps={["1", "2", "3", "4", "5"]} />}>
         <div className="step">
           <SectionTitle
             title="Assemble Your Group"
@@ -98,6 +119,66 @@ export const Plan: React.FC<PlanProps> = ({
         </div>
         <div className="step">
           <SectionTitle
+            title="Check the Forecast"
+            fields={["latitude, longitude"]}
+            isChecked={isChecked}
+          />
+          <p>
+            Add trailhead coordinates to check the weather for your tour date.
+          </p>
+          <section className="form-basic">
+            <div className="form-section">
+              <label htmlFor="latitude" className="form-label">
+                Latitude
+              </label>
+              <input
+                type="text"
+                id="latitude"
+                value={latitude}
+                onChange={(e) => setLatitude(e.target.value)}
+              />
+            </div>
+            <div className="form-section">
+              <label htmlFor="longitude" className="form-label">
+                Longitude
+              </label>
+              <input
+                type="text"
+                id="longitude"
+                value={longitude}
+                onChange={(e) => setLongitude(e.target.value)}
+              />
+            </div>
+          </section>
+          <button
+            className="button-submit"
+            onClick={(e) => submitCoordinates(e)}
+          >
+            Submit
+          </button>
+          <p>Read the forecast from your local avalanche center.</p>
+          {/* Can also just link here instead of the iframe:
+          https://avalanche.org/#map-nav (unable to find a way to embed this one)*/}
+          <div>
+            <iframe
+              name="caic_fx_map"
+              title="caic_fx_map"
+              id="caic_fx_map"
+              src="https://avalanche.state.co.us/caic/fx_map.php"
+              width="495px"
+              height="565px"
+              scrolling="no"
+            >
+              <p>Your browser does not support iframes.</p>
+            </iframe>
+            <img
+              src="https://avalanche.state.co.us/caic/images/map-danger-scale.png"
+              alt="CAIC danger scale"
+            />
+          </div>
+        </div>
+        <div className="step">
+          <SectionTitle
             title="Anticipate the Hazard"
             fields={hazardFields}
             isChecked={isChecked}
@@ -105,6 +186,7 @@ export const Plan: React.FC<PlanProps> = ({
           <p className="section-description">
             Read the local avalanche advisory. Seek expert opinion.
           </p>
+
           {renderTextInputs(hazardFields, hazardPrompts)}
         </div>
         <div className="step">
