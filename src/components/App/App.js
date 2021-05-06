@@ -21,6 +21,7 @@ import { secureCall } from "../../apiRequests/promiseHandling"
 import { formatUser } from "../../apiRequests/dataCleaners"
 
 toast.configure()
+
 const App = () => {
   const [userState, setUserState] = useState({
     id: "",
