@@ -14,7 +14,6 @@ import { TourForm } from "../Form/TourForm"
 import { CurrentTours } from "../CurrentTours/CurrentTours"
 import { PastTours } from "../PastTours/PastTours"
 import { PastTourDetails } from "../PastTours/PastTourDetails"
-import { Error } from "../Error/Error"
 
 import { handleLogin } from "../../apiRequests/userRequests"
 import { secureCall } from "../../apiRequests/promiseHandling"
@@ -79,10 +78,6 @@ const App = () => {
           />
         </div>
       )}
-
-      {err && <Error err={err} setErr={setErr} />}
-
-      {!err && (
         <div className={`App ${(promiseInProgress || isLoading) && "hidden"}`}>
           <Route
             exact
@@ -141,7 +136,6 @@ const App = () => {
           />
           <ToastContainer />
         </div>
-      )}
     </>
   )
 }

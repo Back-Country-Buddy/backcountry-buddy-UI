@@ -1,4 +1,4 @@
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/4.2.0/workbox-sw.js');
+importScripts('https://storage.googleapis.com/workbox-cdn/releases/6.1.5/workbox-sw.js');
 
 //The new installed service worker replaces the old service worker immediately
 self.skipWaiting();
@@ -29,17 +29,9 @@ workbox.precaching.precacheAndRoute([
 
 //BackgroundSync
 //On https://ptsv2.com/t/n5y9f-1556037444 you can check for received posts
-const bgSyncPlugin = new workbox.backgroundSync.Plugin('queue', {
+const bgSyncPlugin = new workbox.backgroundSync.BackgroundSyncPlugin('offlineRequests', {
     maxRetentionTime: 24 * 60 // Retry for max of 24 Hours
 });
-
-workbox.routing.registerRoute(
-    new RegExp('https://backcountry-restapi.herokuapp.com/api/private/v1/'),
-    new workbox.strategies.NetworkOnly({
-        plugins: [bgSyncPlugin]
-    }),
-    'GET'
-);
 
 workbox.routing.registerRoute(
     new RegExp('https://backcountry-restapi.herokuapp.com/api/private/v1/'),
@@ -57,25 +49,25 @@ workbox.routing.registerRoute(
     'PUT'
 );
 
-self.addEventListener('fetch', function(event) {
-    event.respondWith(
-      caches.open(event.request.url).then(function(cache) {
-        return cache.match(event.request).then(function (response) {
-          if(navigator.onLine){
-            return fetch(event.request).then(function(response) {
-              if(event.request.method == 'GET'){
-                cache.put(event.request, response.clone());
-              }
-              return response;
-            });
-          }else{
-            if(response){
-              return response
-            }else{
-              return null
-            }
-          }
-        });
-      })
-    );
-});
+// self.addEventListener('fetch', function(event) {
+//     event.respondWith(
+//       caches.open(event.request.url).then(function(cache) {
+//         return cache.match(event.request).then(function (response) {
+//           if(navigator.onLine){
+//             return fetch(event.request).then(function(response) {
+//               if(event.request.method == 'GET'){
+//                 cache.put(event.request, response.clone());
+//               }
+//               return response;
+//             });
+//           }else{
+//             if(response){
+//               return response
+//             }else{
+//               return null
+//             }
+//           }
+//         });
+//       })
+//     );
+// });
