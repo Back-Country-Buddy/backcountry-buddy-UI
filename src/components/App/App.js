@@ -48,7 +48,6 @@ const App = () => {
     if (isAuthenticated) {
       secureCall(
         getAccessTokenSilently,
-        setErr,
         handleLogin,
         user
       ).then((fetchedUser) =>

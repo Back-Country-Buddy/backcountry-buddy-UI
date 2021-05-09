@@ -49,7 +49,6 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
   useEffect(() => {
     secureCall(
       getAccessTokenSilently,
-      setErr,
       getPlan,
       match.params.userId,
       null,

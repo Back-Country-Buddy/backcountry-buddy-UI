@@ -83,12 +83,12 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const sendFormUpdate = () => {
     if (planChange) {
-      secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
+      secureCall(getAccessTokenSilently, updatePlan, planId, planFields)
       setPlanChange(false)
       successAlert()
     }
     if (basicChange) {
-      secureCall(getAccessTokenSilently, setErr, updateTour, tourId, {
+      secureCall(getAccessTokenSilently, updateTour, tourId, {
         ...basicFields,
         date: cleanDate(basicFields.date),
       })
@@ -101,7 +101,6 @@ export const TourForm: React.FC<TourFormProps> = ({
     if (tourId.length && match && !planId) {
       secureCall(
         getAccessTokenSilently,
-        setErr,
         getPlan,
         match.params.userId,
         null,
@@ -111,7 +110,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
       })
 
-      secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
+      secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(
             users.data.map((user: any) => {
@@ -124,7 +123,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           )
       )
 
-      secureCall(getAccessTokenSilently, setErr, getTour, tourId).then(
+      secureCall(getAccessTokenSilently, getTour, tourId).then(
         (tour: any) => {
           setBasicFields({
             location: tour.data.attributes.location,
@@ -141,7 +140,7 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   const createTour = () => {
     if (!tourId) {
-      secureCall(getAccessTokenSilently, setErr, addTour, userId, {
+      secureCall(getAccessTokenSilently, addTour, userId, {
         creator_id: userId,
         location: basicFields.location,
         date: basicFields.date,
@@ -149,7 +148,6 @@ export const TourForm: React.FC<TourFormProps> = ({
         setTourId(response.data.id)
         secureCall(
           getAccessTokenSilently,
-          setErr,
           getUsersInTour,
           response.data.id
         ).then((users) =>
@@ -166,7 +164,6 @@ export const TourForm: React.FC<TourFormProps> = ({
 
         secureCall(
           getAccessTokenSilently,
-          setErr,
           addPlan,
           userId,
           null,
@@ -208,7 +205,6 @@ export const TourForm: React.FC<TourFormProps> = ({
     e.preventDefault()
     secureCall(
       getAccessTokenSilently,
-      null,
       addUsersToTour,
       tourId,
       null,
@@ -217,7 +213,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       if (response) {
         successAlert()
       }
-      secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
+      secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
         (users) =>
           setUsersInTour(
             users.data.map((user: any) => {

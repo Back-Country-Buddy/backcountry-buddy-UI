@@ -31,7 +31,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, setErr, getTours, userId).then(
+    secureCall(getAccessTokenSilently, getTours, userId).then(
       (tours: any) => {
         setAllTours(cleanTours(tours, true))
       }
@@ -43,7 +43,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
       "Are you sure you want to remove this tour?"
     )
     if (confirmationMessage) {
-      secureCall(getAccessTokenSilently, setErr, deleteTour, tourId).then(() =>
+      secureCall(getAccessTokenSilently, deleteTour, tourId).then(() =>
         setAllTours(allTours.filter((tour) => tour.id !== tourId))
       )
     } else {

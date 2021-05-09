@@ -1,8 +1,9 @@
-import React from "react"
-import { useAuth0 } from "@auth0/auth0-react"
-import "./Profile.css"
-import { updateUser } from "../../apiRequests/userRequests.js"
-import { successAlert } from "../../Alert/Alert.js"
+import React from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import './Profile.css'
+import { updateUser } from '../../apiRequests/userRequests.js'
+import { successAlert } from '../../Alert/Alert'
+import { secureCall } from '../../apiRequests/promiseHandling'
 
 interface EmergencyProps {
   user: {
@@ -27,25 +28,22 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
 
   const submitInfo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault()
-    getAccessTokenSilently().then((token) => {
-      updateUser(token, user.id, {
-        emergency_contact_name: user.emergency_contact_name,
-        emergency_number: user.emergency_number,
-      })
-    })
-    successAlert()
+    secureCall(getAccessTokenSilently, updateUser, user.id, {
+      emergency_contact_name: user.emergency_contact_name,
+      emergency_number: user.emergency_number,
+    }).then(() => successAlert())
   }
 
   return (
-    <form className="emergency-form">
+    <form className='emergency-form'>
       <h2>Emergency Contact</h2>
-      <label htmlFor="name" className="emergency-label">
+      <label htmlFor='name' className='emergency-label'>
         Name:
         <input
-          type="text"
-          name="name"
-          id="name"
-          className="emergency-input"
+          type='text'
+          name='name'
+          id='name'
+          className='emergency-input'
           value={user.emergency_contact_name}
           onChange={(e) =>
             setUser({
@@ -55,14 +53,14 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
           }
         />
       </label>
-      <label htmlFor="phone" className="emergency-label">
+      <label htmlFor='phone' className='emergency-label'>
         Phone:
         <input
-          type="text"
-          name="phone"
-          id="phone"
-          className="emergency-input"
-          placeholder="123-456-7890"
+          type='text'
+          name='phone'
+          id='phone'
+          className='emergency-input'
+          placeholder='123-456-7890'
           value={user.emergency_number}
           onChange={(e) =>
             setUser({
@@ -72,7 +70,7 @@ export const EmergencyContact: React.FC<EmergencyProps> = ({
           }
         />
       </label>
-      <button className="button-save" onClick={(e) => submitInfo(e)}>
+      <button className='button-save' onClick={(e) => submitInfo(e)}>
         <strong>Save</strong>
       </button>
     </form>
