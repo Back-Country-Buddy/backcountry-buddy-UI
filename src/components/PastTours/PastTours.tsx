@@ -34,7 +34,7 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
     secureCall(getAccessTokenSilently, getTours, userId).then(
       (tours: any) => {
         setAllTours(cleanTours(tours, true))
-        storeData(`pastTours${userId}`, cleanTours(tours, true)))
+        storeData(`pastTours${userId}`, cleanTours(tours, true))
       }
     )
   }, [getAccessTokenSilently, userId])
