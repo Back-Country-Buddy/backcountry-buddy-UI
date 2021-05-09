@@ -79,7 +79,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     getStoredData(`tour${match.params.tourId}`, blankTour) : blankTour)
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
-  const [planId, setPlanId] = useState<number>(match ? -1 : 0)
+  const [planId, setPlanId] = useState<number>(0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
@@ -286,7 +286,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             </div>
           </form>
 
-          {planId !== 0 ? (
+          {(match || planId > 0) !== 0 ? (
             <div className="form-subform">
               <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
                 <Plan
@@ -317,7 +317,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           )}
         </div>
 
-        {planId !== 0 && (
+        {(match || planId > 0) && (
           <button className="button-save" onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>

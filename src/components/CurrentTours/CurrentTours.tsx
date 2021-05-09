@@ -43,16 +43,18 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({
   }
 
   useEffect(() => {
-    secureCall(
-      getAccessTokenSilently,
-      getTours,
-      userId
-    ).then((tours: Array<Tour>) => {
-      if (navigator.onLine) {
-        setAllTours(cleanTours(tours, false))
-        storeData(`currentTours${userId}`, cleanTours(tours, false))
-      }
-    })
+    if (navigator.onLine) {
+      secureCall(
+        getAccessTokenSilently,
+        getTours,
+        userId
+      ).then((tours: Array<Tour>) => {
+        if (navigator.onLine) {
+          setAllTours(cleanTours(tours, false))
+          storeData(`currentTours${userId}`, cleanTours(tours, false))
+        }
+      })
+    }
   }, [getAccessTokenSilently, userId])
 
   const tours = allTours.map((tour) => {
