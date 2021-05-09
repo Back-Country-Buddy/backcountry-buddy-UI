@@ -16,6 +16,7 @@ import { NavBar } from "../NavBar/NavBar"
 import { updatePlan, addPlan, getPlan } from "../../apiRequests/planRequests.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { cleanDate, cleanInputStrings } from "../../apiRequests/dataCleaners.js"
+import { storeData, getStoredData } from '../../dataStorage/dataStorage'
 import {
   getTour,
   addTour,
@@ -27,7 +28,6 @@ import {
 interface TourFormProps {
   userId?: number
   match?: any
-  setErr: () => any
 }
 
 interface BasicFields {
@@ -49,32 +49,37 @@ interface PlanFields {
   departure_check: any
 }
 
+const blankPlan = {
+  hazard_weather: "",
+  hazard_avalanche: "",
+  hazard_summary: "",
+  route_preview: "",
+  route_alternative: "",
+  emergency_plan: "",
+  debrief_conditions: "",
+  debrief_decisions: "",
+  debrief_plan: "",
+  departure_check: false
+}
+
+const blankTour = {
+  location: "",
+  date: cleanDate(new Date().toISOString()),
+  complete: false,
+}
+
 export const TourForm: React.FC<TourFormProps> = ({
   userId,
   match,
-  setErr,
 }) => {
-  const [planFields, setPlanFields] = useState<PlanFields>({
-    hazard_weather: "",
-    hazard_avalanche: "",
-    hazard_summary: "",
-    route_preview: "",
-    route_alternative: "",
-    emergency_plan: "",
-    debrief_conditions: "",
-    debrief_decisions: "",
-    debrief_plan: "",
-    departure_check: false
-  })
+  const [planFields, setPlanFields] = useState<PlanFields>( match ?
+    getStoredData(`plan${match.params.tourId}`, blankPlan) : blankPlan)
 
-  const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "",
-    date: cleanDate(new Date().toISOString()),
-    complete: false,
-  })
+  const [basicFields, setBasicFields] = useState<BasicFields>( match ?
+    getStoredData(`tour${match.params.tourId}`, blankTour) : blankTour)
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
-  const [planId, setPlanId] = useState<number>(0)
+  const [planId, setPlanId] = useState<number>(match ? -1 : 0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
   const [usersInTour, setUsersInTour] = useState<Array<any>>([])
@@ -95,10 +100,12 @@ export const TourForm: React.FC<TourFormProps> = ({
       setBasicChange(false)
       completeAlert()
     }
+    storeData(`tour${tourId}`, basicFields)
+    storeData(`plan${tourId}`, planFields)
   }
 
   useEffect(() => {
-    if (tourId.length && match && !planId) {
+    if (tourId.length && match && !planId && navigator.onLine) {
       secureCall(
         getAccessTokenSilently,
         getPlan,
@@ -279,7 +286,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             </div>
           </form>
 
-          {planId ? (
+          {planId !== 0 ? (
             <div className="form-subform">
               <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
                 <Plan
@@ -310,7 +317,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           )}
         </div>
 
-        {planId > 0 && (
+        {planId !== 0 && (
           <button className="button-save" onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>

@@ -33,8 +33,6 @@ const App = () => {
     picture: "",
   })
 
-  const [err, setErr] = useState(null)
-
   const {
     user,
     isAuthenticated,
@@ -81,7 +79,7 @@ const App = () => {
           <Route
             exact
             path="/"
-            render={() => <LandingPage name={userState.name} setErr={setErr} />}
+            render={() => <LandingPage name={userState.name} />}
           />
 
           <Route
@@ -91,7 +89,6 @@ const App = () => {
                 <Profile
                   user={userState}
                   setUser={setUserState}
-                  setErr={setErr}
                 />
               )
             }
@@ -101,21 +98,21 @@ const App = () => {
             exact
             path="/add-tour"
             render={() =>
-              checkAuth(<TourForm userId={userState.id} setErr={setErr} />)
+              checkAuth(<TourForm userId={userState.id} />)
             }
           />
 
           <Route
             path="/current-tour/:userId/:tourId"
             render={({ match }) =>
-              checkAuth(<TourForm match={match} setErr={setErr} />)
+              checkAuth(<TourForm match={match} />)
             }
           />
 
           <Route
             path="/current-tours"
             render={() =>
-              checkAuth(<CurrentTours userId={userState.id} setErr={setErr} />)
+              checkAuth(<CurrentTours userId={userState.id} />)
             }
           />
 
@@ -123,14 +120,14 @@ const App = () => {
             exact
             path="/past-tours"
             render={() =>
-              checkAuth(<PastTours userId={userState.id} setErr={setErr} />)
+              checkAuth(<PastTours userId={userState.id} />)
             }
           />
 
           <Route
             path="/past-tours/:userId/:tourId/:location/:date"
             render={({ match }) =>
-              checkAuth(<PastTourDetails match={match} setErr={setErr} />)
+              checkAuth(<PastTourDetails match={match} />)
             }
           />
           <ToastContainer />

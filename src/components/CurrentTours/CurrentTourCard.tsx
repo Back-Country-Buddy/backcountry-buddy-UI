@@ -12,7 +12,6 @@ interface TourProps {
   tourId: number
   userId: number
   removeTour: (tourId: number) => any
-  setErr: () => any
 }
 
 export const CurrentTourCard: React.FC<TourProps> = ({
@@ -21,7 +20,6 @@ export const CurrentTourCard: React.FC<TourProps> = ({
   tourId,
   userId,
   removeTour,
-  setErr
 }) => {
 
 const { getAccessTokenSilently } = useAuth0()
@@ -30,7 +28,7 @@ const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 useEffect(() => {
   secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
     (users) => setUsersInTour(users.data))
-}, [getAccessTokenSilently, setErr, tourId])
+}, [getAccessTokenSilently, tourId])
 
   return (
     <article className="tour-card">
