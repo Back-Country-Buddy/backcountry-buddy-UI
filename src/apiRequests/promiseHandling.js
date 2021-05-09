@@ -1,5 +1,4 @@
 import { trackPromise } from "react-promise-tracker"
-import { successAlert } from "../Alert/Alert"
 import { handleError } from './errorHandling'
 
 const checkResponse = (response) => {
