@@ -1,5 +1,6 @@
 import { trackPromise } from "react-promise-tracker"
-import { errorAlert } from "../Alert/Alert"
+import { successAlert } from "../Alert/Alert"
+import { handleError } from './errorHandling'
 
 const checkResponse = (response) => {
   if (response.status === 204) {
@@ -16,6 +17,9 @@ export const secureCall = (authCall, setErr, request, id, data, id2) => {
     authCall()
       .then((token) => request(token, id, data, id2))
       .then((response) => checkResponse(response))
-      .catch((err) => (setErr ? setErr(err) : errorAlert()))
+      .catch((err) => {
+        console.log(err)
+        handleError(err)
+      })
   )
 }

@@ -214,7 +214,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       null,
       input
     ).then((response) => {
-      if (response.ok) {
+      if (response) {
         successAlert()
       }
       secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
