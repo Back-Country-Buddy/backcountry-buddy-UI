@@ -1,14 +1,20 @@
+  .main-menu-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+
 .main-menu {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
+    background-color: #f8f8ff;
+    box-shadow: 0px -4px 3px rgb(50 50 50 / 25%);
     padding: 3% 0;
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #f8f8ff;
-    box-shadow: 0px -4px 3px rgb(50 50 50 / 25%);
 }
 
 .main-menu-text {
@@ -16,4 +22,16 @@
     color: #900AA1;
     font-size: .8em;
     font-weight: bold;
+}
+
+@media screen and (min-width: 900px) {
+  .main-menu-wrapper {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .main-menu {
+    padding: 2% 0;
+    width: 80%;
+  }
 }

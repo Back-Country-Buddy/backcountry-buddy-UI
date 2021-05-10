@@ -218,7 +218,7 @@ textarea {
   margin-top: 40%;
 }
 
-@media screen and (min-width: 850px) {
+@media screen and (min-width: 900px) {
   .tour-card {
     width: 50vw;
   }
@@ -229,6 +229,11 @@ textarea {
 
   h1 {
     margin: 1%;
+    padding: 2%;
+  }
+
+  .main-menu {
+    padding: 2% 0;
   }
 }
 

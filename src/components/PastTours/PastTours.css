@@ -104,3 +104,10 @@
   outline: none;
   align-self: center;
 }
+
+@media screen and (min-width: 900px) {
+  .search-bar {
+    width: 35vw;
+    margin-top: -5%;
+  }
+}

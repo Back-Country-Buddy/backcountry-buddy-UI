@@ -31,3 +31,15 @@
     width: 80%;
   }
 }
+
+@media screen and (min-width: 900px) {
+  .emergency-form {
+    width: 40%;
+    margin: 1%;
+    padding: 1%;
+  }
+
+  .profile-photo {
+    margin: 1% 0;
+  }
+}
