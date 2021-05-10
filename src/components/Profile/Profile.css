@@ -42,4 +42,10 @@
   .profile-photo {
     margin: 1% 0;
   }
+
+  .profile-background-img {
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+  }
 }
+

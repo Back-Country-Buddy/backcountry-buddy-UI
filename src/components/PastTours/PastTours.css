@@ -110,4 +110,9 @@
     width: 35vw;
     margin-top: -5%;
   }
+
+  .past-background-img {
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+  }
 }
