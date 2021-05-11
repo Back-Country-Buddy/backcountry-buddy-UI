@@ -150,7 +150,7 @@ Because many users will be accessing the app where there is poor or no service, 
 ### Future Features
 Now that we have the basic functionality down, there is so much more we can build! Here are our top priorities moving forward:
 - Make fully-functional offline (in progress)
-- Bring in a weather API so a user can see the forecast for their tour location right in the app (in progress).
+- Use tour location coordinates to connect to a weather API and local avalanche danger forecast (in progress).
 - Add a field for users to share a link to their GPX track(s) for a given tour.
 - Allow users to upload photos from a given tour.
 - Expand search/filter functionality for Past Tours.
