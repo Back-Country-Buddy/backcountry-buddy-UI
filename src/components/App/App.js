@@ -130,7 +130,7 @@ const App = () => {
               checkAuth(<PastTourDetails match={match} />)
             }
           />
-          <ToastContainer />
+          <ToastContainer limit={1} />
         </div>
     </>
   )
