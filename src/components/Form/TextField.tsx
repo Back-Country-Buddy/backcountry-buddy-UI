@@ -12,12 +12,12 @@ export const TextField: React.FC<TextFieldProps> = ({
   updateForm,
 }) => {
   return (
-    <>
-      <p>{prompt}</p>
+    <section className="prompt-wrapper">
+      <p className="prompt">{prompt}</p>
       <label htmlFor={prompt} className="hidden-label">
         {prompt}
       </label>
       <textarea id={prompt} name={prompt} value={value} onChange={updateForm} />
-    </>
+    </section>
   )
 }

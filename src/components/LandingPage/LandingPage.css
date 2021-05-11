@@ -30,4 +30,12 @@
     background-size: 80% 100%;
     background-repeat: no-repeat;
   }
+
+  .logo {
+    margin: 5%
+  }
+
+  .welcome {
+    margin-bottom: 10%;
+  }
 }

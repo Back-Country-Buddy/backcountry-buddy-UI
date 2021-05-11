@@ -85,6 +85,8 @@ button:focus {
   font-weight: bold;
   border: 3px solid #900aa1;
   border-radius: 3px;
+  /* width: 40%; */
+  align-self: center;
 }
 
 .button-save:hover {
@@ -235,5 +237,29 @@ textarea {
   .main-menu {
     padding: 2% 0;
   }
+
+  .button-save {
+    padding: 1% 5%;
+    margin: .5%;
+  }
+
+  .form-icon {
+    width: 4%;
+  }
+
+  .section-description {
+    margin: 1% 0 2% 0;
+  }
+
+  .button-submit {
+    margin: 2% 0;
+  }
+
+  textarea {
+    width: 55%;
+  }
+
+
+
 }
 
