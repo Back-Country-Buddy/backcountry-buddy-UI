@@ -26,6 +26,11 @@ This application was created in just 2 weeks by a team of 3 front-end and 2 back
 
 [Back-end Repo](https://github.com/Back-Country-Buddy/Rest-API)
 
+
+https://user-images.githubusercontent.com/66852774/117859404-2bfa1380-b24c-11eb-9cad-4aa78dd24eef.mp4
+
+
+
 ---
 
 ## Technologies
@@ -135,7 +140,7 @@ Visit the Profile page to view your info, update tour emergency contact informat
 ### Offline
 Because many users will be accessing the app where there is poor or no service, we added offline capabilities.
 <p>
-<img width="292" alt="profile" src="https://user-images.githubusercontent.com/66852774/117858383-159f8800-b24b-11eb-8174-603403207cb3.png">
+<img width="292" alt="offline" src="https://user-images.githubusercontent.com/66852774/117858383-159f8800-b24b-11eb-8174-603403207cb3.png">
 </p>
   <details>
     <summary>Under the Hood</summary>
