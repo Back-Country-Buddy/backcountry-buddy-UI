@@ -26,6 +26,11 @@ This application was created in just 2 weeks by a team of 3 front-end and 2 back
 
 [Back-end Repo](https://github.com/Back-Country-Buddy/Rest-API)
 
+
+https://user-images.githubusercontent.com/66852774/117859404-2bfa1380-b24c-11eb-9cad-4aa78dd24eef.mp4
+
+
+
 ---
 
 ## Technologies
@@ -36,6 +41,7 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 * React Loader Spinners
 * React Step Wizard
 * React Toastify
+* Google Workbox
 
 ---
 
@@ -76,8 +82,9 @@ React + Hooks, React Router, TypeScript, JavaScript, Auth0, Progressive Web App,
 * [View Current Tours](#View-Current-Tours)
 * [View Past Tours](#View-Past-Tours)
 * [Profile](#Profile)
+* [Offline](#Offline)
 
-#### Log In
+### Log In
 On initial visit, you'll see a login page. It'll redirect you to an Auth0 site, and then back to the welcome landing page. From there, you can access everything in the app.
 <p>
 <img width="292" alt="login" src="https://user-images.githubusercontent.com/66852774/115636176-9281b680-a2ca-11eb-8faf-e39909a7bc97.png">
@@ -88,8 +95,8 @@ On initial visit, you'll see a login page. It'll redirect you to an Auth0 site, 
     We connected both the front and back end to Auth0, and (after much trouble shooting) we able to get the "current user" all hooked up.
   </details>
 
-#### Add A Tour
-Visit "Add Tour." Start by picking a date and location, then click "Create Tour" (this saves the tour to your "Current Tours" so you can go back in and edit it later). Now, you can complete the "Plan," "Ride," and "Debrief" sections and save your progress at any time. You can also add friends to a tour by their email and see their emergency contact info. The checkboxes get automatically checked off once all fields in a given form section have been filled out.
+### Add A Tour
+Visit "Add Tour." Start by picking a date and location, then click "Create Tour" (this saves the tour to your "Current Tours" so you can go back in and edit it later). Now, you can complete the "Plan," "Ride," and "Debrief" sections and save your progress at any time. You can also add friends to a tour by their email, see their emergency contact info, and call the emergency contact phone number directly. The checkboxes get automatically checked off once all fields in a given form section have been filled out.
 <p>
 <img width="292" alt="addtour" src="https://user-images.githubusercontent.com/66852774/115637154-bba34680-a2cc-11eb-9702-46b183769332.png">
 <img width="292" alt="plan" src="https://user-images.githubusercontent.com/66852774/115637186-ca89f900-a2cc-11eb-8bc1-39f772850a62.png">
@@ -99,28 +106,28 @@ Visit "Add Tour." Start by picking a date and location, then click "Create Tour"
     Several API calls are happening here. You can create a tour (POST), you can come back in and edit the tour (GET & PATCH), you can fetch all your current tours (GET), and you can add a friend to a tour (GET, POST). This was one massive controlled form, with state maintained in hooks. We brought in React Step Wizard to break up the long form into sub-steps for a better UX.
   </details>
 
-#### View Current Tours
-Visit the "Current Tours" page to view all tours that you're planning. Click into any tour to make edits.
+### View Current Tours
+Visit the "Current Tours" page to view all tours that you're planning. You can also see who created the tour. Click into any tour to make edits.
 <p>
-<img width="292" alt="currenttours" src="https://user-images.githubusercontent.com/66852774/115637446-6582d300-a2cd-11eb-90c3-b65ec36a6f7d.png">
+<img width="292" alt="currenttours" src="https://user-images.githubusercontent.com/66852774/117858727-68793f80-b24b-11eb-803d-e5e249ef09a6.png">
 </p>
   <details>
     <summary>Under the Hood</summary>
     We fetched all user's tours and rendered each of them to the cards on this page. When you click into one, you're redirected to the form state of that tour, with all previous entries visible and editable.
   </details>
 
-#### View Past Tours
+### View Past Tours
 Once you've completed the debrief section for a tour, you click "Complete Tour" to move it to "Past Tours." At this point it is no longer editable (although you _can_ delete both current and past tour cards). When you visit "Past Tours," it'll appear there and you can click in to view all details for that tour. You can also search all past tours by location.
 <p>
-<img width="292" alt="pasttours" src="https://user-images.githubusercontent.com/66852774/115637477-74698580-a2cd-11eb-9ca1-2738125e2110.png">
-<img width="292" alt="tourdetails" src="https://user-images.githubusercontent.com/66852774/115637494-80554780-a2cd-11eb-9454-6b649c46f1f2.png">
+<img width="292" alt="pasttours" src="https://user-images.githubusercontent.com/66852774/117858513-310a9300-b24b-11eb-8f03-354e5dc93a68.png">
+<img width="292" alt="tourdetails" src="https://user-images.githubusercontent.com/66852774/117858552-3a93fb00-b24b-11eb-87cf-3221af70129f.png">
 </p>
   <details>
     <summary>Under the Hood</summary>
     More fetch requests, plus some filtering functionlity in the search bar.
   </details>
 
-#### Profile
+### Profile
 Visit the Profile page to view your info, update tour emergency contact information, and log out of the app.
 <p>
 <img width="292" alt="profile" src="https://user-images.githubusercontent.com/66852774/115637536-9b27bc00-a2cd-11eb-8011-23d9b13b4269.png">
@@ -129,15 +136,25 @@ Visit the Profile page to view your info, update tour emergency contact informat
     <summary>Under the Hood</summary>
     We brought in data properties from Auth0 and our backend API to render the user's photo, email, username, etc. We also added in another POST/PATCH for the emergency contact info.
   </details>
+  
+### Offline
+Because many users will be accessing the app where there is poor or no service, we added offline capabilities.
+<p>
+<img width="292" alt="offline" src="https://user-images.githubusercontent.com/66852774/117858383-159f8800-b24b-11eb-8174-603403207cb3.png">
+</p>
+  <details>
+    <summary>Under the Hood</summary>
+  Background sync via Google Workbox periodically tries to send a request to the server until it's successful, without losing new data. A React Toastify message pops up to let the user know when they are in offline mode and whether their changes were saved or not.
+  </details>
 
 ### Future Features
 Now that we have the basic functionality down, there is so much more we can build! Here are our top priorities moving forward:
-- Bring in a weather API so a user can see the forecast for their tour location right in the app.
+- Make fully-functional offline (in progress)
+- Use tour location coordinates to connect to a weather API and local avalanche danger forecast (in progress).
 - Add a field for users to share a link to their GPX track(s) for a given tour.
 - Allow users to upload photos from a given tour.
 - Expand search/filter functionality for Past Tours.
-- Bring in notifications if a user went on a tour but has not yet completed the Debrief. (Maybe even game-ify it with tour stats to add incentive to complete all the checklist steps.)
-- Make fully functional offline (it's already halfway there).  
+- Bring in notifications if a user went on a tour but has not yet completed the Debrief.
 
 More improvements are documented in issues in our [Project Board](https://github.com/orgs/Back-Country-Buddy/projects/1)
 
