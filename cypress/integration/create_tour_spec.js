@@ -57,7 +57,7 @@ describe('Current Tours', () => {
       logOut()
   })
 
-  it('Should be able to select current tour card and update plan form fields', () => {
+  it.skip('Should be able to select current tour card and update plan form fields', () => {
       cy
         .get('.main-menu')
         .contains('Current Tours').click()
@@ -76,7 +76,7 @@ describe('Current Tours', () => {
     logOut()
   })
 
-  it('Should be able to select current tour card and update ride form fields', () => {
+  it.skip('Should be able to select current tour card and update ride form fields', () => {
       cy
         .get('.main-menu')
         .contains('Current Tours').click()
@@ -88,7 +88,7 @@ describe('Current Tours', () => {
       logOut()
   })
 
-  it('Should be able to select current tour card and update debrief form fields', () => {
+  it.skip('Should be able to select current tour card and update debrief form fields', () => {
       cy
         .get('.main-menu')
         .contains('Current Tours').click()
@@ -102,7 +102,7 @@ describe('Current Tours', () => {
       logOut()
   })
 
-  it('Should be able to mark tour complete when fields are filled out and that tour should show up in past tours', () => {
+  it.skip('Should be able to mark tour complete when fields are filled out and that tour should show up in past tours', () => {
     cy
       .get('.main-menu')
       .contains('Current Tours').click()
