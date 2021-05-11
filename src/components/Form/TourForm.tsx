@@ -286,7 +286,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             </div>
           </form>
 
-          {(match || planId > 0) !== 0 ? (
+          {(match || planId > 0) ? (
             <div className="form-subform">
               <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
                 <Plan
