@@ -85,6 +85,7 @@ button:focus {
   font-weight: bold;
   border: 3px solid #900aa1;
   border-radius: 3px;
+  align-self: center;
 }
 
 .button-save:hover {
@@ -217,3 +218,50 @@ textarea {
   justify-content: center;
   margin-top: 40%;
 }
+
+@media screen and (min-width: 900px) {
+  .tour-card {
+    width: 50vw;
+  }
+
+  .card-container {
+    margin: 0% 0;
+  }
+
+  h1 {
+    margin: 1%;
+    padding: 2%;
+  }
+
+  .main-menu {
+    padding: 2% 0;
+  }
+
+  .button-save {
+    padding: 1% 5%;
+    margin: .5%;
+  }
+
+  .form-icon {
+    width: 4%;
+  }
+
+  .section-description {
+    margin: 1% 0 2% 0;
+  }
+
+  .button-submit {
+    margin: 2% 0;
+  }
+
+  textarea {
+    width: 55%;
+  }
+
+  .location {
+    width: 35%;
+    margin: 1%;
+    padding: 2%;
+  }
+}
+

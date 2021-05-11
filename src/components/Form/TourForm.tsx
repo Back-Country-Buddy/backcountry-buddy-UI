@@ -244,7 +244,7 @@ export const TourForm: React.FC<TourFormProps> = ({
 
   return (
     <main>
-      <div>
+      <div className="tour-form-container-wrapper">
         <div className="tour-form-container">
           <h1>Upcoming Tour</h1>
 

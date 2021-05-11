@@ -3,3 +3,10 @@
   background-position: center;
   background-size: cover;
 }
+
+@media screen and (min-width: 900px) {
+  .current-background-img {
+    background-size: 80% 100%;
+    background-repeat: no-repeat;
+  }
+}

@@ -70,7 +70,7 @@ export const Plan: React.FC<PlanProps> = ({
         <img src={lightbulb} alt="lightbulb" className="form-icon" />
         <h2 className="title">PLAN your trip</h2>
       </div>
-      <StepWizard nav={<FormNav steps={["1", "2", "3", "4"]} />}>
+      <StepWizard  nav={<FormNav className='plan-step' steps={["1", "2", "3", "4"]} />}>
         <div className="step">
           <SectionTitle
             title="Assemble Your Group"
