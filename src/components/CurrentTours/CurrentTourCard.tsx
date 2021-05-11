@@ -26,8 +26,8 @@ const { getAccessTokenSilently } = useAuth0()
 const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
 useEffect(() => {
-  secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-    (users) => setUsersInTour(users.data))
+  // secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
+  //   (users) => setUsersInTour(users.data))
 }, [getAccessTokenSilently, tourId])
 
   return (
