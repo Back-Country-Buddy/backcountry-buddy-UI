@@ -27,7 +27,7 @@ interface TourPlan {
   debrief_plan: string
 }
 
-export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
+export const PastTourDetails: React.FC<any> = ({ match }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   const tourId = match.params.tourId
@@ -49,7 +49,6 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
   useEffect(() => {
     secureCall(
       getAccessTokenSilently,
-      setErr,
       getPlan,
       match.params.userId,
       null,
@@ -57,7 +56,7 @@ export const PastTourDetails: React.FC<any> = ({ match, setErr }) => {
     ).then((plan: any) =>
       setPastTour(cleanInputStrings(plan.data[0].attributes))
     )
-  }, [getAccessTokenSilently, match.params.userId, setErr, tourId])
+  }, [getAccessTokenSilently, match.params.userId, tourId])
 
   return (
     <main className="background">

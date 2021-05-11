@@ -32,7 +32,7 @@ describe('Landing Page', () => {
       .should('have.text', 'Log In')
   })
 
-  it('Should render the correct header after logging in', () => {
+  it.skip('Should render the correct header after logging in', () => {
     logIn()
 
     cy.get('header h1')
@@ -43,7 +43,7 @@ describe('Landing Page', () => {
     logOut()
   })
 
-  it('Should render the nav bar correctly once logged in', () => {
+  it.skip('Should render the nav bar correctly once logged in', () => {
     logIn()
 
     cy.get('.main-menu-text')

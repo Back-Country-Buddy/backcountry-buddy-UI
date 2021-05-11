@@ -2,8 +2,8 @@ import React, { useState, useEffect} from "react"
 import "./CurrentTours.css"
 import { Link } from "react-router-dom"
 import { useAuth0 } from "@auth0/auth0-react"
-import { secureCall } from "../../apiRequests/promiseHandling.js"
-import { getUsersInTour } from "../../apiRequests/tourRequests.js"
+// import { secureCall } from "../../apiRequests/promiseHandling.js"
+// import { getUsersInTour } from "../../apiRequests/tourRequests.js"
 import "./CurrentTours.css"
 
 interface TourProps {
@@ -12,7 +12,6 @@ interface TourProps {
   tourId: number
   userId: number
   removeTour: (tourId: number) => any
-  setErr: () => any
 }
 
 export const CurrentTourCard: React.FC<TourProps> = ({
@@ -21,16 +20,15 @@ export const CurrentTourCard: React.FC<TourProps> = ({
   tourId,
   userId,
   removeTour,
-  setErr
 }) => {
 
 const { getAccessTokenSilently } = useAuth0()
-const [usersInTour, setUsersInTour] = useState<Array<any>>([])
+const [usersInTour] = useState<Array<any>>([])
 
 useEffect(() => {
-  secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
-    (users) => setUsersInTour(users.data))
-}, [getAccessTokenSilently, setErr, tourId])
+  // secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
+  //   (users) => setUsersInTour(users.data))
+}, [getAccessTokenSilently, tourId])
 
   return (
     <article className="tour-card">

@@ -9,6 +9,7 @@ import { NavBar } from "../NavBar/NavBar"
 import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { cleanTours } from "../../apiRequests/dataCleaners.js"
+import { storeData, getStoredData } from '../../dataStorage/dataStorage'
 
 interface PastTour {
   id: number
@@ -21,29 +22,29 @@ interface PastTour {
 interface TourProps {
   tourId: number
   userId: number
-  setErr: () => any
 }
 
-export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
+export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [allTours, setAllTours] = useState<Array<PastTour>>([])
+  const [allTours, setAllTours] = useState<Array<PastTour>>(getStoredData(`pastTours${userId}`, []))
 
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, setErr, getTours, userId).then(
+    secureCall(getAccessTokenSilently, getTours, userId).then(
       (tours: any) => {
         setAllTours(cleanTours(tours, true))
+        storeData(`pastTours${userId}`, cleanTours(tours, true))
       }
     )
-  }, [getAccessTokenSilently, userId, setErr])
+  }, [getAccessTokenSilently, userId])
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
       "Are you sure you want to remove this tour?"
     )
     if (confirmationMessage) {
-      secureCall(getAccessTokenSilently, setErr, deleteTour, tourId).then(() =>
+      secureCall(getAccessTokenSilently, deleteTour, tourId).then(() =>
         setAllTours(allTours.filter((tour) => tour.id !== tourId))
       )
     } else {
@@ -65,7 +66,6 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId, setErr }) => {
             location={tour.location}
             userId={userId}
             removeTour={removeTour}
-            setErr={setErr}
           />
         )
       })

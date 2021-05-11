@@ -16,6 +16,7 @@ import { NavBar } from "../NavBar/NavBar"
 import { updatePlan, addPlan, getPlan } from "../../apiRequests/planRequests.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { cleanDate, cleanInputStrings } from "../../apiRequests/dataCleaners.js"
+import { storeData, getStoredData } from '../../dataStorage/dataStorage'
 import {
   getTour,
   addTour,
@@ -27,7 +28,6 @@ import {
 interface TourFormProps {
   userId?: number
   match?: any
-  setErr: () => any
 }
 
 interface BasicFields {
@@ -49,59 +49,66 @@ interface PlanFields {
   departure_check: any
 }
 
+const blankPlan = {
+  hazard_weather: "",
+  hazard_avalanche: "",
+  hazard_summary: "",
+  route_preview: "",
+  route_alternative: "",
+  emergency_plan: "",
+  debrief_conditions: "",
+  debrief_decisions: "",
+  debrief_plan: "",
+  departure_check: false
+}
+
+const blankTour = {
+  location: "",
+  date: cleanDate(new Date().toISOString()),
+  complete: false,
+}
+
 export const TourForm: React.FC<TourFormProps> = ({
   userId,
   match,
-  setErr,
 }) => {
-  const [planFields, setPlanFields] = useState<PlanFields>({
-    hazard_weather: "",
-    hazard_avalanche: "",
-    hazard_summary: "",
-    route_preview: "",
-    route_alternative: "",
-    emergency_plan: "",
-    debrief_conditions: "",
-    debrief_decisions: "",
-    debrief_plan: "",
-    departure_check: false
-  })
+  const [planFields, setPlanFields] = useState<PlanFields>( match ?
+    getStoredData(`plan${match.params.tourId}`, blankPlan) : blankPlan)
 
-  const [basicFields, setBasicFields] = useState<BasicFields>({
-    location: "",
-    date: cleanDate(new Date().toISOString()),
-    complete: false,
-  })
+  const [basicFields, setBasicFields] = useState<BasicFields>( match ?
+    getStoredData(`tour${match.params.tourId}`, blankTour) : blankTour)
 
   const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
   const [planId, setPlanId] = useState<number>(0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
-  const [usersInTour, setUsersInTour] = useState<Array<any>>([])
+  const [usersInTour, setUsersInTour] = useState<Array<any>>(match ? getStoredData(`users${match.params.tourId}`) : [])
 
   const { getAccessTokenSilently } = useAuth0()
 
   const sendFormUpdate = () => {
     if (planChange) {
-      secureCall(getAccessTokenSilently, setErr, updatePlan, planId, planFields)
+      secureCall(getAccessTokenSilently, updatePlan, planId, planFields)
       setPlanChange(false)
       successAlert()
     }
     if (basicChange) {
-      secureCall(getAccessTokenSilently, setErr, updateTour, tourId, {
+      secureCall(getAccessTokenSilently, updateTour, tourId, {
         ...basicFields,
         date: cleanDate(basicFields.date),
       })
       setBasicChange(false)
       completeAlert()
     }
+    storeData(`tour${tourId}`, basicFields)
+    storeData(`plan${tourId}`, planFields)
+    storeData(`users${tourId}`, usersInTour)
   }
 
   useEffect(() => {
-    if (tourId.length && match && !planId) {
+    if (tourId.length && match && !planId && navigator.onLine) {
       secureCall(
         getAccessTokenSilently,
-        setErr,
         getPlan,
         match.params.userId,
         null,
@@ -109,10 +116,10 @@ export const TourForm: React.FC<TourFormProps> = ({
       ).then((plan: any) => {
         setPlanId(plan.data[0].id)
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
-      })
+      }).then(() => storeData(`plan${tourId}`, planFields))
 
-      secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
-        (users) =>
+      secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
+        (users) => {if (users !== undefined) {
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -122,9 +129,10 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
-      )
+        }}
+      ).then(() => storeData(`users${tourId}`, usersInTour))
 
-      secureCall(getAccessTokenSilently, setErr, getTour, tourId).then(
+      secureCall(getAccessTokenSilently, getTour, tourId).then(
         (tour: any) => {
           setBasicFields({
             location: tour.data.attributes.location,
@@ -132,16 +140,17 @@ export const TourForm: React.FC<TourFormProps> = ({
             complete: tour.data.attributes.complete,
           })
         }
-      )
+      ).then(() => storeData(`tour${tourId}`, basicFields))
     }
     if (basicFields.complete) {
       sendFormUpdate()
     }
+    
   })
 
   const createTour = () => {
     if (!tourId) {
-      secureCall(getAccessTokenSilently, setErr, addTour, userId, {
+      secureCall(getAccessTokenSilently, addTour, userId, {
         creator_id: userId,
         location: basicFields.location,
         date: basicFields.date,
@@ -149,10 +158,9 @@ export const TourForm: React.FC<TourFormProps> = ({
         setTourId(response.data.id)
         secureCall(
           getAccessTokenSilently,
-          setErr,
           getUsersInTour,
           response.data.id
-        ).then((users) =>
+        ).then(users =>
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -166,7 +174,6 @@ export const TourForm: React.FC<TourFormProps> = ({
 
         secureCall(
           getAccessTokenSilently,
-          setErr,
           addPlan,
           userId,
           null,
@@ -208,17 +215,16 @@ export const TourForm: React.FC<TourFormProps> = ({
     e.preventDefault()
     secureCall(
       getAccessTokenSilently,
-      null,
       addUsersToTour,
       tourId,
       null,
       input
     ).then((response) => {
-      if (response.ok) {
+      if (response) {
         successAlert()
       }
-      secureCall(getAccessTokenSilently, setErr, getUsersInTour, tourId).then(
-        (users) =>
+      secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
+        (users) => {
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -228,6 +234,7 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
+          storeData(`users${tourId}`, usersInTour)}
       )
     })
   }
@@ -283,7 +290,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             </div>
           </form>
 
-          {planId ? (
+          {(match || planId > 0) ? (
             <div className="form-subform">
               <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
                 <Plan
@@ -314,7 +321,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           )}
         </div>
 
-        {planId > 0 && (
+        {(match || planId > 0) && (
           <button className="button-save" onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>

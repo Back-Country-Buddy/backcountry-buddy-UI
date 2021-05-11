@@ -1,4 +1,4 @@
-describe("Profile Page", () => {
+describe.skip("Profile Page", () => {
   const baseUrl = "http://localhost:3000"
   const profileUrl = "http://localhost:3000/profile"
 
