@@ -82,7 +82,7 @@ export const TourForm: React.FC<TourFormProps> = ({
   const [planId, setPlanId] = useState<number>(0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
-  const [usersInTour, setUsersInTour] = useState<Array<any>>([])
+  const [usersInTour, setUsersInTour] = useState<Array<any>>(match ? getStoredData(`users${match.params.tourId}`) : [])
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -102,6 +102,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     }
     storeData(`tour${tourId}`, basicFields)
     storeData(`plan${tourId}`, planFields)
+    storeData(`users${tourId}`, usersInTour)
   }
 
   useEffect(() => {
@@ -115,10 +116,10 @@ export const TourForm: React.FC<TourFormProps> = ({
       ).then((plan: any) => {
         setPlanId(plan.data[0].id)
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
-      })
+      }).then(() => storeData(`plan${tourId}`, planFields))
 
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-        (users) =>
+        (users) => {if (users !== undefined) {
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -128,7 +129,8 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
-      )
+        }}
+      ).then(() => storeData(`users${tourId}`, usersInTour))
 
       secureCall(getAccessTokenSilently, getTour, tourId).then(
         (tour: any) => {
@@ -138,11 +140,12 @@ export const TourForm: React.FC<TourFormProps> = ({
             complete: tour.data.attributes.complete,
           })
         }
-      )
+      ).then(() => storeData(`tour${tourId}`, basicFields))
     }
     if (basicFields.complete) {
       sendFormUpdate()
     }
+    
   })
 
   const createTour = () => {
@@ -157,7 +160,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           getAccessTokenSilently,
           getUsersInTour,
           response.data.id
-        ).then((users) =>
+        ).then(users =>
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -221,7 +224,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         successAlert()
       }
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-        (users) =>
+        (users) => {
           setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
@@ -231,6 +234,7 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
+          storeData(`users${tourId}`, usersInTour)}
       )
     })
   }
