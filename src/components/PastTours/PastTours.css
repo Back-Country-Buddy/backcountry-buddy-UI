@@ -26,6 +26,10 @@
   margin: 0;
 }
 
+/* .location {
+  width: 35%;
+} */
+
 .title-wrapper h2 {
   font-size: 2em;
 }
@@ -114,5 +118,28 @@
   .past-background-img {
     background-size: 80% 100%;
     background-repeat: no-repeat;
+  }
+
+  .section-wrapper {
+    width: 65%;
+    margin-bottom: 3%;
+  }
+
+  .border {
+    margin: 2.5%;
+  }
+
+  .check-icon {
+  width: 6%;
+  margin-bottom: 2%;
+  }
+
+  .category-wrapper h3 {
+  font-size: 1.6em;
+  margin-bottom: 4%;
+  }
+
+  .description {
+  font-size: 1.1em;
   }
 }

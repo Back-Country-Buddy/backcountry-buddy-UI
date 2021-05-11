@@ -1,7 +1,6 @@
 import React from "react"
 import route from "../../assets/travel.svg"
 import diagram from "../../assets/ride-diagram.png"
-import { SectionTitle } from "./SectionTitle"
 
 interface RideProps {
   setChecked: (event: React.MouseEvent<HTMLButtonElement>) => void

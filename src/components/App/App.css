@@ -259,6 +259,12 @@ textarea {
     width: 55%;
   }
 
+  .location {
+    width: 35%;
+    margin: 1%;
+    padding: 2%;
+  }
+
 
 
 }
