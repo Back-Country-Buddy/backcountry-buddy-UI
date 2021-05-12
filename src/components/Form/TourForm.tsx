@@ -143,9 +143,11 @@ export const TourForm: React.FC<TourFormProps> = ({
       sendFormUpdate()
     }
     return () => {
-      storeData(`tour${tourId}`, basicFields)
-      storeData(`plan${tourId}`, planFields)
-      storeData(`users${tourId}`, usersInTour)
+      if (tourId) {
+        storeData(`tour${tourId}`, basicFields)
+        storeData(`plan${tourId}`, planFields)
+        storeData(`users${tourId}`, usersInTour)
+      }
     }
   })
 
