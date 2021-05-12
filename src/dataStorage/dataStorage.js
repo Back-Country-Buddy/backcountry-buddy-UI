@@ -5,7 +5,7 @@ export const storeData = (name, data) => {
 }
 
 export const getStoredData = (name, defaultValue) => {
-  if (localStorage.getItem(name)) {
+  if (localStorage.getItem(name) !== undefined && !navigator.onLine) {
     return JSON.parse(localStorage.getItem(name))
   } else {
     return defaultValue

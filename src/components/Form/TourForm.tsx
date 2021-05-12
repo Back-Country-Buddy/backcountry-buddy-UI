@@ -82,7 +82,7 @@ export const TourForm: React.FC<TourFormProps> = ({
   const [planId, setPlanId] = useState<number>(0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
-  const [usersInTour, setUsersInTour] = useState<Array<any>>(match ? getStoredData(`users${match.params.tourId}`) : [])
+  const [usersInTour, setUsersInTour] = useState<Array<any>>(match ? getStoredData(`users${match.params.tourId}`, []) : [])
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -145,7 +145,7 @@ export const TourForm: React.FC<TourFormProps> = ({
     if (basicFields.complete) {
       sendFormUpdate()
     }
-    
+
   })
 
   const createTour = () => {
