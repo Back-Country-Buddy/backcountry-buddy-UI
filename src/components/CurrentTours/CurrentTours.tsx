@@ -51,12 +51,14 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
         }
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
+  useEffect(() => {
     return () => {
       storeData(`currentTours${userId}`, allTours)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   const tours = allTours.map((tour) => {
     return (

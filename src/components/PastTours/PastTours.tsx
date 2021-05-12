@@ -39,11 +39,14 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
       )
     }
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     return () => {
       storeData(`pastTours${userId}`, allTours)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  })
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
