@@ -21,10 +21,7 @@ interface CurrentToursProps {
   userId: number
 }
 
-export const CurrentTours: React.FC<CurrentToursProps> = ({
-  userId,
-  tourId
-}) => {
+export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
   const [allTours, setAllTours] = useState<Array<Tour>>(getStoredData(`currentTours${userId}`, []))
   const { getAccessTokenSilently } = useAuth0()
 
@@ -43,7 +40,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({
   }
 
   useEffect(() => {
-    if (navigator.onLine) {
+    if (navigator.onLine && !allTours.length) {
       secureCall(
         getAccessTokenSilently,
         getTours,
@@ -51,11 +48,14 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({
       ).then((tours: Array<Tour>) => {
         if (navigator.onLine) {
           setAllTours(cleanTours(tours, false))
-          storeData(`currentTours${userId}`, cleanTours(tours, false))
         }
       })
     }
-  }, [getAccessTokenSilently, userId])
+    return () => {
+      console.log(allTours)
+      storeData(`currentTours${userId}`, allTours)
+    }
+  })
 
   const tours = allTours.map((tour) => {
     return (

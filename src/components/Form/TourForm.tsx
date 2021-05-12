@@ -100,9 +100,6 @@ export const TourForm: React.FC<TourFormProps> = ({
       setBasicChange(false)
       completeAlert()
     }
-    storeData(`tour${tourId}`, basicFields)
-    storeData(`plan${tourId}`, planFields)
-    storeData(`users${tourId}`, usersInTour)
   }
 
   useEffect(() => {
@@ -116,7 +113,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       ).then((plan: any) => {
         setPlanId(plan.data[0].id)
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
-      }).then(() => storeData(`plan${tourId}`, planFields))
+      })
 
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
         (users) => {if (users !== undefined) {
@@ -130,7 +127,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             })
           )
         }}
-      ).then(() => storeData(`users${tourId}`, usersInTour))
+      )
 
       secureCall(getAccessTokenSilently, getTour, tourId).then(
         (tour: any) => {
@@ -140,12 +137,16 @@ export const TourForm: React.FC<TourFormProps> = ({
             complete: tour.data.attributes.complete,
           })
         }
-      ).then(() => storeData(`tour${tourId}`, basicFields))
+      )
     }
     if (basicFields.complete) {
       sendFormUpdate()
     }
-
+    return () => {
+      storeData(`tour${tourId}`, basicFields)
+      storeData(`plan${tourId}`, planFields)
+      storeData(`users${tourId}`, usersInTour)
+    }
   })
 
   const createTour = () => {
@@ -224,8 +225,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         successAlert()
       }
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-        (users) => {
-          setUsersInTour(
+        (users) => setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
                 name: user.attributes.user_name,
@@ -234,9 +234,9 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
-          storeData(`users${tourId}`, usersInTour)}
-      )
-    })
+        )
+      }
+    )
   }
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {

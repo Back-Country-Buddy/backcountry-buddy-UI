@@ -24,7 +24,7 @@ interface TourProps {
   userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
+export const PastTours: React.FC<TourProps> = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [allTours, setAllTours] = useState<Array<PastTour>>(getStoredData(`pastTours${userId}`, []))
 
@@ -34,10 +34,13 @@ export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
     secureCall(getAccessTokenSilently, getTours, userId).then(
       (tours: any) => {
         setAllTours(cleanTours(tours, true))
-        storeData(`pastTours${userId}`, cleanTours(tours, true))
       }
     )
-  }, [getAccessTokenSilently, userId])
+
+    return () => {
+      storeData(`pastTours${userId}`, allTours)
+    }
+  })
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
