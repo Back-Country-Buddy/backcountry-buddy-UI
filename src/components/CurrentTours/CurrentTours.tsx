@@ -40,7 +40,7 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
   }
 
   useEffect(() => {
-    if (navigator.onLine && !allTours.length) {
+    if (navigator.onLine) {
       secureCall(
         getAccessTokenSilently,
         getTours,
@@ -51,11 +51,12 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
         }
       })
     }
+
     return () => {
-      console.log(allTours)
       storeData(`currentTours${userId}`, allTours)
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const tours = allTours.map((tour) => {
     return (

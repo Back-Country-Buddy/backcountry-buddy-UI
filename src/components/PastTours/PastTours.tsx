@@ -31,16 +31,19 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, getTours, userId).then(
-      (tours: any) => {
-        setAllTours(cleanTours(tours, true))
-      }
-    )
+    if (navigator.onLine) {
+      secureCall(getAccessTokenSilently, getTours, userId).then(
+        (tours: any) => {
+          setAllTours(cleanTours(tours, true))
+        }
+      )
+    }
 
     return () => {
       storeData(`pastTours${userId}`, allTours)
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
