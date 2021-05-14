@@ -160,7 +160,7 @@ export const TourForm: React.FC<TourFormProps> = ({
   }], tourId)
 
   const createTour = () => {
-    if (!tourId && navigator.onLine) {
+    if (!tourId) {
       secureCall(getAccessTokenSilently, addTour, userId, {
         creator_id: userId,
         location: basicFields.location,
@@ -323,7 +323,7 @@ export const TourForm: React.FC<TourFormProps> = ({
           ) : (
             <button
               className={!basicFields.location ? 'disabled' : 'button-save'}
-              disabled={!basicFields.location}
+              disabled={!basicFields.location || !navigator.onLine}
               onClick={createTour}
             >
               CREATE TOUR
