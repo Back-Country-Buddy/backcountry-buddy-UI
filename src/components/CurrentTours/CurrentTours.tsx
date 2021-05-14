@@ -5,7 +5,7 @@ import { CurrentTourCard } from './CurrentTourCard'
 import { getTours, deleteTour } from '../../apiRequests/tourRequests.js'
 import { cleanTours } from '../../apiRequests/dataCleaners.js'
 import { secureCall } from '../../apiRequests/promiseHandling.js'
-import { storeData, getStoredData } from '../../dataStorage/dataStorage'
+import { useDataStorage } from '../../customHooks/useDataStorage'
 import { NavBar } from '../NavBar/NavBar'
 
 interface Tour {
@@ -22,7 +22,7 @@ interface CurrentToursProps {
 }
 
 export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
-  const [allTours, setAllTours] = useState<Array<Tour>>(getStoredData(`currentTours${userId}`, []))
+  const [allTours, setAllTours] = useState<Array<Tour>>([])
   const { getAccessTokenSilently } = useAuth0()
 
 
@@ -54,11 +54,11 @@ export const CurrentTours: React.FC<CurrentToursProps> = ({ userId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    return () => {
-      storeData(`currentTours${userId}`, allTours)
-    }
-  })
+  useDataStorage([{
+    name: `currentTours${userId}`,
+    state: allTours,
+    setter: setAllTours
+  }], true)
 
   const tours = allTours.map((tour) => {
     return (

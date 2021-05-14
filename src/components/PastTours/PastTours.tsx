@@ -9,7 +9,7 @@ import { NavBar } from "../NavBar/NavBar"
 import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { cleanTours } from "../../apiRequests/dataCleaners.js"
-import { storeData, getStoredData } from '../../dataStorage/dataStorage'
+import { useDataStorage } from '../../customHooks/useDataStorage'
 
 interface PastTour {
   id: number
@@ -26,7 +26,7 @@ interface TourProps {
 
 export const PastTours: React.FC<TourProps> = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [allTours, setAllTours] = useState<Array<PastTour>>(getStoredData(`pastTours${userId}`, []))
+  const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -42,11 +42,11 @@ export const PastTours: React.FC<TourProps> = ({ userId }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  useEffect(() => {
-    return () => {
-      storeData(`pastTours${userId}`, allTours)
-    }
-  })
+  useDataStorage([{
+    name: `currentTours${userId}`,
+    state: allTours,
+    setter: setAllTours
+  }], true)
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(
