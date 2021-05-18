@@ -109,7 +109,6 @@ export const TourForm: React.FC<TourFormProps> = ({
         null,
         tourId
       ).then((plan: any) => {
-        console.log(plan)
         setPlanId(plan.data[0].id)
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
       })

@@ -16,7 +16,7 @@ const getStoredData = (name, defaultValue) => {
 
 export const useDataStorage = (dataList, isSavable) => {
   useEffect(() => {
-    dataList.forEach((data, i) => {
+    dataList.forEach(data => {
       data.setter(getStoredData(data.name, data.state))
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
