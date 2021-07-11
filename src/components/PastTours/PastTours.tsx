@@ -9,7 +9,7 @@ import { NavBar } from "../NavBar/NavBar"
 import { getTours, deleteTour } from "../../apiRequests/tourRequests.js"
 import { secureCall } from "../../apiRequests/promiseHandling.js"
 import { cleanTours } from "../../apiRequests/dataCleaners.js"
-import { storeData, getStoredData } from '../../dataStorage/dataStorage'
+import { useDataStorage } from '../../customHooks/useDataStorage'
 
 interface PastTour {
   id: number
@@ -24,20 +24,29 @@ interface TourProps {
   userId: number
 }
 
-export const PastTours: React.FC<TourProps> = ({ tourId, userId }) => {
+export const PastTours: React.FC<TourProps> = ({ userId }) => {
   const [searchQuery, setSearchQuery] = useState<string>("")
-  const [allTours, setAllTours] = useState<Array<PastTour>>(getStoredData(`pastTours${userId}`, []))
+  const [allTours, setAllTours] = useState<Array<PastTour>>([])
 
   const { getAccessTokenSilently } = useAuth0()
 
   useEffect(() => {
-    secureCall(getAccessTokenSilently, getTours, userId).then(
-      (tours: any) => {
-        setAllTours(cleanTours(tours, true))
-        storeData(`pastTours${userId}`, cleanTours(tours, true))
-      }
-    )
-  }, [getAccessTokenSilently, userId])
+    if (navigator.onLine) {
+      secureCall(getAccessTokenSilently, getTours, userId).then(
+        (tours: any) => {
+          setAllTours(cleanTours(tours, true))
+        }
+      )
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useDataStorage([{
+    name: `currentTours${userId}`,
+    state: allTours,
+    setter: setAllTours
+  }], true)
 
   const removeTour = (tourId: number): any => {
     const confirmationMessage = window.confirm(

@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react"
-import { useAuth0 } from "@auth0/auth0-react"
-import StepWizard from "react-step-wizard"
-import { successAlert, completeAlert } from "../../Alert/Alert.js"
-import "react-toastify/dist/ReactToastify.css"
+import React, { useState, useEffect } from 'react'
+import { useAuth0 } from '@auth0/auth0-react'
+import StepWizard from 'react-step-wizard'
+import { successAlert, completeAlert } from '../../Alert/Alert.js'
+import 'react-toastify/dist/ReactToastify.css'
 
-import "./Form.css"
+import './Form.css'
 
-import { Ride } from "./Ride"
-import { Plan } from "./Plan"
-import { Debrief } from "./Debrief"
-import { TextField } from "./TextField"
-import { FormNav } from "./FormNav"
-import { NavBar } from "../NavBar/NavBar"
+import { Ride } from './Ride'
+import { Plan } from './Plan'
+import { Debrief } from './Debrief'
+import { TextField } from './TextField'
+import { FormNav } from './FormNav'
+import { NavBar } from '../NavBar/NavBar'
 
-import { updatePlan, addPlan, getPlan } from "../../apiRequests/planRequests.js"
-import { secureCall } from "../../apiRequests/promiseHandling.js"
-import { cleanDate, cleanInputStrings } from "../../apiRequests/dataCleaners.js"
-import { storeData, getStoredData } from '../../dataStorage/dataStorage'
+import { updatePlan, addPlan, getPlan } from '../../apiRequests/planRequests.js'
+import { secureCall } from '../../apiRequests/promiseHandling.js'
+import { cleanDate, cleanInputStrings } from '../../apiRequests/dataCleaners.js'
+import { useDataStorage } from '../../customHooks/useDataStorage'
 import {
   getTour,
   addTour,
   updateTour,
   getUsersInTour,
   addUsersToTour,
-} from "../../apiRequests/tourRequests.js"
+} from '../../apiRequests/tourRequests.js'
 
 interface TourFormProps {
   userId?: number
@@ -50,20 +50,20 @@ interface PlanFields {
 }
 
 const blankPlan = {
-  hazard_weather: "",
-  hazard_avalanche: "",
-  hazard_summary: "",
-  route_preview: "",
-  route_alternative: "",
-  emergency_plan: "",
-  debrief_conditions: "",
-  debrief_decisions: "",
-  debrief_plan: "",
+  hazard_weather: '',
+  hazard_avalanche: '',
+  hazard_summary: '',
+  route_preview: '',
+  route_alternative: '',
+  emergency_plan: '',
+  debrief_conditions: '',
+  debrief_decisions: '',
+  debrief_plan: '',
   departure_check: false
 }
 
 const blankTour = {
-  location: "",
+  location: '',
   date: cleanDate(new Date().toISOString()),
   complete: false,
 }
@@ -72,17 +72,15 @@ export const TourForm: React.FC<TourFormProps> = ({
   userId,
   match,
 }) => {
-  const [planFields, setPlanFields] = useState<PlanFields>( match ?
-    getStoredData(`plan${match.params.tourId}`, blankPlan) : blankPlan)
+  const [planFields, setPlanFields] = useState<PlanFields>(blankPlan)
 
-  const [basicFields, setBasicFields] = useState<BasicFields>( match ?
-    getStoredData(`tour${match.params.tourId}`, blankTour) : blankTour)
+  const [basicFields, setBasicFields] = useState<BasicFields>(blankTour)
 
-  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : "")
+  const [tourId, setTourId] = useState<string>(match ? match.params.tourId : '')
   const [planId, setPlanId] = useState<number>(0)
   const [basicChange, setBasicChange] = useState<boolean>(false)
   const [planChange, setPlanChange] = useState<boolean>(false)
-  const [usersInTour, setUsersInTour] = useState<Array<any>>(match ? getStoredData(`users${match.params.tourId}`, []) : [])
+  const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
   const { getAccessTokenSilently } = useAuth0()
 
@@ -100,9 +98,6 @@ export const TourForm: React.FC<TourFormProps> = ({
       setBasicChange(false)
       completeAlert()
     }
-    storeData(`tour${tourId}`, basicFields)
-    storeData(`plan${tourId}`, planFields)
-    storeData(`users${tourId}`, usersInTour)
   }
 
   useEffect(() => {
@@ -116,7 +111,7 @@ export const TourForm: React.FC<TourFormProps> = ({
       ).then((plan: any) => {
         setPlanId(plan.data[0].id)
         setPlanFields(cleanInputStrings(plan.data[0].attributes))
-      }).then(() => storeData(`plan${tourId}`, planFields))
+      })
 
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
         (users) => {if (users !== undefined) {
@@ -130,7 +125,7 @@ export const TourForm: React.FC<TourFormProps> = ({
             })
           )
         }}
-      ).then(() => storeData(`users${tourId}`, usersInTour))
+      )
 
       secureCall(getAccessTokenSilently, getTour, tourId).then(
         (tour: any) => {
@@ -140,13 +135,28 @@ export const TourForm: React.FC<TourFormProps> = ({
             complete: tour.data.attributes.complete,
           })
         }
-      ).then(() => storeData(`tour${tourId}`, basicFields))
+      )
     }
     if (basicFields.complete) {
       sendFormUpdate()
     }
-
   })
+
+  useDataStorage([{
+    name: `tour${tourId}`,
+    state: basicFields,
+    setter: setBasicFields
+  },
+  {
+    name: `plan${tourId}`,
+    state: planFields,
+    setter: setPlanFields
+  },
+  {
+    name: `users${tourId}`,
+    state: usersInTour,
+    setter: setUsersInTour
+  }], tourId)
 
   const createTour = () => {
     if (!tourId) {
@@ -224,8 +234,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         successAlert()
       }
       secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-        (users) => {
-          setUsersInTour(
+        (users) => setUsersInTour(
             users.data.map((user: any) => {
               return cleanInputStrings({
                 name: user.attributes.user_name,
@@ -234,9 +243,9 @@ export const TourForm: React.FC<TourFormProps> = ({
               })
             })
           )
-          storeData(`users${tourId}`, usersInTour)}
-      )
-    })
+        )
+      }
+    )
   }
 
   const toggleDepartureCheck = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -246,25 +255,25 @@ export const TourForm: React.FC<TourFormProps> = ({
   }
 
   const isChecked = (fields: string[]) => {
-    return !fields.find((field) => planFields[field as keyof PlanFields] === "")
+    return !fields.find((field) => planFields[field as keyof PlanFields] === '')
   }
 
   return (
     <main>
-      <div className="tour-form-container-wrapper">
-        <div className="tour-form-container">
+      <div className='tour-form-container-wrapper'>
+        <div className='tour-form-container'>
           <h1>Upcoming Tour</h1>
 
-          <form className="form-basic">
-            <div className="form-section">
-              <label htmlFor="date" className="form-label">
+          <form className='form-basic'>
+            <div className='form-section'>
+              <label htmlFor='date' className='form-label'>
                 DATE
               </label>
               <input
                 required
-                type="date"
-                name="date"
-                id="date"
+                type='date'
+                name='date'
+                id='date'
                 value={basicFields.date}
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, date: e.target.value })
@@ -272,16 +281,16 @@ export const TourForm: React.FC<TourFormProps> = ({
                 min={cleanDate(new Date().toISOString())}
               />
             </div>
-            <div className="form-section">
-              <label htmlFor="location" className="form-label">
+            <div className='form-section'>
+              <label htmlFor='location' className='form-label'>
                 LOCATION
               </label>
               <input
                 required
-                type="text"
-                name="location"
-                id="location"
-                placeholder="Trailhead, zone, etc."
+                type='text'
+                name='location'
+                id='location'
+                placeholder='Trailhead, zone, etc.'
                 value={basicFields.location}
                 onChange={(e) =>
                   setBasicFields({ ...basicFields, location: e.target.value })
@@ -291,8 +300,8 @@ export const TourForm: React.FC<TourFormProps> = ({
           </form>
 
           {(match || planId > 0) ? (
-            <div className="form-subform">
-              <StepWizard nav={<FormNav steps={["Plan", "Ride", "Debrief"]} />}>
+            <div className='form-subform'>
+              <StepWizard nav={<FormNav steps={['Plan', 'Ride', 'Debrief']} />}>
                 <Plan
                   renderTextInputs={renderTextInputs}
                   isChecked={isChecked}
@@ -312,8 +321,8 @@ export const TourForm: React.FC<TourFormProps> = ({
             </div>
           ) : (
             <button
-              className={!basicFields.location ? "disabled" : "button-save"}
-              disabled={!basicFields.location}
+              className={!basicFields.location ? 'disabled' : 'button-save'}
+              disabled={!basicFields.location || !navigator.onLine}
               onClick={createTour}
             >
               CREATE TOUR
@@ -322,7 +331,7 @@ export const TourForm: React.FC<TourFormProps> = ({
         </div>
 
         {(match || planId > 0) && (
-          <button className="button-save" onClick={sendFormUpdate}>
+          <button className='button-save' onClick={sendFormUpdate}>
             SAVE UPDATES
           </button>
         )}

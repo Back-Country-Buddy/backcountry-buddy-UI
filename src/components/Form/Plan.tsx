@@ -41,7 +41,7 @@ export const Plan: React.FC<PlanProps> = ({
   const renderUserList = () => {
     return userList.map((user, i) => {
       return (
-        <div key={i}>
+        <div key={user.id}>
           <h4>{user.name}</h4>
           <p>Emergency Contact:</p>
           {!user.emergency_contact_name || !user.emergency_number ? (
