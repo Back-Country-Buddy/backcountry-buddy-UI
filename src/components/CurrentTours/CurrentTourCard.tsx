@@ -22,13 +22,13 @@ export const CurrentTourCard: React.FC<TourProps> = ({
   removeTour,
 }) => {
 
-const { getAccessTokenSilently } = useAuth0()
-const [usersInTour, setUsersInTour] = useState<Array<any>>([])
+  const { getAccessTokenSilently } = useAuth0()
+  const [usersInTour, setUsersInTour] = useState<Array<any>>([])
 
-useEffect(() => {
-  secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
-    (users) => setUsersInTour(users.data))
-}, [getAccessTokenSilently, tourId])
+  useEffect(() => {
+    secureCall(getAccessTokenSilently, getUsersInTour, tourId).then(
+      (users) => setUsersInTour(users.data))
+  }, [tourId, getAccessTokenSilently])
 
   return (
     <article className='tour-card'>
